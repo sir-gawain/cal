@@ -1,0 +1,44 @@
+{
+  "name": "typo3-ter/cal",
+  "description": "A calendar combining all the functions of the existing calendar extensions plus adding some new features. It is based on the ical standard",
+  "type": "typo3-cms-extension",
+  "version": "1.12.0",
+  "license": "GPL-2.0+",
+  "authors": [
+    {
+      "name": "Mario Matzulla",
+      "role": "Developer"
+    },
+    {
+      "name": "Jeff Segars",
+      "role": "Developer"
+    },
+    {
+      "name": "Franz Koch",
+      "role": "Developer"
+    },
+    {
+      "name": "Thomas Kowtsch",
+      "role": "Developer"
+    }
+  ],
+  "homepage": "https://forge.typo3.org/projects/extension-cal",
+  "support": {
+    "issues": "https://forge.typo3.org/projects/extension-cal/issues"
+  },
+  "replace": {
+    "cal": "*",
+    "typo3-extensions/cal": "*",
+    "typo3-ter/cal": "self.version"
+  },
+  "require": {
+    "typo3/cms-core": ">=8.7.0,<9.0"
+  },
+  "suggest": {
+  },
+  "autoload": {
+    "psr-4": {
+      "TYPO3\\CMS\\Cal\\": "Classes/"
+    }
+  }
+}
