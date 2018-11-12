@@ -27,12 +27,12 @@ $EM_CONF [$_EXTKEY] = array (
 		'author_company' => '',
 		'constraints' => array (
 				'depends' => array (
-						'typo3' => '6.1.0-8.9.99' 
+						'typo3' => '8.7.0-9.9.99'
 				),
 				'suggests' => array (
 						'css_styled_content' => '6.1.0-8.9.99',
 						'wec_map' => '',
-						'tt_address' => ''
+						'tt_address' => '3.0.0-3.99.99'
 				)
 		)
 );
