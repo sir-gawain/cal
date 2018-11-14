@@ -43,7 +43,7 @@ $GLOBALS['TYPO3_CONF_VARS'] ['FE'] ['eID_include'] ['cal_ajax'] = 'EXT:cal/Class
 		'quality' => 50,
 		'os' => '',
 		'exec' => '',
-		'className' => 'TYPO3\\CMS\\Cal\\Service\\FnbEventService' 
+		'className' => 'TYPO3\\CMS\\Cal\\Service\\FnbEventService'
 ));
 
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addService ($_EXTKEY, 'cal_event_model' /* sv type */,  'tx_cal_phpicalendar' /* sv key */,
@@ -56,7 +56,7 @@ $GLOBALS['TYPO3_CONF_VARS'] ['FE'] ['eID_include'] ['cal_ajax'] = 'EXT:cal/Class
 		'quality' => 50,
 		'os' => '',
 		'exec' => '',
-		'className' => 'TYPO3\\CMS\\Cal\\Service\\EventService' 
+		'className' => 'TYPO3\\CMS\\Cal\\Service\\EventService'
 ));
 
 // get extension confArr
@@ -73,7 +73,7 @@ $confArr = unserialize ($GLOBALS ['TYPO3_CONF_VARS'] ['EXT'] ['extConf'] ['cal']
 		'quality' => 50,
 		'os' => '',
 		'exec' => '',
-		'className' => 'TYPO3\\CMS\\Cal\\Service\\TodoService' 
+		'className' => 'TYPO3\\CMS\\Cal\\Service\\TodoService'
 ));
 
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addService ($_EXTKEY, 'cal_event_model' /* sv type */,  'tx_cal_nearby' /* sv key */,
@@ -86,7 +86,7 @@ $confArr = unserialize ($GLOBALS ['TYPO3_CONF_VARS'] ['EXT'] ['extConf'] ['cal']
 		'quality' => 50,
 		'os' => '',
 		'exec' => '',
-		'className' => 'TYPO3\\CMS\\Cal\\Service\\NearbyEventService' 
+		'className' => 'TYPO3\\CMS\\Cal\\Service\\NearbyEventService'
 ));
 
 /* Cal Example Concrete Model */
@@ -100,7 +100,7 @@ $confArr = unserialize ($GLOBALS ['TYPO3_CONF_VARS'] ['EXT'] ['extConf'] ['cal']
 		'quality' => 50,
 		'os' => '',
 		'exec' => '',
-		'className' => 'TYPO3\\CMS\\Cal\\Service\\OrganizerPartnerService' 
+		'className' => 'TYPO3\\CMS\\Cal\\Service\\OrganizerPartnerService'
 ));
 
 /* Cal Example Concrete Model */
@@ -114,7 +114,7 @@ $confArr = unserialize ($GLOBALS ['TYPO3_CONF_VARS'] ['EXT'] ['extConf'] ['cal']
 		'quality' => 50,
 		'os' => '',
 		'exec' => '',
-		'className' => 'TYPO3\\CMS\\Cal\\Service\\OrganizerService' 
+		'className' => 'TYPO3\\CMS\\Cal\\Service\\OrganizerService'
 ));
 
 /* Cal Example Concrete Model */
@@ -128,7 +128,7 @@ $confArr = unserialize ($GLOBALS ['TYPO3_CONF_VARS'] ['EXT'] ['extConf'] ['cal']
 		'quality' => 50,
 		'os' => '',
 		'exec' => '',
-		'className' => 'TYPO3\\CMS\\Cal\\Service\\OrganizerAddressService' 
+		'className' => 'TYPO3\\CMS\\Cal\\Service\\OrganizerAddressService'
 ));
 
 /* Cal Example Concrete Model */
@@ -142,7 +142,7 @@ $confArr = unserialize ($GLOBALS ['TYPO3_CONF_VARS'] ['EXT'] ['extConf'] ['cal']
 		'quality' => 50,
 		'os' => '',
 		'exec' => '',
-		'className' => 'TYPO3\\CMS\\Cal\\Service\\OrganizerFeUserService' 
+		'className' => 'TYPO3\\CMS\\Cal\\Service\\OrganizerFeUserService'
 ));
 
 /* Cal Example Concrete Model */
@@ -156,7 +156,7 @@ $confArr = unserialize ($GLOBALS ['TYPO3_CONF_VARS'] ['EXT'] ['extConf'] ['cal']
 		'quality' => 50,
 		'os' => '',
 		'exec' => '',
-		'className' => 'TYPO3\\CMS\\Cal\\Service\\LocationPartnerService' 
+		'className' => 'TYPO3\\CMS\\Cal\\Service\\LocationPartnerService'
 ));
 
 /* Cal Example Concrete Model */
@@ -170,7 +170,7 @@ $confArr = unserialize ($GLOBALS ['TYPO3_CONF_VARS'] ['EXT'] ['extConf'] ['cal']
 		'quality' => 50,
 		'os' => '',
 		'exec' => '',
-		'className' => 'TYPO3\\CMS\\Cal\\Service\\LocationAddressService' 
+		'className' => 'TYPO3\\CMS\\Cal\\Service\\LocationAddressService'
 ));
 
 /* Cal Example Concrete Model */
@@ -184,7 +184,7 @@ $confArr = unserialize ($GLOBALS ['TYPO3_CONF_VARS'] ['EXT'] ['extConf'] ['cal']
 		'quality' => 50,
 		'os' => '',
 		'exec' => '',
-		'className' => 'TYPO3\\CMS\\Cal\\Service\\LocationService' 
+		'className' => 'TYPO3\\CMS\\Cal\\Service\\LocationService'
 ));
 
 /* Cal Example Concrete Model */
@@ -198,7 +198,7 @@ $confArr = unserialize ($GLOBALS ['TYPO3_CONF_VARS'] ['EXT'] ['extConf'] ['cal']
 		'quality' => 50,
 		'os' => '',
 		'exec' => '',
-		'className' => 'TYPO3\\CMS\\Cal\\Service\\AttendeeService' 
+		'className' => 'TYPO3\\CMS\\Cal\\Service\\AttendeeService'
 ));
 
 /* Cal Example Concrete Model */
@@ -212,7 +212,7 @@ $confArr = unserialize ($GLOBALS ['TYPO3_CONF_VARS'] ['EXT'] ['extConf'] ['cal']
 		'quality' => 50,
 		'os' => '',
 		'exec' => '',
-		'className' => 'TYPO3\\CMS\\Cal\\Service\\CalendarService' 
+		'className' => 'TYPO3\\CMS\\Cal\\Service\\CalendarService'
 ));
 
 /* Cal Example Concrete Model */
@@ -226,7 +226,7 @@ $confArr = unserialize ($GLOBALS ['TYPO3_CONF_VARS'] ['EXT'] ['extConf'] ['cal']
 		'quality' => 50,
 		'os' => '',
 		'exec' => '',
-		'className' => 'TYPO3\\CMS\\Cal\\Service\\CategoryService' 
+		'className' => 'TYPO3\\CMS\\Cal\\Service\\CategoryService'
 ));
 
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addService ($_EXTKEY, 'cal_category_model' /* sv type */,  'sys_category' /* sv key */,
@@ -253,7 +253,7 @@ $confArr = unserialize ($GLOBALS ['TYPO3_CONF_VARS'] ['EXT'] ['extConf'] ['cal']
 		'quality' => 50,
 		'os' => '',
 		'exec' => '',
-		'className' => 'TYPO3\\CMS\\Cal\\View\\EventView' 
+		'className' => 'TYPO3\\CMS\\Cal\\View\\EventView'
 ));
 
 /* Default day View */
@@ -267,7 +267,7 @@ $confArr = unserialize ($GLOBALS ['TYPO3_CONF_VARS'] ['EXT'] ['extConf'] ['cal']
 		'quality' => 50,
 		'os' => '',
 		'exec' => '',
-		'className' => 'TYPO3\\CMS\\Cal\\View\\DayView' 
+		'className' => 'TYPO3\\CMS\\Cal\\View\\DayView'
 ));
 
 /* Default week View */
@@ -281,7 +281,7 @@ $confArr = unserialize ($GLOBALS ['TYPO3_CONF_VARS'] ['EXT'] ['extConf'] ['cal']
 		'quality' => 50,
 		'os' => '',
 		'exec' => '',
-		'className' => 'TYPO3\\CMS\\Cal\\View\\WeekView' 
+		'className' => 'TYPO3\\CMS\\Cal\\View\\WeekView'
 ));
 
 /* Default month View */
@@ -295,7 +295,7 @@ $confArr = unserialize ($GLOBALS ['TYPO3_CONF_VARS'] ['EXT'] ['extConf'] ['cal']
 		'quality' => 50,
 		'os' => '',
 		'exec' => '',
-		'className' => 'TYPO3\\CMS\\Cal\\View\\MonthView' 
+		'className' => 'TYPO3\\CMS\\Cal\\View\\MonthView'
 ));
 
 /* Default year View */
@@ -309,7 +309,7 @@ $confArr = unserialize ($GLOBALS ['TYPO3_CONF_VARS'] ['EXT'] ['extConf'] ['cal']
 		'quality' => 50,
 		'os' => '',
 		'exec' => '',
-		'className' => 'TYPO3\\CMS\\Cal\\View\\YearView' 
+		'className' => 'TYPO3\\CMS\\Cal\\View\\YearView'
 ));
 
 /* Default list View */
@@ -323,7 +323,7 @@ $confArr = unserialize ($GLOBALS ['TYPO3_CONF_VARS'] ['EXT'] ['extConf'] ['cal']
 		'quality' => 50,
 		'os' => '',
 		'exec' => '',
-		'className' => 'TYPO3\\CMS\\Cal\\View\\ListView' 
+		'className' => 'TYPO3\\CMS\\Cal\\View\\ListView'
 ));
 
 /* Default ics View */
@@ -337,7 +337,7 @@ $confArr = unserialize ($GLOBALS ['TYPO3_CONF_VARS'] ['EXT'] ['extConf'] ['cal']
 		'quality' => 50,
 		'os' => '',
 		'exec' => '',
-		'className' => 'TYPO3\\CMS\\Cal\\View\\IcsView' 
+		'className' => 'TYPO3\\CMS\\Cal\\View\\IcsView'
 ));
 
 /* Default icslist View */
@@ -351,7 +351,7 @@ $confArr = unserialize ($GLOBALS ['TYPO3_CONF_VARS'] ['EXT'] ['extConf'] ['cal']
 		'quality' => 50,
 		'os' => '',
 		'exec' => '',
-		'className' => 'TYPO3\\CMS\\Cal\\View\\IcsView' 
+		'className' => 'TYPO3\\CMS\\Cal\\View\\IcsView'
 ));
 
 /* Default rss View */
@@ -365,7 +365,7 @@ $confArr = unserialize ($GLOBALS ['TYPO3_CONF_VARS'] ['EXT'] ['extConf'] ['cal']
 		'quality' => 50,
 		'os' => '',
 		'exec' => '',
-		'className' => 'TYPO3\\CMS\\Cal\\View\\RssView' 
+		'className' => 'TYPO3\\CMS\\Cal\\View\\RssView'
 ));
 
 /* Default admin View */
@@ -379,7 +379,7 @@ $confArr = unserialize ($GLOBALS ['TYPO3_CONF_VARS'] ['EXT'] ['extConf'] ['cal']
 		'quality' => 50,
 		'os' => '',
 		'exec' => '',
-		'className' => 'TYPO3\\CMS\\Cal\\View\\AdminView' 
+		'className' => 'TYPO3\\CMS\\Cal\\View\\AdminView'
 ));
 
 /* Default location View */
@@ -393,7 +393,7 @@ $confArr = unserialize ($GLOBALS ['TYPO3_CONF_VARS'] ['EXT'] ['extConf'] ['cal']
 		'quality' => 50,
 		'os' => '',
 		'exec' => '',
-		'className' => 'TYPO3\\CMS\\Cal\\View\\LocationView' 
+		'className' => 'TYPO3\\CMS\\Cal\\View\\LocationView'
 ));
 
 /* Default organizer View */
@@ -407,7 +407,7 @@ $confArr = unserialize ($GLOBALS ['TYPO3_CONF_VARS'] ['EXT'] ['extConf'] ['cal']
 		'quality' => 50,
 		'os' => '',
 		'exec' => '',
-		'className' => 'TYPO3\\CMS\\Cal\\View\\OrganizerView' 
+		'className' => 'TYPO3\\CMS\\Cal\\View\\OrganizerView'
 ));
 
 /* Default create event View */
@@ -421,7 +421,7 @@ $confArr = unserialize ($GLOBALS ['TYPO3_CONF_VARS'] ['EXT'] ['extConf'] ['cal']
 		'quality' => 50,
 		'os' => '',
 		'exec' => '',
-		'className' => 'TYPO3\\CMS\\Cal\\View\\CreateEventView' 
+		'className' => 'TYPO3\\CMS\\Cal\\View\\CreateEventView'
 ));
 
 /* Default confirm event View */
@@ -435,7 +435,7 @@ $confArr = unserialize ($GLOBALS ['TYPO3_CONF_VARS'] ['EXT'] ['extConf'] ['cal']
 		'quality' => 50,
 		'os' => '',
 		'exec' => '',
-		'className' => 'TYPO3\\CMS\\Cal\\View\\ConfirmEventView' 
+		'className' => 'TYPO3\\CMS\\Cal\\View\\ConfirmEventView'
 ));
 
 /* Default delete event View */
@@ -449,7 +449,7 @@ $confArr = unserialize ($GLOBALS ['TYPO3_CONF_VARS'] ['EXT'] ['extConf'] ['cal']
 		'quality' => 50,
 		'os' => '',
 		'exec' => '',
-		'className' => 'TYPO3\\CMS\\Cal\\View\\DeleteEventView' 
+		'className' => 'TYPO3\\CMS\\Cal\\View\\DeleteEventView'
 ));
 
 /* Default remove event service */
@@ -463,7 +463,7 @@ $confArr = unserialize ($GLOBALS ['TYPO3_CONF_VARS'] ['EXT'] ['extConf'] ['cal']
 		'quality' => 50,
 		'os' => '',
 		'exec' => '',
-		'className' => 'TYPO3\\CMS\\Cal\\View\\EventView' 
+		'className' => 'TYPO3\\CMS\\Cal\\View\\EventView'
 ));
 
 /* Default create location View */
@@ -477,7 +477,7 @@ $confArr = unserialize ($GLOBALS ['TYPO3_CONF_VARS'] ['EXT'] ['extConf'] ['cal']
 		'quality' => 50,
 		'os' => '',
 		'exec' => '',
-		'className' => 'TYPO3\\CMS\\Cal\\View\\CreateLocationOrganizerView' 
+		'className' => 'TYPO3\\CMS\\Cal\\View\\CreateLocationOrganizerView'
 ));
 
 /* Default confirm location View */
@@ -491,7 +491,7 @@ $confArr = unserialize ($GLOBALS ['TYPO3_CONF_VARS'] ['EXT'] ['extConf'] ['cal']
 		'quality' => 50,
 		'os' => '',
 		'exec' => '',
-		'className' => 'TYPO3\\CMS\\Cal\\View\\ConfirmLocationOrganizerView' 
+		'className' => 'TYPO3\\CMS\\Cal\\View\\ConfirmLocationOrganizerView'
 ));
 
 /* Default delete location View */
@@ -505,7 +505,7 @@ $confArr = unserialize ($GLOBALS ['TYPO3_CONF_VARS'] ['EXT'] ['extConf'] ['cal']
 		'quality' => 50,
 		'os' => '',
 		'exec' => '',
-		'className' => 'TYPO3\\CMS\\Cal\\View\\DeleteLocationOrganizerView' 
+		'className' => 'TYPO3\\CMS\\Cal\\View\\DeleteLocationOrganizerView'
 ));
 
 /* Default remove location service */
@@ -519,7 +519,7 @@ $confArr = unserialize ($GLOBALS ['TYPO3_CONF_VARS'] ['EXT'] ['extConf'] ['cal']
 		'quality' => 50,
 		'os' => '',
 		'exec' => '',
-		'className' => 'TYPO3\\CMS\\Cal\\View\\LocationView' 
+		'className' => 'TYPO3\\CMS\\Cal\\View\\LocationView'
 ));
 
 /* Default create organizer View */
@@ -533,7 +533,7 @@ $confArr = unserialize ($GLOBALS ['TYPO3_CONF_VARS'] ['EXT'] ['extConf'] ['cal']
 		'quality' => 50,
 		'os' => '',
 		'exec' => '',
-		'className' => 'TYPO3\\CMS\\Cal\\View\\CreateLocationOrganizerView' 
+		'className' => 'TYPO3\\CMS\\Cal\\View\\CreateLocationOrganizerView'
 ));
 
 /* Default confirm organizer View */
@@ -547,7 +547,7 @@ $confArr = unserialize ($GLOBALS ['TYPO3_CONF_VARS'] ['EXT'] ['extConf'] ['cal']
 		'quality' => 50,
 		'os' => '',
 		'exec' => '',
-		'className' => 'TYPO3\\CMS\\Cal\\View\\ConfirmLocationOrganizerView' 
+		'className' => 'TYPO3\\CMS\\Cal\\View\\ConfirmLocationOrganizerView'
 ));
 
 /* Default delete organizer View */
@@ -561,7 +561,7 @@ $confArr = unserialize ($GLOBALS ['TYPO3_CONF_VARS'] ['EXT'] ['extConf'] ['cal']
 		'quality' => 50,
 		'os' => '',
 		'exec' => '',
-		'className' => 'TYPO3\\CMS\\Cal\\View\\DeleteLocationOrganizerView' 
+		'className' => 'TYPO3\\CMS\\Cal\\View\\DeleteLocationOrganizerView'
 ));
 
 /* Default remove organizer service */
@@ -575,7 +575,7 @@ $confArr = unserialize ($GLOBALS ['TYPO3_CONF_VARS'] ['EXT'] ['extConf'] ['cal']
 		'quality' => 50,
 		'os' => '',
 		'exec' => '',
-		'className' => 'TYPO3\\CMS\\Cal\\View\\OrganizerView' 
+		'className' => 'TYPO3\\CMS\\Cal\\View\\OrganizerView'
 ));
 
 /* Default create calendar View */
@@ -589,7 +589,7 @@ $confArr = unserialize ($GLOBALS ['TYPO3_CONF_VARS'] ['EXT'] ['extConf'] ['cal']
 		'quality' => 50,
 		'os' => '',
 		'exec' => '',
-		'className' => 'TYPO3\\CMS\\Cal\\View\\CreateCalendarView' 
+		'className' => 'TYPO3\\CMS\\Cal\\View\\CreateCalendarView'
 ));
 
 /* Default confirm calendar View */
@@ -603,7 +603,7 @@ $confArr = unserialize ($GLOBALS ['TYPO3_CONF_VARS'] ['EXT'] ['extConf'] ['cal']
 		'quality' => 50,
 		'os' => '',
 		'exec' => '',
-		'className' => 'TYPO3\\CMS\\Cal\\View\\ConfirmCalendarView' 
+		'className' => 'TYPO3\\CMS\\Cal\\View\\ConfirmCalendarView'
 ));
 
 /* Default delete calendar View */
@@ -617,7 +617,7 @@ $confArr = unserialize ($GLOBALS ['TYPO3_CONF_VARS'] ['EXT'] ['extConf'] ['cal']
 		'quality' => 50,
 		'os' => '',
 		'exec' => '',
-		'className' => 'TYPO3\\CMS\\Cal\\View\\DeleteCalendarView' 
+		'className' => 'TYPO3\\CMS\\Cal\\View\\DeleteCalendarView'
 ));
 
 /* Default remove calendar service */
@@ -631,7 +631,7 @@ $confArr = unserialize ($GLOBALS ['TYPO3_CONF_VARS'] ['EXT'] ['extConf'] ['cal']
 		'quality' => 50,
 		'os' => '',
 		'exec' => '',
-		'className' => 'TYPO3\\CMS\\Cal\\View\\DeleteCalendarView' 
+		'className' => 'TYPO3\\CMS\\Cal\\View\\DeleteCalendarView'
 ));
 
 /* Default create category View */
@@ -645,7 +645,7 @@ $confArr = unserialize ($GLOBALS ['TYPO3_CONF_VARS'] ['EXT'] ['extConf'] ['cal']
 		'quality' => 50,
 		'os' => '',
 		'exec' => '',
-		'className' => 'TYPO3\\CMS\\Cal\\View\\CreateCategoryView' 
+		'className' => 'TYPO3\\CMS\\Cal\\View\\CreateCategoryView'
 ));
 
 /* Default confirm category View */
@@ -659,7 +659,7 @@ $confArr = unserialize ($GLOBALS ['TYPO3_CONF_VARS'] ['EXT'] ['extConf'] ['cal']
 		'quality' => 50,
 		'os' => '',
 		'exec' => '',
-		'className' => 'TYPO3\\CMS\\Cal\\View\\ConfirmCategoryView' 
+		'className' => 'TYPO3\\CMS\\Cal\\View\\ConfirmCategoryView'
 ));
 
 /* Default delete category View */
@@ -673,7 +673,7 @@ $confArr = unserialize ($GLOBALS ['TYPO3_CONF_VARS'] ['EXT'] ['extConf'] ['cal']
 		'quality' => 50,
 		'os' => '',
 		'exec' => '',
-		'className' => 'TYPO3\\CMS\\Cal\\View\\DeleteCategoryView' 
+		'className' => 'TYPO3\\CMS\\Cal\\View\\DeleteCategoryView'
 ));
 
 /* Default remove category service */
@@ -687,7 +687,7 @@ $confArr = unserialize ($GLOBALS ['TYPO3_CONF_VARS'] ['EXT'] ['extConf'] ['cal']
 		'quality' => 50,
 		'os' => '',
 		'exec' => '',
-		'className' => 'TYPO3\\CMS\\Cal\\View\\DeleteCategoryView' 
+		'className' => 'TYPO3\\CMS\\Cal\\View\\DeleteCategoryView'
 ));
 
 /* Default search service */
@@ -701,7 +701,7 @@ $confArr = unserialize ($GLOBALS ['TYPO3_CONF_VARS'] ['EXT'] ['extConf'] ['cal']
 		'quality' => 50,
 		'os' => '',
 		'exec' => '',
-		'className' => 'TYPO3\\CMS\\Cal\\View\\SearchViews' 
+		'className' => 'TYPO3\\CMS\\Cal\\View\\SearchViews'
 ));
 
 /* Default search service */
@@ -715,7 +715,7 @@ $confArr = unserialize ($GLOBALS ['TYPO3_CONF_VARS'] ['EXT'] ['extConf'] ['cal']
 		'quality' => 50,
 		'os' => '',
 		'exec' => '',
-		'className' => 'TYPO3\\CMS\\Cal\\View\\SearchViews' 
+		'className' => 'TYPO3\\CMS\\Cal\\View\\SearchViews'
 ));
 
 /* Default search service */
@@ -729,7 +729,7 @@ $confArr = unserialize ($GLOBALS ['TYPO3_CONF_VARS'] ['EXT'] ['extConf'] ['cal']
 		'quality' => 50,
 		'os' => '',
 		'exec' => '',
-		'className' => 'TYPO3\\CMS\\Cal\\View\\SearchViews' 
+		'className' => 'TYPO3\\CMS\\Cal\\View\\SearchViews'
 ));
 
 /* Default search service */
@@ -743,7 +743,7 @@ $confArr = unserialize ($GLOBALS ['TYPO3_CONF_VARS'] ['EXT'] ['extConf'] ['cal']
 		'quality' => 50,
 		'os' => '',
 		'exec' => '',
-		'className' => 'TYPO3\\CMS\\Cal\\View\\SearchViews' 
+		'className' => 'TYPO3\\CMS\\Cal\\View\\SearchViews'
 ));
 
 /* Default notification service */
@@ -757,7 +757,7 @@ $confArr = unserialize ($GLOBALS ['TYPO3_CONF_VARS'] ['EXT'] ['extConf'] ['cal']
 		'quality' => 50,
 		'os' => '',
 		'exec' => '',
-		'className' => 'TYPO3\\CMS\\Cal\\View\\NotificationView' 
+		'className' => 'TYPO3\\CMS\\Cal\\View\\NotificationView'
 ));
 
 /* Default reminder service */
@@ -771,7 +771,7 @@ $confArr = unserialize ($GLOBALS ['TYPO3_CONF_VARS'] ['EXT'] ['extConf'] ['cal']
 		'quality' => 50,
 		'os' => '',
 		'exec' => '',
-		'className' => 'TYPO3\\CMS\\Cal\\View\\ReminderView' 
+		'className' => 'TYPO3\\CMS\\Cal\\View\\ReminderView'
 ));
 
 /* Default rights service */
@@ -785,7 +785,7 @@ $confArr = unserialize ($GLOBALS ['TYPO3_CONF_VARS'] ['EXT'] ['extConf'] ['cal']
 		'quality' => 50,
 		'os' => '',
 		'exec' => '',
-		'className' => 'TYPO3\\CMS\\Cal\\Service\\RightsService' 
+		'className' => 'TYPO3\\CMS\\Cal\\Service\\RightsService'
 ));
 // Example for a module
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addService ($_EXTKEY, 'TEST' /* sv type */,  'tx_cal_module' /* sv key */,
@@ -798,7 +798,7 @@ $confArr = unserialize ($GLOBALS ['TYPO3_CONF_VARS'] ['EXT'] ['extConf'] ['cal']
 		'quality' => 50,
 		'os' => '',
 		'exec' => '',
-		'className' => 'TYPO3\\CMS\\Cal\\View\\Module\\Example' 
+		'className' => 'TYPO3\\CMS\\Cal\\View\\Module\\Example'
 ));
 
 // Example for a module
@@ -812,7 +812,7 @@ $confArr = unserialize ($GLOBALS ['TYPO3_CONF_VARS'] ['EXT'] ['extConf'] ['cal']
 		'quality' => 50,
 		'os' => '',
 		'exec' => '',
-		'className' => 'TYPO3\\CMS\\Cal\\View\\Module\\LocationLoader' 
+		'className' => 'TYPO3\\CMS\\Cal\\View\\Module\\LocationLoader'
 ));
 
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addService ($_EXTKEY, 'ORGANIZERLOADER' /* sv type */,  'tx_cal_module' /* sv key */,
@@ -825,7 +825,7 @@ $confArr = unserialize ($GLOBALS ['TYPO3_CONF_VARS'] ['EXT'] ['extConf'] ['cal']
 		'quality' => 50,
 		'os' => '',
 		'exec' => '',
-		'className' => 'TYPO3\\CMS\\Cal\\View\\Module\\OrganizerLoader' 
+		'className' => 'TYPO3\\CMS\\Cal\\View\\Module\\OrganizerLoader'
 ));
 
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addService ($_EXTKEY, 'cal_view' /* sv type */,  'tx_cal_subscription' /* sv key */,
@@ -838,7 +838,7 @@ $confArr = unserialize ($GLOBALS ['TYPO3_CONF_VARS'] ['EXT'] ['extConf'] ['cal']
 		'quality' => 50,
 		'os' => '',
 		'exec' => '',
-		'className' => 'TYPO3\\CMS\\Cal\\View\\SubscriptionManagerView' 
+		'className' => 'TYPO3\\CMS\\Cal\\View\\SubscriptionManagerView'
 ));
 
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addService ($_EXTKEY, 'cal_view' /* sv type */,  'tx_cal_meeting' /* sv key */,
@@ -851,7 +851,7 @@ $confArr = unserialize ($GLOBALS ['TYPO3_CONF_VARS'] ['EXT'] ['extConf'] ['cal']
 		'quality' => 50,
 		'os' => '',
 		'exec' => '',
-		'className' => 'TYPO3\\CMS\\Cal\\View\\MeetingManagerView' 
+		'className' => 'TYPO3\\CMS\\Cal\\View\\MeetingManagerView'
 ));
 
 $GLOBALS ['TYPO3_CONF_VARS'] ['SC_OPTIONS'] ['t3lib/class.t3lib_tcemain.php'] ['processDatamapClass'] ['tx_cal'] = 'TYPO3\\CMS\\Cal\\Hooks\\TceMainProcessdatamap';
@@ -878,7 +878,7 @@ if (! isset ($confArr ['enableRealURLAutoConfiguration']) || $confArr ['enableRe
 if (\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::isLoaded ('gabriel')) {
 	$GLOBALS ['TYPO3_CONF_VARS'] ['EXTCONF'] ['gabriel'] ['include'] [$_EXTKEY] = Array (
 			'TYPO3\\CMS\\Cal\\Cron\\CalendarCron',
-			'TYPO3\\CMS\\Cal\\Cron\\ReminderCron' 
+			'TYPO3\\CMS\\Cal\\Cron\\ReminderCron'
 	);
 }
 
@@ -911,23 +911,23 @@ if (\TYPO3\CMS\Core\Utility\GeneralUtility::inList ($GLOBALS['TYPO3_CONF_VARS'] 
 			$GLOBALS ['TYPO3_LOADED_EXT'] [$temp_extKey] = Array (
 					'type' => 'L',
 					'siteRelPath' => 'typo3conf/ext/' . $temp_extKey . '/',
-					'typo3RelPath' => '../typo3conf/ext/' . $temp_extKey . '/' 
+					'typo3RelPath' => '../typo3conf/ext/' . $temp_extKey . '/'
 			);
 		} elseif (@is_dir (PATH_typo3 . 'ext/' . $temp_extKey . '/')) {
 			$GLOBALS ['TYPO3_LOADED_EXT'] [$temp_extKey] = Array (
 					'type' => 'G',
 					'siteRelPath' => TYPO3_mainDir . 'ext/' . $temp_extKey . '/',
-					'typo3RelPath' => 'ext/' . $temp_extKey . '/' 
+					'typo3RelPath' => 'ext/' . $temp_extKey . '/'
 			);
 		} elseif (@is_dir (PATH_typo3 . 'sysext/' . $temp_extKey . '/')) {
 			$GLOBALS ['TYPO3_LOADED_EXT'] [$temp_extKey] = Array (
 					'type' => 'S',
 					'siteRelPath' => TYPO3_mainDir . 'sysext/' . $temp_extKey . '/',
-					'typo3RelPath' => 'sysext/' . $temp_extKey . '/' 
+					'typo3RelPath' => 'sysext/' . $temp_extKey . '/'
 			);
 		}
 	}
-	
+
 	$GLOBALS ['TYPO3_CONF_VARS'] ['EXT'] ['extList_FE'] .= ',scheduler';
 	$GLOBALS ['TYPO3_CONF_VARS'] ['SC_OPTIONS'] ['scheduler'] ['tasks'] ['TYPO3\\CMS\\Cal\\Cron\\CalendarScheduler'] = Array (
 		'extension' => $_EXTKEY,
@@ -991,4 +991,19 @@ $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['ext/install']['update']['cal_event_im
 $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['ext/install']['update']['cal_location_images'] = 'TYPO3\\CMS\\Cal\\Updates\\LocationImagesUpdateWizard';
 $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['ext/install']['update']['cal_organizer_images'] = 'TYPO3\\CMS\\Cal\\Updates\\OrganizerImagesUpdateWizard';
 $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['ext/install']['update']['cal_sys_template'] = 'TYPO3\\CMS\\Cal\\Updates\\TypoScriptUpdateWizard';
+
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPageTSConfig('
+mod.wizards.newContentElement.wizardItems.plugins.elements.tx_cal {
+    iconIdentifier = tx-cal-wizard
+    title = LLL:EXT:cal/Resources/Private/Language/locallang_plugin.xml:pi1_title
+    description = LLL:EXT:cal/Resources/Private/Language/locallang_plugin.xml:pi1_plus_wiz_description
+    tt_content_defValues {
+        CType = list
+        list_type = cal_controller
+    }
+}
+
+mod.wizards.newContentElement.wizardItems.plugins.show := addToList(tx_cal)
+');
+
 ?>
