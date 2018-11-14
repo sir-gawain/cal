@@ -12,7 +12,7 @@ $pluginSignature = strtolower($extensionName) . '_controller';
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPlugin (Array (
 		'LLL:EXT:cal/Resources/Private/Language/locallang_db.xml:tt_content.list_type',
 		$_EXTKEY . '_controller' 
-), 'list_type');
+), 'list_type', 'cal');
 
 $GLOBALS['TCA']['tt_content']['types']['list']['subtypes_excludelist'][$pluginSignature] = 'layout,select_key';
 $GLOBALS['TCA']['tt_content']['types']['list']['subtypes_addlist'][$pluginSignature] = 'pi_flexform';

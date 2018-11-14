@@ -16,7 +16,7 @@ $tempColumns = array(
 			'maxitems' => 99,
 		    'fieldControl' => array(
 		        'addRecord' => array(
-		            'disabled' => '',
+		            'disabled' => 0,
 		            'options' => array(
 		                'pid' => $sPid,
 		                'setValue' => 'set',
@@ -25,10 +25,6 @@ $tempColumns = array(
 		            )
 		        )
 		    ),
-			'wizards' => array(
-				'_PADDING' => 2,
-				'_VERTICAL' => 1,
-			)
 		)
 	),
 	'tx_cal_calendar_subscription' => array(
@@ -42,7 +38,7 @@ $tempColumns = array(
 			'maxitems' => 99,
 		    'fieldControl' => array(
 		        'addRecord' => array(
-		            'disabled' => '',
+		            'disabled' => 0,
 		            'options' => array(
 		                'pid' => $sPid,
 		                'setValue' => 'set',
@@ -51,10 +47,6 @@ $tempColumns = array(
 		            )
 		        )
 		    ),
-			'wizards' => array(
-				'_PADDING' => 2,
-				'_VERTICAL' => 1,
-			)
 		)
 	)
 );

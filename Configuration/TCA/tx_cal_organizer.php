@@ -35,7 +35,7 @@ $tx_cal_organizer = array(
 						'label' => 'LLL:EXT:lang/locallang_general.xlf:LGL.hidden',
 						'config' => array(
 								'type' => 'check',
-								'default' => '0'
+								'default' => 0
 						)
 				),
 				'name' => array(
@@ -43,8 +43,8 @@ $tx_cal_organizer = array(
 						'label' => 'LLL:EXT:cal/Resources/Private/Language/locallang_db.xml:tx_cal_organizer.name',
 						'config' => array(
 								'type' => 'input',
-								'size' => '30',
-								'max' => '128',
+								'size' => 30,
+								'max' => 128,
 								'eval' => 'required'
 						)
 				),
@@ -53,20 +53,18 @@ $tx_cal_organizer = array(
 						'label' => 'LLL:EXT:cal/Resources/Private/Language/locallang_db.xml:tx_cal_organizer.description',
 						'config' => array(
 								'type' => 'text',
-								'cols' => '30',
-								'rows' => '5',
-						        'enableRichtext' => true,
+								'cols' => 30,
+								'rows' => 5,
+								'default' => '',
+								'enableRichtext' => true,
     						    'fieldControl' => array(
     						        'fullScreenRichtext' => array(
-    						            'disabled' => '',
+    						            'disabled' => 0,
     						            'options' => array(
     						                'title' => 'LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:bodytext.W.RTE',
     						            ),
     						        )
     						    ),
-								'wizards' => array(
-										'_PADDING' => 2,
-								)
 						)
 				),
 				'street' => array(
@@ -74,8 +72,9 @@ $tx_cal_organizer = array(
 						'label' => 'LLL:EXT:cal/Resources/Private/Language/locallang_db.xml:tx_cal_organizer.street',
 						'config' => array(
 								'type' => 'input',
-								'size' => '30',
-								'max' => '128'
+								'size' => 30,
+								'max' => 128,
+								'default' => '',
 						)
 				),
 				'zip' => array(
@@ -83,8 +82,9 @@ $tx_cal_organizer = array(
 						'label' => 'LLL:EXT:cal/Resources/Private/Language/locallang_db.xml:tx_cal_organizer.zip',
 						'config' => array(
 								'type' => 'input',
-								'size' => '15',
-								'max' => '15'
+								'size' => 15,
+								'max' => 15,
+								'default' => '',
 						)
 				),
 				'city' => array(
@@ -92,8 +92,9 @@ $tx_cal_organizer = array(
 						'label' => 'LLL:EXT:cal/Resources/Private/Language/locallang_db.xml:tx_cal_organizer.city',
 						'config' => array(
 								'type' => 'input',
-								'size' => '30',
-								'max' => '128'
+								'size' => 30,
+								'max' => 128,
+								'default' => '',
 						)
 				),
 				'phone' => array(
@@ -101,8 +102,9 @@ $tx_cal_organizer = array(
 						'label' => 'LLL:EXT:cal/Resources/Private/Language/locallang_db.xml:tx_cal_organizer.phone',
 						'config' => array(
 								'type' => 'input',
-								'size' => '15',
-								'max' => '24'
+								'size' => 15,
+								'max' => 24,
+								'default' => '',
 						)
 				),
 				'fax' => array(
@@ -110,8 +112,9 @@ $tx_cal_organizer = array(
 						'label' => 'LLL:EXT:cal/Resources/Private/Language/locallang_db.xml:tx_cal_organizer.fax',
 						'config' => array(
 								'type' => 'input',
-								'size' => '15',
-								'max' => '24'
+								'size' => 15,
+								'max' => 24,
+								'default' => '',
 						)
 				),
 				'email' => array(
@@ -119,9 +122,10 @@ $tx_cal_organizer = array(
 						'label' => 'LLL:EXT:cal/Resources/Private/Language/locallang_db.xml:tx_cal_organizer.email',
 						'config' => array(
 								'type' => 'input',
-								'size' => '30',
-								'max' => '64',
-								'eval' => 'lower'
+								'size' => 30,
+								'max' => 64,
+								'eval' => 'lower,email',
+								'default' => '',
 						)
 				),
 				'image' => array(
@@ -131,7 +135,7 @@ $tx_cal_organizer = array(
 								'maxitems' => 5,
 								// Use the imageoverlayPalette instead of the basicoverlayPalette
 								'foreign_types' => array(
-										'0' => array(
+										0 => array(
 												'showitem' => '
 												--palette--;LLL:EXT:lang/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
 												--palette--;;filePalette'
@@ -150,9 +154,10 @@ $tx_cal_organizer = array(
 						'config' => array(
 								'type' => 'input',
 								'size' => '25',
-								'max' => '128',
-								'checkbox' => '',
+								'max' => 128,
+								'checkbox' => 0,
 								'eval' => 'trim',
+								'default' => '',
 								'wizards' => array(
 										'_PADDING' => 2,
 										'link' => array(
@@ -178,6 +183,7 @@ $tx_cal_organizer = array(
 								'minitems' => 0,
 								'maxitems' => 100,
 								'MM' => 'tx_cal_organizer_shared_user_mm',
+								'default' => 0,
 						)
 				),
 				'sys_language_uid' => array(
@@ -188,10 +194,11 @@ $tx_cal_organizer = array(
 								'type' => 'select',
 								'foreign_table' => 'sys_language',
 								'foreign_table_where' => 'ORDER BY sys_language.title',
+                                'default' => 0,
 								'items' => array(
 										array(
 												'LLL:EXT:lang/locallang_general.xlf:LGL.allLanguages',
-												- 1
+												-1
 										),
 										array(
 												'LLL:EXT:lang/locallang_general.xlf:LGL.default_value',
@@ -232,7 +239,7 @@ $tx_cal_organizer = array(
 				)
 		),
 		'types' => array(
-				'0' => array(
+				0 => array(
                     'showitem' => 'name, --palette--;;1, description, street, city, country, country_zone, zip, phone,fax,email,image,link,shared_user_cnt'
 				)
 		),
@@ -259,10 +266,12 @@ if (\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::isLoaded('static_info_ta
 			),
 			'foreign_table' => 'static_country_zones',
 			'foreign_table_where' => 'ORDER BY static_country_zones.zn_name_en',
-			'itemsProcFunc' => 'SJBR\\StaticInfoTables\\Hook\\Backend\\Form\\ElementRenderingHelper->translateCountryZonesSelector',
+			'itemsProcFunc' => \SJBR\StaticInfoTables\Hook\Backend\Form\FormDataProvider\TcaSelectItemsProcessor::class .'->translateCountryZonesSelector',
+			'wizards' => ['suggest' => ['default' => ['receiverClass' => \SJBR\StaticInfoTables\Hook\Backend\Form\Wizard\SuggestReceiver::class]]],
 			'size' => 1,
 			'minitems' => 0,
 			'maxitems' => 1,
+			'default' => 0,
         )
 	);
 	$tx_cal_organizer['columns']['country'] = array(
@@ -279,22 +288,15 @@ if (\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::isLoaded('static_info_ta
 			),
 			'foreign_table' => 'static_countries',
 			'foreign_table_where' => 'ORDER BY static_countries.cn_short_en',
-			'itemsProcFunc' => 'SJBR\\StaticInfoTables\\Hook\\Backend\\Form\\ElementRenderingHelper->translateCountriesSelector',
+			'itemsProcFunc' => \SJBR\StaticInfoTables\Hook\Backend\Form\FormDataProvider\TcaSelectItemsProcessor::class .'->translateCountriesSelector',
+			'wizards' => ['suggest' => ['default' => ['receiverClass' => \SJBR\StaticInfoTables\Hook\Backend\Form\Wizard\SuggestReceiver::class]]],
 			'size' => 1,
 			'minitems' => 0,
 			'maxitems' => 1,
+			'default' => 0,
 	    )
 	);
-	if (\TYPO3\CMS\Core\Utility\VersionNumberUtility::convertVersionNumberToInteger (TYPO3_version) >= 7006000) {
-		$tx_cal_organizer['columns']['country_zone']['config']['itemsProcFunc'] = 'SJBR\\StaticInfoTables\\Hook\\Backend\\Form\\FormDataProvider\\TcaSelectItemsProcessor->translateCountryZonesSelector';
-		$tx_cal_organizer['columns']['country_zone']['config']['wizards']['suggest']['default']['receiverClass'] = 'SJBR\\StaticInfoTables\\Hook\\Backend\\Form\\Wizard\\SuggestReceiver';
-		$tx_cal_organizer['columns']['country']['config']['itemsProcFunc'] = 'SJBR\\StaticInfoTables\\Hook\\Backend\\Form\\FormDataProvider\\TcaSelectItemsProcessor->translateCountriesSelector';
-		$tx_cal_organizer['columns']['country']['config']['wizards']['suggest']['default']['receiverClass'] = 'SJBR\\StaticInfoTables\\Hook\\Backend\\Form\\Wizard\\SuggestReceiver';
-	}
-}
 
-if (\TYPO3\CMS\Core\Utility\VersionNumberUtility::convertVersionNumberToInteger (TYPO3_version) < 7000000) {
-	$tx_cal_organizer['types']['0']['showitem'] = 'name, --palette--;;1, description;;;richtext:rte_transform[flag=rte_enabled|mode=ts_css], street, city, country, country_zone, zip, phone,fax,email,image,link,shared_user_cnt';
 }
 
 return $tx_cal_organizer;

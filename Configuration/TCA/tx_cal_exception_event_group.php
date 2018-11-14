@@ -29,7 +29,7 @@ $tx_cal_exception_event_group = array(
 						'label' => 'LLL:EXT:lang/locallang_general.xlf:LGL.hidden',
 						'config' => array(
 								'type' => 'check',
-								'default' => '0'
+								'default' => 0
 						)
 				),
 				'title' => array(
@@ -37,8 +37,8 @@ $tx_cal_exception_event_group = array(
 						'label' => 'LLL:EXT:cal/Resources/Private/Language/locallang_db.xml:tx_cal_exception_event_group.title',
 						'config' => array(
 								'type' => 'input',
-								'size' => '30',
-								'max' => '128',
+								'size' => 30,
+								'max' => 128,
 								'eval' => 'required'
 						)
 				),
@@ -52,6 +52,7 @@ $tx_cal_exception_event_group = array(
 								'size' => 6,
 								'minitems' => 0,
 								'maxitems' => 100,
+								'default' => 0,
 								'MM' => 'tx_cal_exception_event_group_mm',
 						)
 				),
@@ -65,12 +66,12 @@ $tx_cal_exception_event_group = array(
 				)
 		),
 		'types' => array(
-				'0' => array(
+				0 => array(
                     'showitem' => 'title, --palette--;;1,color,exception_event_cnt'
 				)
 		),
 		'palettes' => array(
-				'1' => array(
+				1 => array(
 						'showitem' => 'hidden,t3ver_label'
 				)
 		)

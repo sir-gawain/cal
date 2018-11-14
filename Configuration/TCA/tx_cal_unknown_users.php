@@ -27,7 +27,7 @@ $tx_cal_unknown_users = array(
 			'label' => 'LLL:EXT:lang/locallang_general.xlf:LGL.hidden',
 			'config' => array(
 				'type' => 'check',
-				'default' => '0'
+				'default' => 0
 			)
 		),
 		'email' => array(
@@ -35,19 +35,19 @@ $tx_cal_unknown_users = array(
 			'label' => 'LLL:EXT:cal/Resources/Private/Language/locallang_db.xml:tx_cal_unknown_users.email',
 			'config' => array(
 				'type' => 'input',
-				'size' => '30',
-				'max' => '64',
+				'size' => 30,
+				'max' => 64,
 				'eval' => 'required'
 			)
 		)
 	),
 	'types' => array(
-		'0' => array(
+		0 => array(
 			'showitem' => 'hidden,email'
 		)
 	),
 	'palettes' => array(
-		'1' => array(
+		1 => array(
 			''
 		)
 	)

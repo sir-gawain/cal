@@ -43,7 +43,8 @@ $newCalSysCategoryColumns = array (
 						'size' => 1,
 						'maxitems' => 1,
 						'minitems' => 0,
-				) 
+				        'default' => 0,
+				)
 		),
 		'shortcut' => array (
 				'exclude' => 1,
@@ -56,14 +57,16 @@ $newCalSysCategoryColumns = array (
 						'size' => 1,
 						'maxitems' => 1,
 						'minitems' => 0,
-				) 
+				        'default' => 0,
+				)
 		),
 		'headerstyle' => Array (
 				'exclude' => 1,
 				'label' => $ll . 'tx_cal_category.headerstyle',
 				'config' => Array (
 						'type' => 'user',
-						'userFunc' => 'TYPO3\CMS\Cal\Backend\TCA\CustomTca->getHeaderStyles' 
+						'userFunc' => \TYPO3\CMS\Cal\Backend\TCA\CustomTca::class . '->getHeaderStyles',
+						'default' => '',
 				) 
 		),
 		'bodystyle' => Array (
@@ -71,7 +74,8 @@ $newCalSysCategoryColumns = array (
 				'label' => $ll . 'tx_cal_category.bodystyle',
 				'config' => Array (
 						'type' => 'user',
-						'userFunc' => 'TYPO3\CMS\Cal\Backend\TCA\CustomTca->getBodyStyles' 
+						'userFunc' => \TYPO3\CMS\Cal\Backend\TCA\CustomTca::class . '->getBodyStyles',
+						'default' => '',
 				) 
 		),
 		'calendar_id' => Array (
@@ -80,7 +84,7 @@ $newCalSysCategoryColumns = array (
 				'config' => Array (
                         'renderType' => 'selectSingle',
 						'type' => 'select',
-						'itemsProcFunc' => 'TYPO3\CMS\Cal\Backend\TCA\ItemsProcFunc->getRecords',
+						'itemsProcFunc' => \TYPO3\CMS\Cal\Backend\TCA\ItemsProcFunc::class . '->getRecords',
 						'itemsProcFunc_config' => array (
 								'table' => 'tx_cal_calendar',
 								'orderBy' => 'tx_cal_calendar.title' 
@@ -95,12 +99,14 @@ $newCalSysCategoryColumns = array (
 						'minitems' => 0,
 						'maxitems' => 1,
 						'allowed' => 'tx_cal_calendar',
-				) 
+                        'default' => 0,
+				)
 		),
 		'shared_user_allowed' => Array (
 				'label' => $ll . 'tx_cal_category.shared_user_allowed',
 				'config' => Array (
-						'type' => 'check'
+						'type' => 'check',
+				        'default' => 0,
 				)
 		),
 		
@@ -109,7 +115,8 @@ $newCalSysCategoryColumns = array (
 				'label' => $ll . 'tx_cal_category.notification_emails',
 				'config' => Array (
 						'type' => 'input',
-						'size' => '30'
+						'size' => 30,
+						'default' => '',
 				)
 		),
 );

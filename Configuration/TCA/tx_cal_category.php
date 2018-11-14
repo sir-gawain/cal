@@ -37,7 +37,7 @@ $tx_cal_category = array(
 				'label' => 'LLL:EXT:lang/locallang_general.xlf:LGL.hidden',
 				'config' => array(
 						'type' => 'check',
-						'default' => '0'
+						'default' => 0
 				)
 		),
 		'title' => array(
@@ -45,8 +45,8 @@ $tx_cal_category = array(
 				'label' => 'LLL:EXT:cal/Resources/Private/Language/locallang_db.xml:tx_cal_category.title',
 				'config' => array(
 						'type' => 'input',
-						'size' => '30',
-						'max' => '128',
+						'size' => 30,
+						'max' => 128,
 						'eval' => 'required'
 				)
 		),
@@ -55,7 +55,8 @@ $tx_cal_category = array(
 				'label' => 'LLL:EXT:cal/Resources/Private/Language/locallang_db.xml:tx_cal_category.headerstyle',
 				'config' => array(
 						'type' => 'user',
-						'userFunc' => 'TYPO3\CMS\Cal\Backend\TCA\CustomTca->getHeaderStyles'
+						'userFunc' => \TYPO3\CMS\Cal\Backend\TCA\CustomTca::class . '->getHeaderStyles',
+                        'default' => '',
 				)
 		),
 		'bodystyle' => array(
@@ -63,7 +64,8 @@ $tx_cal_category = array(
 				'label' => 'LLL:EXT:cal/Resources/Private/Language/locallang_db.xml:tx_cal_category.bodystyle',
 				'config' => array(
 						'type' => 'user',
-						'userFunc' => 'TYPO3\CMS\Cal\Backend\TCA\CustomTca->getBodyStyles'
+						'userFunc' => \TYPO3\CMS\Cal\Backend\TCA\CustomTca::class . '->getBodyStyles',
+                        'default' => '',
 				)
 		),
 		'calendar_id' => array(
@@ -73,7 +75,7 @@ $tx_cal_category = array(
 				'config' => array(
                         'renderType' => 'selectSingle',
 						'type' => 'select',
-						'itemsProcFunc' => 'TYPO3\CMS\Cal\Backend\TCA\ItemsProcFunc->getRecords',
+						'itemsProcFunc' => \TYPO3\CMS\Cal\Backend\TCA\ItemsProcFunc::class . '->getRecords',
 						'itemsProcFunc_config' => array(
 								'table' => 'tx_cal_calendar',
 								'orderBy' => 'tx_cal_calendar.title'
@@ -84,6 +86,7 @@ $tx_cal_category = array(
 										0
 								)
 						),
+						'default' => 0,
 						'size' => 1,
 						'minitems' => 0,
 						'maxitems' => 1,
@@ -113,19 +116,21 @@ $tx_cal_category = array(
 								)
 						),
 						'form_type' => 'user',
-						'userFunc' => 'TYPO3\CMS\Cal\TreeProvider\TreeView->displayCategoryTree',
+						'userFunc' => \TYPO3\CMS\Cal\TreeProvider\TreeView::class . '->displayCategoryTree',
 						'treeView' => 1,
 						'size' => 20,
 						'itemListStyle' => 'height:300px;',
 						'minitems' => 0,
 						'maxitems' => 2,
-						'foreign_table' => 'tx_cal_category'
+						'foreign_table' => 'tx_cal_category',
+						'default' => 0,
 				)
 		),
 		'shared_user_allowed' => array(
 				'label' => 'LLL:EXT:cal/Resources/Private/Language/locallang_db.xml:tx_cal_category.shared_user_allowed',
 				'config' => array(
-						'type' => 'check'
+						'type' => 'check',
+						'default' => 0,
 				)
 		),
 		'single_pid' => array(
@@ -135,9 +140,10 @@ $tx_cal_category = array(
 				        'type' => 'group',
 						'internal_type' => 'db',
 						'allowed' => 'pages',
-						'size' => '1',
-						'maxitems' => '1',
-						'minitems' => '0',
+						'size' => 1,
+						'maxitems' => 1,
+						'minitems' => 0,
+						'default' => 0,
 				)
 		),
 		'notification_emails' => array(
@@ -145,7 +151,8 @@ $tx_cal_category = array(
 				'label' => 'LLL:EXT:cal/Resources/Private/Language/locallang_db.xml:tx_cal_category.notification_emails',
 				'config' => array(
 						'type' => 'input',
-						'size' => '30'
+						'size' => '30',
+						'default' => ''
 				)
 		),
 		'icon' => array(
@@ -154,7 +161,8 @@ $tx_cal_category = array(
 				'config' => array(
 						'type' => 'input',
 						'size' => '30',
-						'max' => '128'
+						'max' => '128',
+						'default' => ''
 				)
 		),
 		'sys_language_uid' => array(
@@ -165,10 +173,11 @@ $tx_cal_category = array(
 						'type' => 'select',
 						'foreign_table' => 'sys_language',
 						'foreign_table_where' => 'ORDER BY sys_language.title',
+                        'default' => 0,
 						'items' => array(
 								array(
 										'LLL:EXT:lang/locallang_general.xlf:LGL.allLanguages',
-										- 1
+										-1
 								),
 								array(
 										'LLL:EXT:lang/locallang_general.xlf:LGL.default_value',
@@ -209,12 +218,12 @@ $tx_cal_category = array(
 		)
 	),
 	'types' => array(
-			'0' => array(
+			0 => array(
                 'showitem' => 'type,title, --palette--;;1,calendar_id,parent_category,shared_user_allowed,single_pid,notification_emails,icon'
 			)
 	),
 	'palettes' => array(
-		'1' => array(
+		1 => array(
 			'showitem' => 'hidden,l18n_parent,sys_language_uid,t3ver_label,headerstyle,bodystyle'
 		)
 	)

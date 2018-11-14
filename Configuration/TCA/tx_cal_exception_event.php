@@ -31,7 +31,7 @@ $tx_cal_exception_event = array(
 						'label' => 'LLL:EXT:lang/locallang_general.xlf:LGL.hidden',
 						'config' => array(
 								'type' => 'check',
-								'default' => '0'
+								'default' => 0
 						)
 				),
 				'title' => array(
@@ -39,8 +39,8 @@ $tx_cal_exception_event = array(
 						'label' => 'LLL:EXT:cal/Resources/Private/Language/locallang_db.xml:tx_cal_exception_event.title',
 						'config' => array(
 								'type' => 'input',
-								'size' => '30',
-								'max' => '128',
+								'size' => 30,
+								'max' => 128,
 								'eval' => 'required'
 						)
 				),
@@ -50,10 +50,10 @@ $tx_cal_exception_event = array(
 						'config' => array(
 								'type' => 'input',
 						        'renderType' => 'inputDateTime',
-								'size' => '12',
+								'size' => 12,
 								'eval' => 'datetime',
-								'default' => '0',
-								'checkbox' => '0'
+								'default' => 0,
+								'checkbox' => 0
 						)
 				),
 				'endtime' => array(
@@ -62,10 +62,10 @@ $tx_cal_exception_event = array(
 						'config' => array(
 								'type' => 'input',
 						        'renderType' => 'inputDateTime',
-								'size' => '12',
+								'size' => 12,
 								'eval' => 'datetime',
-								'default' => '0',
-								'checkbox' => '0'
+								'default' => 0,
+								'checkbox' => 0
 						)
 				),
 				'start_date' => array(
@@ -74,7 +74,8 @@ $tx_cal_exception_event = array(
 						'config' => array(
 								'type' => 'input',
 						        'renderType' => 'inputDateTime',
-								'size' => '12',
+								'size' => 12,
+								'default' => 0,
 								'eval' => 'required,date',
 								'tx_cal_event' => 'start_date'
 						)
@@ -92,7 +93,8 @@ $tx_cal_exception_event = array(
 						'config' => array(
                                 'renderType' => 'selectSingle',
 								'type' => 'select',
-								'size' => '1',
+								'size' => 1,
+								'default' => 'none',
 								'items' => array(
 										array(
 												'LLL:EXT:cal/Resources/Private/Language/locallang_db.xml:frequency.none',
@@ -124,7 +126,7 @@ $tx_cal_exception_event = array(
 						'label' => 'LLL:EXT:cal/Resources/Private/Language/locallang_db.xml:tx_cal_event.byday_short',
 						'config' => array(
 								'type' => 'user',
-								'userFunc' => 'TYPO3\CMS\Cal\Backend\TCA\CustomTca->byDay'
+								'userFunc' => \TYPO3\CMS\Cal\Backend\TCA\CustomTca::class .'->byDay'
 						)
 				),
 				
@@ -134,7 +136,7 @@ $tx_cal_exception_event = array(
 						'label' => 'LLL:EXT:cal/Resources/Private/Language/locallang_db.xml:tx_cal_event.bymonthday_short',
 						'config' => array(
 								'type' => 'user',
-								'userFunc' => 'TYPO3\CMS\Cal\Backend\TCA\CustomTca->byMonthDay'
+								'userFunc' => \TYPO3\CMS\Cal\Backend\TCA\CustomTca::class .'->byMonthDay'
 						)
 				),
 				
@@ -144,7 +146,7 @@ $tx_cal_exception_event = array(
 						'label' => 'LLL:EXT:cal/Resources/Private/Language/locallang_db.xml:tx_cal_event.bymonth_short',
 						'config' => array(
 								'type' => 'user',
-								'userFunc' => 'TYPO3\CMS\Cal\Backend\TCA\CustomTca->byMonth'
+								'userFunc' => \TYPO3\CMS\Cal\Backend\TCA\CustomTca::class .'->byMonth'
 						)
 				),
 				
@@ -174,7 +176,7 @@ $tx_cal_exception_event = array(
 												'period'
 										)
 								),
-								'default' => 0
+								'default' => 'none'
 						)
 				),
 				
@@ -184,7 +186,7 @@ $tx_cal_exception_event = array(
 						'displayCond' => 'FIELD:rdate_type:IN:date_time,date,period',
 						'config' => array(
 								'type' => 'user',
-								'userFunc' => 'TYPO3\CMS\Cal\Backend\TCA\CustomTca->rdate'
+								'userFunc' => \TYPO3\CMS\Cal\Backend\TCA\CustomTca::class .'->rdate'
 						)
 				),
 				
@@ -195,7 +197,8 @@ $tx_cal_exception_event = array(
 						'config' => array(
 								'type' => 'input',
 						        'renderType' => 'inputDateTime',
-								'size' => '12',
+								'size' => 12,
+								'default' => 0,
 								'eval' => 'date'
 						)
 				),
@@ -206,9 +209,10 @@ $tx_cal_exception_event = array(
 						'displayCond' => 'FIELD:freq:IN:day,week,month,year',
 						'config' => array(
 								'type' => 'input',
-								'size' => '4',
+								'size' => 4,
 								'eval' => 'num',
-								'checkbox' => '0'
+								'default' => 0,
+								'checkbox' => 0
 						)
 				),
 				
@@ -218,9 +222,9 @@ $tx_cal_exception_event = array(
 						'displayCond' => 'FIELD:freq:IN:day,week,month,year',
 						'config' => array(
 								'type' => 'input',
-								'size' => '4',
+								'size' => 4,
 								'eval' => 'num',
-								'default' => '1'
+								'default' => 1
 						)
 				),
 				't3ver_label' => array(

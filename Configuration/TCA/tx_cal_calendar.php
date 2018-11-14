@@ -20,8 +20,8 @@ $tx_cal_calendar = array(
 			'type' => 'type',
 			'typeicon_column' => 'type',
 			'typeicons' => array(
-					'1' => 'EXT:cal/Resources/Public/icons/icon_tx_cal_calendar_exturl.gif',
-					'2' => 'EXT:cal/Resources/Public/icons/icon_tx_cal_calendar_ics.gif'
+					1 => 'EXT:cal/Resources/Public/icons/icon_tx_cal_calendar_exturl.gif',
+					2 => 'EXT:cal/Resources/Public/icons/icon_tx_cal_calendar_ics.gif'
 			),
 			'versioningWS' => TRUE,
 			'origUid' => 't3_origuid',
@@ -44,7 +44,7 @@ $tx_cal_calendar = array(
 					'label' => 'LLL:EXT:lang/locallang_general.xlf:LGL.hidden',
 					'config' => array(
 							'type' => 'check',
-							'default' => '0'
+							'default' => 0
 					)
 			),
 			'title' => array(
@@ -52,8 +52,8 @@ $tx_cal_calendar = array(
 					'label' => 'LLL:EXT:cal/Resources/Private/Language/locallang_db.xml:tx_cal_calendar.title',
 					'config' => array(
 							'type' => 'input',
-							'size' => '30',
-							'max' => '128',
+							'size' => 30,
+							'max' => 128,
 							'eval' => 'unique, required'
 					)
 			),
@@ -69,13 +69,15 @@ $tx_cal_calendar = array(
 							'autoSizeMax' => 25,
 							'maxitems' => 500,
 							'allowed' => 'fe_users,fe_groups',
+							'default' => 0,
 					)
 			),
 			'activate_fnb' => array(
 					'label' => 'LLL:EXT:cal/Resources/Private/Language/locallang_db.xml:tx_cal_calendar.activate_fnb',
 			        'onChange' => 'reload',
 					'config' => array(
-							'type' => 'check'
+							'type' => 'check',
+							'default' => 0,
 					)
 			),
 			'fnb_user_cnt' => array(
@@ -90,12 +92,14 @@ $tx_cal_calendar = array(
 							'minitems' => 0,
 							'maxitems' => 100,
 							'allowed' => 'fe_users,fe_groups',
+							'default' => 0,
 					)
 			),
 			'nearby' => array(
 					'label' => 'LLL:EXT:cal/Resources/Private/Language/locallang_db.xml:tx_cal_calendar.nearby',
 					'config' => array(
-							'type' => 'check'
+							'type' => 'check',
+							'default' => 0,
 					)
 			),
 			'type' => array(
@@ -127,14 +131,16 @@ $tx_cal_calendar = array(
 					'label' => 'LLL:EXT:cal/Resources/Private/Language/locallang_db.xml:tx_cal_calendar.ext_url',
 					'config' => array(
 							'type' => 'user',
-							'userFunc' => 'TYPO3\CMS\Cal\Backend\TCA\CustomTca->extUrl'
+							'userFunc' => \TYPO3\CMS\Cal\Backend\TCA\CustomTca::class .'->extUrl',
+							'default' => ''
 					)
 			),
 			
 			'ext_url_notes' => array(
 					'label' => 'LLL:EXT:cal/Resources/Private/Language/locallang_db.xml:tx_cal_calendar.ext_url_notes',
 					'config' => array(
-							'type' => 'text'
+							'type' => 'text',
+							'default' => ''
 					)
 			),
 			
@@ -145,18 +151,19 @@ $tx_cal_calendar = array(
 					        'type' => 'group',
 							'internal_type' => 'file',
 							'allowed' => 'ics', // Must be empty for disallowed to work.
-							'max_size' => '10000',
+							'max_size' => 10000,
 							'uploadfolder' => 'uploads/tx_cal/ics',
-							'size' => '1',
+							'size' => 1,
 					        'fieldWizard' => array(
 					            'fileThumbnails' => array(
 					                'disabled' => true,
 					            )
 					        ),
-							'autoSizeMax' => '1',
-							'maxitems' => '1',
-							'minitems' => '0'
-					)
+							'autoSizeMax' => 1,
+							'maxitems' => 1,
+							'minitems' => 0,
+							'default' => ''
+                    )
 			),
 			
 			'refresh' => array(
@@ -164,10 +171,10 @@ $tx_cal_calendar = array(
 					'label' => 'LLL:EXT:cal/Resources/Private/Language/locallang_db.xml:tx_cal_calendar.refresh',
 					'config' => array(
 							'type' => 'input',
-							'size' => '6',
-							'max' => '4',
+							'size' => 6,
+							'max' => 4,
 							'eval' => 'num',
-							'default' => '60'
+							'default' => 60
 					)
 			),
 			'schedulerId' => array(
@@ -175,8 +182,9 @@ $tx_cal_calendar = array(
 					'label' => 'LLL:EXT:cal/Resources/Private/Language/locallang_db.xml:tx_cal_calendar.schedulerId',
 					'config' => array(
 							'type' => 'input',
-							'size' => '5',
-							'readOnly' => 1
+							'size' => 5,
+							'readOnly' => 1,
+							'default' => '',
 					)
 			),
 			
@@ -190,7 +198,8 @@ $tx_cal_calendar = array(
 					'label' => 'LLL:EXT:cal/Resources/Private/Language/locallang_db.xml:tx_cal_category.headerstyle',
 					'config' => array(
 							'type' => 'user',
-							'userFunc' => 'TYPO3\CMS\Cal\Backend\TCA\CustomTca->getHeaderStyles'
+							'userFunc' => \TYPO3\CMS\Cal\Backend\TCA\CustomTca::class .'->getHeaderStyles',
+							'default' => '',
 					)
 			),
 			'bodystyle' => array(
@@ -198,7 +207,8 @@ $tx_cal_calendar = array(
 					'label' => 'LLL:EXT:cal/Resources/Private/Language/locallang_db.xml:tx_cal_category.bodystyle',
 					'config' => array(
 							'type' => 'user',
-							'userFunc' => 'TYPO3\CMS\Cal\Backend\TCA\CustomTca->getBodyStyles'
+							'userFunc' => \TYPO3\CMS\Cal\Backend\TCA\CustomTca::class .'->getBodyStyles',
+							'default' => '',
 					)
 			),
 			'sys_language_uid' => array(
@@ -209,10 +219,11 @@ $tx_cal_calendar = array(
 							'type' => 'select',
 							'foreign_table' => 'sys_language',
 							'foreign_table_where' => 'ORDER BY sys_language.title',
+                            'default' => 0,
 							'items' => array(
 									array(
 											'LLL:EXT:lang/locallang_general.xlf:LGL.allLanguages',
-											- 1
+											-1
 									),
 									array(
 											'LLL:EXT:lang/locallang_general.xlf:LGL.default_value',
@@ -253,18 +264,18 @@ $tx_cal_calendar = array(
 			)
 	),
 	'types' => array(
-			'0' => array(
+			0 => array(
                 'showitem' => 'type,title, --palette--;;1,owner,headerstyle,bodystyle,activate_fnb,fnb_user_cnt,nearby'
 			),
-			'1' => array(
+			1 => array(
                 'showitem' => 'type,title, --palette--;;1,owner,headerstyle,bodystyle,activate_fnb,fnb_user_cnt,nearby,ext_url,refresh,schedulerId'
 			),
-			'2' => array(
+			2 => array(
                 'showitem' => 'type,title, --palette--;;1,owner,headerstyle,bodystyle,activate_fnb,fnb_user_cnt,nearby,ics_file,refresh,schedulerId'
 			)
 	),
 	'palettes' => array(
-		'1' => array(
+		1 => array(
 			'showitem' => 'hidden,l18n_parent,sys_language_uid,t3ver_label'
 		)
 	)

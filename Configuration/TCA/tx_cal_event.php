@@ -42,10 +42,10 @@ $tx_cal_event = array(
 			'type' => 'type',
 			'typeicon_column' => 'type',
 			'typeicons' => array(
-					'1' => 'EXT:cal/Resources/Public/icons/icon_tx_cal_events_intlnk.gif',
-					'2' => 'EXT:cal/Resources/Public/icons/icon_tx_cal_events_exturl.gif',
-					'3' => 'EXT:cal/Resources/Public/icons/icon_tx_cal_events_meeting.gif',
-					'4' => 'EXT:cal/Resources/Public/icons/icon_tx_cal_events_todo.gif'
+					1 => 'EXT:cal/Resources/Public/icons/icon_tx_cal_events_intlnk.gif',
+					2 => 'EXT:cal/Resources/Public/icons/icon_tx_cal_events_exturl.gif',
+					3 => 'EXT:cal/Resources/Public/icons/icon_tx_cal_events_meeting.gif',
+					4 => 'EXT:cal/Resources/Public/icons/icon_tx_cal_events_todo.gif'
 			),
 			'dividers2tabs' => $configuration['noTabDividers'] ? FALSE : TRUE,
 			'enablecolumns' => array(
@@ -55,7 +55,7 @@ $tx_cal_event = array(
 			),
 			'iconfile' => 'EXT:cal/Resources/Public/icons/icon_tx_cal_events.gif',
 			'searchFields' => 'title,organizer,organizer_link,location,location_link,teaser,description,ext_url,image,imagecaption,imagealttext,imagetitletext,attachment,attachmentcaption',
-			'label_userFunc' => 'TYPO3\\CMS\\Cal\\Backend\\TCA\\Labels->getEventRecordLabel'
+			'label_userFunc' => \TYPO3\CMS\Cal\Backend\TCA\Labels::class . '->getEventRecordLabel'
 	),
 	'feInterface' => array(
 			'fe_admin_fieldList' => 'hidden, title, starttime, endtime, start_date, start_time, end_date, end_time, relation_cnt, organizer, organizer_id, organizer_pid, location, location_id, location_pid, description, freq, byday, bymonthday, bymonth, until, count, interval, rdate_type, rdate, notify_cnt'
@@ -69,7 +69,7 @@ $tx_cal_event = array(
 					'label' => 'LLL:EXT:lang/locallang_general.xlf:LGL.hidden',
 					'config' => array(
 							'type' => 'check',
-							'default' => '0'
+							'default' => 0
 					)
 			),
 			'title' => array(
@@ -77,8 +77,8 @@ $tx_cal_event = array(
 					'label' => 'LLL:EXT:cal/Resources/Private/Language/locallang_db.xml:tx_cal_event.title',
 					'config' => array(
 							'type' => 'input',
-							'size' => '30',
-							'max' => '128',
+							'size' => 30,
+							'max' => 128,
 							'eval' => 'required'
 					)
 			),
@@ -87,12 +87,12 @@ $tx_cal_event = array(
 					'label' => 'LLL:EXT:lang/locallang_general.xlf:LGL.starttime',
 					'config' => array(
 							'type' => 'input',
-					        'size' => '12',
-					       'max' => '20',
-					    'renderType' => 'inputDateTime',
+					        'size' => 12,
+							'max' => 20,
+					        'renderType' => 'inputDateTime',
 							'eval' => 'datetime',
-							'default' => '0',
-							'checkbox' => '0'
+							'default' => 0,
+							'checkbox' => 0
 					)
 			),
 			'endtime' => array(
@@ -101,10 +101,10 @@ $tx_cal_event = array(
 					'config' => array(
 							'type' => 'input',
 					        'renderType' => 'inputDateTime',
-							'size' => '12',
+							'size' => 12,
 							'eval' => 'datetime',
-							'default' => '0',
-							'checkbox' => '0'
+							'default' => 0,
+							'checkbox' => 0
 					)
 			),
 			'calendar_id' => array(
@@ -117,7 +117,8 @@ $tx_cal_event = array(
 							'size' => 1,
 							'minitems' => 1,
 							'maxitems' => 1,
-							'itemsProcFunc' => 'TYPO3\CMS\Cal\Backend\TCA\ItemsProcFunc->getRecords',
+							'default' => 0,
+							'itemsProcFunc' => \TYPO3\CMS\Cal\Backend\TCA\ItemsProcFunc::class .'->getRecords',
 							'itemsProcFunc_config' => array(
 									'table' => 'tx_cal_calendar',
 									'orderBy' => 'tx_cal_calendar.title'
@@ -160,7 +161,7 @@ $tx_cal_event = array(
 									),
 							),
 							'treeConfig' => array(
-								'dataProvider' => 'TYPO3\\CMS\\Cal\\TreeProvider\\DatabaseTreeDataProvider',
+								'dataProvider' => \TYPO3\CMS\Cal\TreeProvider\DatabaseTreeDataProvider::class,
 								'parentField' => 'parent_category',
 								'appearance' => array(
 									'showHeader' => TRUE,
@@ -169,7 +170,7 @@ $tx_cal_event = array(
 								)
 							),
 							'form_type' => 'user',
-							'userFunc' => 'TYPO3\CMS\Cal\TreeProvider\TreeView->displayCategoryTree',
+							'userFunc' => \TYPO3\CMS\Cal\TreeProvider\TreeView::class . '->displayCategoryTree',
 							'treeView' => 1,
 							'size' => 20,
 							'itemListStyle' => 'height:300px;',
@@ -177,7 +178,8 @@ $tx_cal_event = array(
 							'maxitems' => 20,
 							'foreign_table' => 'tx_cal_category',
 							'MM' => 'tx_cal_event_category_mm',
-					    
+							'default' => 0,
+
     					    'fieldControl' => array(
     					        'addRecord' => array(
     					            'disabled' => '',
@@ -209,7 +211,7 @@ $tx_cal_event = array(
 					'config' => array(
 							'type' => 'input',
 					        'renderType' => 'inputDateTime',
-							'size' => '12',
+							'size' => 12,
 							'eval' => 'required,date',
 							'tx_cal_event' => 'start_date'
 					)
@@ -230,9 +232,9 @@ $tx_cal_event = array(
 					'config' => array(
 							'type' => 'input',
 					        'renderType' => 'inputDateTime',
-							'size' => '12',
+							'size' => 12,
 							'eval' => 'time',
-							'default' => '0'
+							'default' => 0
 					)
 			),
 			'end_date' => array(
@@ -241,7 +243,7 @@ $tx_cal_event = array(
 					'config' => array(
 							'type' => 'input',
 					        'renderType' => 'inputDateTime',
-							'size' => '12',
+							'size' => 12,
 							'eval' => 'required,date',
 							'tx_cal_event' => 'end_date'
 					)
@@ -253,9 +255,9 @@ $tx_cal_event = array(
 					'config' => array(
 							'type' => 'input',
 					        'renderType' => 'inputDateTime',
-							'size' => '12',
+							'size' => 12,
 							'eval' => 'time',
-							'default' => '0'
+							'default' => 0
 					)
 			),
 			'organizer' => array(
@@ -263,8 +265,9 @@ $tx_cal_event = array(
 					'label' => 'LLL:EXT:cal/Resources/Private/Language/locallang_db.xml:tx_cal_event.organizer',
 					'config' => array(
 							'type' => 'input',
-							'size' => '30',
-							'max' => '128'
+							'size' => 30,
+							'max' => 128,
+							'default' => '',
 					)
 			),
 			'organizer_id' => array(
@@ -276,6 +279,7 @@ $tx_cal_event = array(
 							'size' => 1,
 							'minitems' => 0,
 							'maxitems' => 1,
+                            'default' => 0,
 							'allowed' => $useOrganizerStructure,
     					    'fieldControl' => array(
                 		        'addRecord' => array(
@@ -308,9 +312,10 @@ $tx_cal_event = array(
 							'type' => 'group',
 							'internal_type' => 'db',
 							'allowed' => 'pages',
-							'size' => '1',
-							'maxitems' => '1',
-							'minitems' => '0',
+							'size' => 1,
+							'maxitems' => 1,
+							'minitems' => 0,
+                            'default' => 0,
 					)
 			),
 			'organizer_link' => array(
@@ -318,9 +323,10 @@ $tx_cal_event = array(
 					'label' => 'LLL:EXT:cal/Resources/Private/Language/locallang_db.xml:tx_cal_event.organizer_link',
 					'config' => array(
 							'type' => 'input',
-							'size' => '25',
-							'max' => '128',
-							'checkbox' => '',
+							'size' => 25,
+							'max' => 128,
+							'checkbox' => 0,
+							'default' => '',
 							'eval' => 'trim',
 					        'renderType' => 'inputLink',
 							'wizards' => array(
@@ -333,8 +339,9 @@ $tx_cal_event = array(
 					'label' => 'LLL:EXT:cal/Resources/Private/Language/locallang_db.xml:tx_cal_event.location',
 					'config' => array(
 							'type' => 'input',
-							'size' => '30',
-							'max' => '128'
+							'size' => 30,
+							'max' => 128,
+							'default' => '',
 					)
 			),
 			'location_id' => array(
@@ -346,6 +353,7 @@ $tx_cal_event = array(
 							'size' => 1,
 							'minitems' => 0,
 							'maxitems' => 1,
+                            'default' => 0,
 							'allowed' => $useLocationStructure,
     					    'fieldControl' => array(
     					        'addRecord' => array(
@@ -378,9 +386,10 @@ $tx_cal_event = array(
 							'type' => 'group',
 							'internal_type' => 'db',
 							'allowed' => 'pages',
-							'size' => '1',
-							'maxitems' => '1',
-							'minitems' => '0',
+							'size' => 1,
+							'maxitems' => 1,
+							'minitems' => 0,
+                            'default' => 0,
 					)
 			),
 			'location_link' => array(
@@ -388,9 +397,10 @@ $tx_cal_event = array(
 					'label' => 'LLL:EXT:cal/Resources/Private/Language/locallang_db.xml:tx_cal_event.location_link',
 					'config' => array(
 							'type' => 'input',
-							'size' => '25',
-							'max' => '128',
-							'checkbox' => '',
+							'size' => 25,
+							'max' => 128,
+							'checkbox' => 0,
+							'default' => '',
 							'eval' => 'trim',
 					        'renderType' => 'inputLink',
 							'wizards' => array(
@@ -403,13 +413,14 @@ $tx_cal_event = array(
 					'label' => 'LLL:EXT:cal/Resources/Private/Language/locallang_db.xml:tx_cal_event.teaser',
 					'config' => array(
 							'type' => 'text',
-							'cols' => '40',
-							'rows' => '6',
+							'cols' => 40,
+							'rows' => 6,
+							'default' => '',
 							'softref' => 'rtehtmlarea_images,typolink_tag,images,email[subst],url',
 					        'enableRichtext' => true,
 					        'fieldControl' => array(
 					            'fullScreenRichtext' => array(
-					                'disabled' => '',
+					                'disabled' => 0,
 					                'options' => array(
 					                    'title' => 'LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:bodytext.W.RTE',
 					                ),
@@ -425,13 +436,14 @@ $tx_cal_event = array(
 					'label' => 'LLL:EXT:cal/Resources/Private/Language/locallang_db.xml:tx_cal_event.description',
 					'config' => array(
 						'type' => 'text',
-						'cols' => '40',
-						'rows' => '6',
+						'cols' => 40,
+						'rows' => 6,
+						'default' => '',
 						'softref' => 'rtehtmlarea_images,typolink_tag,images,email[subst],url',
 					    'enableRichtext' => true,
 					    'fieldControl' => array(
 					        'fullScreenRichtext' => array(
-					            'disabled' => '',
+					            'disabled' => 0,
 					            'options' => array(
 					                'title' => 'LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:bodytext.W.RTE',
 					            ),
@@ -449,7 +461,8 @@ $tx_cal_event = array(
 					'config' => array(
                             'renderType' => 'selectSingle',
 							'type' => 'select',
-							'size' => '1',
+							'size' => 1,
+							'default' => 'none',
 							'items' => array(
 									array(
 											'LLL:EXT:cal/Resources/Private/Language/locallang_db.xml:frequency.none',
@@ -480,7 +493,7 @@ $tx_cal_event = array(
 					'label' => 'LLL:EXT:cal/Resources/Private/Language/locallang_db.xml:tx_cal_event.byday_short',
 					'config' => array(
 							'type' => 'user',
-							'userFunc' => 'TYPO3\CMS\Cal\Backend\TCA\CustomTca->byDay'
+							'userFunc' => \TYPO3\CMS\Cal\Backend\TCA\CustomTca::class . '->byDay'
 					)
 			),
 			'bymonthday' => array(
@@ -489,7 +502,7 @@ $tx_cal_event = array(
 					'label' => 'LLL:EXT:cal/Resources/Private/Language/locallang_db.xml:tx_cal_event.bymonthday_short',
 					'config' => array(
 							'type' => 'user',
-							'userFunc' => 'TYPO3\CMS\Cal\Backend\TCA\CustomTca->byMonthDay'
+							'userFunc' => \TYPO3\CMS\Cal\Backend\TCA\CustomTca::class .'->byMonthDay'
 					)
 			),
 			'bymonth' => array(
@@ -498,7 +511,7 @@ $tx_cal_event = array(
 					'label' => 'LLL:EXT:cal/Resources/Private/Language/locallang_db.xml:tx_cal_event.bymonth_short',
 					'config' => array(
 							'type' => 'user',
-							'userFunc' => 'TYPO3\CMS\Cal\Backend\TCA\CustomTca->byMonth'
+							'userFunc' => \TYPO3\CMS\Cal\Backend\TCA\CustomTca::class .'->byMonth'
 					)
 			),
 			'until' => array(
@@ -508,8 +521,9 @@ $tx_cal_event = array(
 					'config' => array(
 							'type' => 'input',
 					        'renderType' => 'inputDateTime',
-							'size' => '12',
-							'eval' => 'date'
+							'size' => 12,
+							'eval' => 'date',
+							'default' => 0,
 					)
 			),
 			'cnt' => array(
@@ -518,9 +532,10 @@ $tx_cal_event = array(
 					'displayCond' => 'FIELD:freq:IN:day,week,month,year',
 					'config' => array(
 							'type' => 'input',
-							'size' => '4',
+							'size' => 4,
 							'eval' => 'num',
-							'checkbox' => '0'
+							'checkbox' => 0,
+							'default' => 0,
 					)
 			),
 			'intrval' => array(
@@ -529,9 +544,9 @@ $tx_cal_event = array(
 					'displayCond' => 'FIELD:freq:IN:day,week,month,year',
 					'config' => array(
 							'type' => 'input',
-							'size' => '4',
+							'size' => 4,
 							'eval' => 'num',
-							'default' => '1'
+							'default' => 1
 					)
 			),
 			'rdate_type' => array(
@@ -569,7 +584,7 @@ $tx_cal_event = array(
 					'displayCond' => 'FIELD:rdate_type:IN:date_time,date,period',
 					'config' => array(
 							'type' => 'user',
-							'userFunc' => 'TYPO3\CMS\Cal\Backend\TCA\CustomTca->rdate'
+							'userFunc' => \TYPO3\CMS\Cal\Backend\TCA\CustomTca::class . '->rdate'
 					)
 			),
 			'deviation' => array(
@@ -581,6 +596,7 @@ $tx_cal_event = array(
 							'foreign_field' => 'parentid',
 							'foreign_label' => 'title',
 							'maxitems' => 10,
+							'default' => 0,
 							'appearance' => array(
 									'collapseAll' => 1,
 									'expandSingle' => 1,
@@ -595,6 +611,7 @@ $tx_cal_event = array(
 							'type' => 'inline',
 							'foreign_table' => 'tx_cal_fe_user_event_monitor_mm',
 							'foreign_field' => 'uid_local',
+							'default' => 0,
 							'appearance' => array(
 									'collapseAll' => 1,
 									'expandSingle' => 1,
@@ -612,7 +629,8 @@ $tx_cal_event = array(
 							'size' => 6,
 							'minitems' => 0,
 							'maxitems' => 100,
-							'MM' => 'tx_cal_exception_event_mm'
+							'MM' => 'tx_cal_exception_event_mm',
+							'default' => 0,
 					)
 			),
 			'fe_cruser_id' => array(
@@ -625,6 +643,7 @@ $tx_cal_event = array(
 							'size' => 1,
 							'minitems' => 0,
 							'maxitems' => 1,
+							'default' => 0,
 					)
 			),
 			'fe_crgroup_id' => array(
@@ -637,6 +656,7 @@ $tx_cal_event = array(
 							'size' => 1,
 							'minitems' => 0,
 							'maxitems' => 1,
+							'default' => 0,
 					)
 			),
 			
@@ -651,6 +671,7 @@ $tx_cal_event = array(
 							'minitems' => 0,
 							'maxitems' => 100,
 							'MM' => 'tx_cal_event_shared_user_mm',
+							'default' => 0,
 					)
 			),
 
@@ -692,8 +713,9 @@ $tx_cal_event = array(
 					'label' => 'LLL:EXT:cal/Resources/Private/Language/locallang_db.xml:tx_cal_event.external',
 					'config' => array(
 							'type' => 'input',
-							'size' => '40',
-							'max' => '256',
+							'size' => 40,
+							'max' => 256,
+							'default' => '',
 							'eval' => 'required',
 					        'renderType' => 'inputLink',
 							'wizards' => array(
@@ -709,10 +731,11 @@ $tx_cal_event = array(
 							'type' => 'group',
 							'internal_type' => 'db',
 							'allowed' => 'pages',
-							'size' => '1',
-							'maxitems' => '1',
-							'minitems' => '0',
+							'size' => 1,
+							'maxitems' => 1,
+							'minitems' => 0,
 							'eval' => 'required',
+							'default' => 0,
 					)
 			),
 			/* new */
@@ -721,9 +744,10 @@ $tx_cal_event = array(
 					'label' => 'LLL:EXT:lang/locallang_general.xlf:LGL.images',
 					'config' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::getFileFieldTCAConfig ( 'image', array(
 							'maxitems' => 5,
+							'default' => 0,
 							// Use the imageoverlayPalette instead of the basicoverlayPalette
 							'foreign_types' => array(
-									'0' => array(
+									0 => array(
 											'showitem' => '
 											--palette--;LLL:EXT:lang/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
 											--palette--;;filePalette'
@@ -739,44 +763,14 @@ $tx_cal_event = array(
 			'attachment' => array(
 					'exclude' => 1,
 					'label' => 'LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:media',
-					'config' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::getFileFieldTCAConfig ( 'attachment', array(
-							'maxitems' => 5,
-							// Use the imageoverlayPalette instead of the basicoverlayPalette
-							'foreign_types' => array(
-									'0' => array(
-											'showitem' => '
-											--palette--;LLL:EXT:lang/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
-											--palette--;;filePalette'
-									),
-									\TYPO3\CMS\Core\Resource\File::FILETYPE_TEXT => array(
-											'showitem' => '
-											--palette--;LLL:EXT:lang/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
-											--palette--;;filePalette'
-									),
-									\TYPO3\CMS\Core\Resource\File::FILETYPE_IMAGE => array(
-											'showitem' => '
-											--palette--;LLL:EXT:lang/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
-											--palette--;;filePalette'
-									),
-									\TYPO3\CMS\Core\Resource\File::FILETYPE_AUDIO => array(
-											'showitem' => '
-											--palette--;LLL:EXT:lang/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
-											--palette--;;filePalette'
-									),
-									\TYPO3\CMS\Core\Resource\File::FILETYPE_VIDEO => array(
-											'showitem' => '
-											--palette--;LLL:EXT:lang/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
-											--palette--;;filePalette'
-									),
-									\TYPO3\CMS\Core\Resource\File::FILETYPE_APPLICATION => array(
-											'showitem' => '
-											--palette--;LLL:EXT:lang/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
-											--palette--;;filePalette'
-									)
-							)
-					))
+					'config' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::getFileFieldTCAConfig('attachment', [
+							'default' => '',
+							'appearance' => [
+									'createNewRelationLinkTitle' => 'LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:media.addFileReference'
+							],
+					])
 			),
-			
+
 			'attendee' => array(
 					'exclude' => 1,
 					'label' => 'LLL:EXT:cal/Resources/Private/Language/locallang_db.xml:tx_cal_event.attendee',
@@ -784,6 +778,7 @@ $tx_cal_event = array(
 							'type' => 'inline',
 							'foreign_table' => 'tx_cal_attendee',
 							'foreign_field' => 'event_id',
+							'default' => 0,
 							'appearance' => array(
 									'collapseAll' => 1,
 									'expandSingle' => 1,
@@ -796,7 +791,7 @@ $tx_cal_event = array(
 					'label' => 'LLL:EXT:cal/Resources/Private/Language/locallang_db.xml:tx_cal_event.send_invitation',
 					'config' => array(
 							'type' => 'check',
-							'default' => '0'
+							'default' => 0
 					)
 			),
 			'status' => array(
@@ -805,10 +800,11 @@ $tx_cal_event = array(
 					'config' => array(
                             'renderType' => 'selectSingle',
 							'type' => 'select',
+							'default' => 0,
 							'items' => array(
 									array(
 											'LLL:EXT:cal/Resources/Private/Language/locallang_db.xml:tx_cal_attendee.status.0',
-											'0'
+											0
 									),
 									array(
 											'LLL:EXT:cal/Resources/Private/Language/locallang_db.xml:tx_cal_attendee.status.NEEDS-ACTION',
@@ -827,7 +823,7 @@ $tx_cal_event = array(
 											'CANCELLED'
 									)
 							),
-							'size' => '1',
+							'size' => 1,
 							'minitems' => 1,
 							'maxitems' => 1
 					)
@@ -880,7 +876,8 @@ $tx_cal_event = array(
 											9 
 									)
 							),
-							'size' => '1',
+							'default' => 0,
+							'size' => 1,
 							'minitems' => 1,
 							'maxitems' => 1
 					)
@@ -890,9 +887,10 @@ $tx_cal_event = array(
 					'label' => 'LLL:EXT:cal/Resources/Private/Language/locallang_db.xml:tx_cal_event.completed',
 					'config' => array(
 							'type' => 'input',
-							'size' => '3',
+							'size' => 3,
 							'eval' => 'num',
-							'checkbox' => '0'
+							'checkbox' => 0,
+							'default' => 0,
 					)
 			),
 			'sys_language_uid' => array(
@@ -903,10 +901,11 @@ $tx_cal_event = array(
 							'type' => 'select',
 							'foreign_table' => 'sys_language',
 							'foreign_table_where' => 'ORDER BY sys_language.title',
+                            'default' => 0,
 							'items' => array(
 									array(
 											'LLL:EXT:lang/locallang_general.xlf:LGL.allLanguages',
-											- 1
+											-1
 									),
 									array(
 											'LLL:EXT:lang/locallang_general.xlf:LGL.default_value',
@@ -947,40 +946,40 @@ $tx_cal_event = array(
 			)
 	),
 	'types' => array(
-			'0' => array(
+			0 => array(
                 'showitem' => '--div--;LLL:EXT:cal/Resources/Private/Language/locallang_db.xml:tx_cal_event.general_sheet,type, title, --palette--;;1,--palette--;LLL:EXT:cal/Resources/Private/Language/locallang_db.xml:tx_cal_event.start;5,--palette--;LLL:EXT:cal/Resources/Private/Language/locallang_db.xml:tx_cal_event.end;6,calendar_id,category_id,' . ($configuration['useTeaser'] ? 'teaser,' : ''). 'description,--div--;LLL:EXT:cal/Resources/Private/Language/locallang_db.xml:tx_cal_event.recurrence_sheet, freq, --palette--;;2, byday, bymonthday, bymonth, rdate_type, --palette--;;7, deviation, exception_cnt,--div--;LLL:EXT:cal/Resources/Private/Language/locallang_db.xml:tx_cal_event.location_sheet,' . ($configuration['hideLocationTextfield'] ? 'location_id,location_pid,location_link' : 'location,location_id,location_pid,location_link'). ',--div--;LLL:EXT:cal/Resources/Private/Language/locallang_db.xml:tx_cal_event.organizer_sheet,' . ($configuration['hideOrganizerTextfield'] ? 'organizer_id,organizer_pid,organizer_link' : 'organizer,organizer_id,organizer_pid,organizer_link'). ',--div--;LLL:EXT:cal/Resources/Private/Language/locallang_db.xml:tx_cal_event.files_sheet,image,attachment,--div--;LLL:EXT:cal/Resources/Private/Language/locallang_db.xml:tx_cal_event.other_sheet, monitor_cnt, shared_user_cnt'
 			),
-			'1' => array(
+			1 => array(
                 'showitem' => '--div--;LLL:EXT:cal/Resources/Private/Language/locallang_db.xml:tx_cal_event.general_sheet,type, page,title, --palette--;;1,--palette--;LLL:EXT:cal/Resources/Private/Language/locallang_db.xml:tx_cal_event.start;5,--palette--;LLL:EXT:cal/Resources/Private/Language/locallang_db.xml:tx_cal_event.end;6,calendar_id,category_id,' . ($configuration['useTeaser'] ? 'teaser,' : ''). '--div--;LLL:EXT:cal/Resources/Private/Language/locallang_db.xml:tx_cal_event.recurrence_sheet, freq, --palette--;;2, byday, bymonthday, bymonth, rdate_type, --palette--;;7, deviation, exception_cnt, --div--;LLL:EXT:cal/Resources/Private/Language/locallang_db.xml:tx_cal_event.location_sheet,' . ($configuration['hideLocationTextfield'] ? 'location_id,location_pid,location_link' : 'location,location_id,location_pid,location_link'). ',--div--;LLL:EXT:cal/Resources/Private/Language/locallang_db.xml:tx_cal_event.organizer_sheet,' . ($configuration['hideOrganizerTextfield'] ? 'organizer_id,organizer_pid,organizer_link' : 'organizer,organizer_id,organizer_pid,organizer_link'). ',--div--;LLL:EXT:cal/Resources/Private/Language/locallang_db.xml:tx_cal_event.other_sheet, monitor_cnt, shared_user_cnt'
 			),
-			'2' => array(
+			2 => array(
                 'showitem' => '--div--;LLL:EXT:cal/Resources/Private/Language/locallang_db.xml:tx_cal_event.general_sheet,type, ext_url,title, --palette--;;1,--palette--;LLL:EXT:cal/Resources/Private/Language/locallang_db.xml:tx_cal_event.start;5,--palette--;LLL:EXT:cal/Resources/Private/Language/locallang_db.xml:tx_cal_event.end;6,calendar_id,category_id,' . ($configuration['useTeaser'] ? 'teaser,' : ''). '--div--;LLL:EXT:cal/Resources/Private/Language/locallang_db.xml:tx_cal_event.recurrence_sheet, freq, --palette--;;2, byday, bymonthday, bymonth, rdate_type, --palette--;;7, deviation, exception_cnt, --div--;LLL:EXT:cal/Resources/Private/Language/locallang_db.xml:tx_cal_event.location_sheet,' . ($configuration['hideLocationTextfield'] ? 'location_id,location_pid,location_link' : 'location,location_id,location_pid,location_link'). ',--div--;LLL:EXT:cal/Resources/Private/Language/locallang_db.xml:tx_cal_event.organizer_sheet,' . ($configuration['hideOrganizerTextfield'] ? 'organizer_id,organizer_pid,organizer_link' : 'organizer,organizer_id,organizer_pid,organizer_link'). ',--div--;LLL:EXT:cal/Resources/Private/Language/locallang_db.xml:tx_cal_event.other_sheet, monitor_cnt, shared_user_cnt'
 			),
-			'3' => array(
+			3 => array(
 					'showitem' => '--div--;LLL:EXT:cal/Resources/Private/Language/locallang_db.xml:tx_cal_event.general_sheet,type, title, --palette--;;1,--palette--;LLL:EXT:cal/Resources/Private/Language/locallang_db.xml:tx_cal_event.start;5,--palette--;LLL:EXT:cal/Resources/Private/Language/locallang_db.xml:tx_cal_event.end;6,calendar_id,category_id,--div--;LLL:EXT:cal/Resources/Private/Language/locallang_db.xml:tx_cal_event.attendance_sheet,attendee,send_invitation,--div--;LLL:EXT:cal/Resources/Private/Language/locallang_db.xml:tx_cal_event.recurrence_sheet, freq, --palette--;;2, byday, bymonthday, bymonth, rdate_type, --palette--;;7, deviation, exception_cnt,--div--;LLL:EXT:cal/Resources/Private/Language/locallang_db.xml:tx_cal_event.location_sheet,' . ($configuration['hideLocationTextfield'] ? 'location_id,location_pid,location_link' : 'location,location_id,location_pid,location_link'). ',--div--;LLL:EXT:cal/Resources/Private/Language/locallang_db.xml:tx_cal_event.organizer_sheet,' . ($configuration['hideOrganizerTextfield'] ? 'organizer_id,organizer_pid,organizer_link' : 'organizer,organizer_id,organizer_pid,organizer_link')
 			),
-			'4' => array(
+			4 => array(
                 'showitem' => '--div--;LLL:EXT:cal/Resources/Private/Language/locallang_db.xml:tx_cal_event.general_sheet,type, title, --palette--;;1,--palette--;LLL:EXT:cal/Resources/Private/Language/locallang_db.xml:tx_cal_event.start;5,--palette--;LLL:EXT:cal/Resources/Private/Language/locallang_db.xml:tx_cal_event.due;6,calendar_id,category_id,description,--div--;LLL:EXT:cal/Resources/Private/Language/locallang_db.xml:tx_cal_event.todo_sheet, status, priority, completed,--div--;LLL:EXT:cal/Resources/Private/Language/locallang_db.xml:tx_cal_event.recurrence_sheet, freq, --palette--;;2, byday, bymonthday, bymonth, rdate_type, --palette--;;7, deviation, exception_cnt,--div--;LLL:EXT:cal/Resources/Private/Language/locallang_db.xml:tx_cal_event.location_sheet,' . ($configuration['hideLocationTextfield'] ? 'location_id,location_pid,location_link' : 'location,location_id,location_pid,location_link'). ',--div--;LLL:EXT:cal/Resources/Private/Language/locallang_db.xml:tx_cal_event.organizer_sheet,' . ($configuration['hideOrganizerTextfield'] ? 'organizer_id,organizer_pid,organizer_link' : 'organizer,organizer_id,organizer_pid,organizer_link'). ',--div--;LLL:EXT:cal/Resources/Private/Language/locallang_db.xml:tx_cal_event.files_sheet,attachment'
 			)
 	),
 	'palettes' => array(
-		'1' => array(
+		1 => array(
 				'showitem' => 'hidden,l18n_parent,sys_language_uid,t3ver_label',
 				'canNotCollapse' => 1
 		),
-		'2' => array(
+		2 => array(
 				'showitem' => 'until, cnt, intrval',
 				'canNotCollapse' => 1
 		),
-		'5' => array(
+		5 => array(
 				'showitem' => 'allday,--linebreak--,start_date,start_time',
 				'canNotCollapse' => 1
 		),
-		'6' => array(
+		6 => array(
 				'showitem' => 'end_date,end_time',
 				'canNotCollapse' => 1
 		),
-		'7' => array(
+		7 => array(
 				'showitem' => 'rdate',
 				'canNotCollapse' => 1
 		)
@@ -989,11 +988,12 @@ $tx_cal_event = array(
 
 if ($configuration['categoryService'] == 'sys_category'){
 	unset($tx_cal_event['columns']['category_id']['config']);
+
 	$tx_cal_event['columns']['category_id']['config'] = array(
 		'type' => 'select',
 		'renderType' => 'selectTree',
 		'treeConfig' => array(
-			'dataProvider' => 'TYPO3\\CMS\\Cal\\TreeProvider\\DatabaseTreeDataProvider',
+			'dataProvider' => \TYPO3\CMS\Cal\TreeProvider\DatabaseTreeDataProvider::class,
 			'parentField' => 'parent',
 			'appearance' => array(
 				'showHeader' => TRUE,
@@ -1013,22 +1013,9 @@ if ($configuration['categoryService'] == 'sys_category'){
 		'size' => 10,
 		'autoSizeMax' => 20,
 		'minitems' => 0,
-		'maxitems' => 99
+		'maxitems' => 99,
+		'default' => 0,
 	);
-}
-
-if (\TYPO3\CMS\Core\Utility\VersionNumberUtility::convertVersionNumberToInteger (TYPO3_version) < 7000000) {
-	$tx_cal_event['types']['0']['showitem'] = '--div--;LLL:EXT:cal/Resources/Private/Language/locallang_db.xml:tx_cal_event.general_sheet,type, title, --palette--;;1,--palette--;LLL:EXT:cal/Resources/Private/Language/locallang_db.xml:tx_cal_event.start;5,--palette--;LLL:EXT:cal/Resources/Private/Language/locallang_db.xml:tx_cal_event.end;6,calendar_id,category_id,' . ($configuration['useTeaser'] ? 'teaser;;;richtext:rte_transform[flag=rte_enabled|mode=ts_css],' : ''). 'description;;;richtext:rte_transform[flag=rte_enabled|mode=ts_css],--div--;LLL:EXT:cal/Resources/Private/Language/locallang_db.xml:tx_cal_event.recurrence_sheet, freq, --palette--;;2, byday, bymonthday, bymonth, rdate_type, --palette--;;7, deviation, exception_cnt,--div--;LLL:EXT:cal/Resources/Private/Language/locallang_db.xml:tx_cal_event.location_sheet,' . ($configuration['hideLocationTextfield'] ? 'location_id,location_pid,location_link' : 'location,location_id,location_pid,location_link'). ',--div--;LLL:EXT:cal/Resources/Private/Language/locallang_db.xml:tx_cal_event.organizer_sheet,' . ($configuration['hideOrganizerTextfield'] ? 'organizer_id,organizer_pid,organizer_link' : 'organizer,organizer_id,organizer_pid,organizer_link'). ',--div--;LLL:EXT:cal/Resources/Private/Language/locallang_db.xml:tx_cal_event.files_sheet,image,attachment,--div--;LLL:EXT:cal/Resources/Private/Language/locallang_db.xml:tx_cal_event.other_sheet, monitor_cnt, shared_user_cnt';
-	$tx_cal_event['types']['1']['showitem'] = '--div--;LLL:EXT:cal/Resources/Private/Language/locallang_db.xml:tx_cal_event.general_sheet,type, page,title, --palette--;;1,--palette--;LLL:EXT:cal/Resources/Private/Language/locallang_db.xml:tx_cal_event.start;5,--palette--;LLL:EXT:cal/Resources/Private/Language/locallang_db.xml:tx_cal_event.end;6,calendar_id,category_id,' . ($configuration['useTeaser'] ? 'teaser;;;richtext:rte_transform[flag=rte_enabled|mode=ts_css],' : ''). '--div--;LLL:EXT:cal/Resources/Private/Language/locallang_db.xml:tx_cal_event.recurrence_sheet, freq, --palette--;;2, byday, bymonthday, bymonth, rdate_type, --palette--;;7, deviation, exception_cnt, --div--;LLL:EXT:cal/Resources/Private/Language/locallang_db.xml:tx_cal_event.location_sheet,' . ($configuration['hideLocationTextfield'] ? 'location_id,location_pid,location_link' : 'location,location_id,location_pid,location_link'). ',--div--;LLL:EXT:cal/Resources/Private/Language/locallang_db.xml:tx_cal_event.organizer_sheet,' . ($configuration['hideOrganizerTextfield'] ? 'organizer_id,organizer_pid,organizer_link' : 'organizer,organizer_id,organizer_pid,organizer_link'). ',--div--;LLL:EXT:cal/Resources/Private/Language/locallang_db.xml:tx_cal_event.other_sheet, monitor_cnt, shared_user_cnt';
-	$tx_cal_event['types']['2']['showitem'] = '--div--;LLL:EXT:cal/Resources/Private/Language/locallang_db.xml:tx_cal_event.general_sheet,type, ext_url,title, --palette--;;1,--palette--;LLL:EXT:cal/Resources/Private/Language/locallang_db.xml:tx_cal_event.start;5,--palette--;LLL:EXT:cal/Resources/Private/Language/locallang_db.xml:tx_cal_event.end;6,calendar_id,category_id,' . ($configuration['useTeaser'] ? 'teaser;;;richtext:rte_transform[flag=rte_enabled|mode=ts_css],' : ''). '--div--;LLL:EXT:cal/Resources/Private/Language/locallang_db.xml:tx_cal_event.recurrence_sheet, freq, --palette--;;2, byday, bymonthday, bymonth, rdate_type, --palette--;;7, deviation, exception_cnt, --div--;LLL:EXT:cal/Resources/Private/Language/locallang_db.xml:tx_cal_event.location_sheet,' . ($configuration['hideLocationTextfield'] ? 'location_id,location_pid,location_link' : 'location,location_id,location_pid,location_link'). ',--div--;LLL:EXT:cal/Resources/Private/Language/locallang_db.xml:tx_cal_event.organizer_sheet,' . ($configuration['hideOrganizerTextfield'] ? 'organizer_id,organizer_pid,organizer_link' : 'organizer,organizer_id,organizer_pid,organizer_link'). ',--div--;LLL:EXT:cal/Resources/Private/Language/locallang_db.xml:tx_cal_event.other_sheet, monitor_cnt, shared_user_cnt';
-}
-
-if(\TYPO3\CMS\Core\Utility\VersionNumberUtility::convertVersionNumberToInteger (TYPO3_version) > 8000000){
-	$tx_cal_event['columns']['attachment']['config'] = \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::getFileFieldTCAConfig('attachment', [
-			'appearance' => [
-					'createNewRelationLinkTitle' => 'LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:media.addFileReference'
-			],
-	]);
 }
 
 return $tx_cal_event;

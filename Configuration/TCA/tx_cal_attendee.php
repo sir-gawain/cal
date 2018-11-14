@@ -16,7 +16,7 @@ $tx_cal_attendee = array(
 				),
 				'versioningWS' => TRUE,
 				'searchFields' => 'email',
-				'label_userFunc' => 'TYPO3\\CMS\\Cal\\Backend\\TCA\\Labels->getAttendeeRecordLabel'
+				'label_userFunc' => \TYPO3\CMS\Cal\Backend\TCA\Labels::class .'->getAttendeeRecordLabel'
 		),
 		'interface' => array(
 				'showRecordFieldList' => 'hidden,fe_user_id,email,attendance,status'
@@ -27,7 +27,7 @@ $tx_cal_attendee = array(
 						'label' => 'LLL:EXT:lang/locallang_general.xlf:LGL.hidden',
 						'config' => array(
 								'type' => 'check',
-								'default' => '0'
+								'default' => 0
 						)
 				),
 				'fe_user_id' => array(
@@ -40,6 +40,7 @@ $tx_cal_attendee = array(
 								'minitems' => 0,
 								'maxitems' => 1,
 								'allowed' => 'fe_users',
+                                'default' => 0,
 						)
 				),
 				'fe_group_id' => array(
@@ -52,6 +53,7 @@ $tx_cal_attendee = array(
 								'minitems' => 0,
 								'maxitems' => 1,
 								'allowed' => 'fe_groups',
+                                'default' => 0,
 						)
 				),
 				'email' => array(
@@ -59,9 +61,10 @@ $tx_cal_attendee = array(
 						'label' => 'LLL:EXT:cal/Resources/Private/Language/locallang_db.xml:tx_cal_attendee.email',
 						'config' => array(
 								'type' => 'input',
-								'size' => '30',
-								'max' => '64',
-								'eval' => 'lower'
+								'size' => 30,
+								'max' => 64,
+								'eval' => 'email',
+								'default' => '',
 						)
 				),
 				'attendance' => array(
@@ -88,9 +91,10 @@ $tx_cal_attendee = array(
 												'CHAIR'
 										)
 								),
-								'size' => '1',
+								'size' => 1,
 								'minitems' => 1,
-								'maxitems' => 1
+								'maxitems' => 1,
+                                'default' => 'NON',
 						)
 				),
 				'status' => array(
@@ -102,7 +106,7 @@ $tx_cal_attendee = array(
 								'items' => array(
 										array(
 												'LLL:EXT:cal/Resources/Private/Language/locallang_db.xml:tx_cal_attendee.status.0',
-												'0'
+												0
 										),
 										array(
 												'LLL:EXT:cal/Resources/Private/Language/locallang_db.xml:tx_cal_attendee.status.NEEDS-ACTION',
@@ -125,9 +129,10 @@ $tx_cal_attendee = array(
 												'DELEGATED'
 										)
 								),
-								'size' => '1',
+								'size' => 1,
 								'minitems' => 1,
-								'maxitems' => 1
+								'maxitems' => 1,
+                                'default' => 0,
 						)
 				)
 		),
@@ -137,7 +142,7 @@ $tx_cal_attendee = array(
 				)
 		),
 		'palettes' => array(
-				'1' => array(
+				1 => array(
 						''
 				)
 		)
