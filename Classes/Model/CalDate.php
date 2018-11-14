@@ -13,8 +13,9 @@ namespace TYPO3\CMS\Cal\Model;
  * The TYPO3 extension Calendar Base (cal) project - inspiring people to share!
  */
 
-use \TYPO3\CMS\Cal\Model\Pear\Date\Calc;
-use \TYPO3\CMS\Cal\Utility\Registry;
+use TYPO3\CMS\Cal\Model\Pear\Date\Calc;
+use TYPO3\CMS\Cal\Utility\Registry;
+
 /**
  * Extends the PEAR date class and adds a compareTo method.
  *
@@ -488,21 +489,16 @@ class CalDate extends \TYPO3\CMS\Cal\Model\Pear\Date {
 	 * names in UTF-8)
 	 * 
 	 * @access public
-	 * @param string $value
-	 *        	The value to crop
-	 * @param integer $length
-	 *        	The length
-	 * @return the cropped string
+	 * @param  string $value     	The value to crop
+	 * @param  integer $length      The length
+	 * @return string               the cropped string
 	 */
 	public function crop($value = '', $length = FALSE) {
 		if ($length === FALSE) {
 			return $value;
 		}
-		if (TYPO3_MODE == 'FE') {
-			return $GLOBALS ['TSFE']->csConvObj->substr ($GLOBALS ['TSFE']->renderCharset, $value, 0, $length);
-		} else {
-			return $GLOBALS ['LANG']->csConvObj->substr ($GLOBALS ['LANG']->charSet, $value, 0, $length);
-		}
+
+		return mb_substr($value, 0, $length);
 	}
 }
 
