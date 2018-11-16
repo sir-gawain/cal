@@ -64,18 +64,24 @@ $newCalSysCategoryColumns = array (
 				'exclude' => 1,
 				'label' => $ll . 'tx_cal_category.headerstyle',
 				'config' => Array (
-						'type' => 'user',
-						'userFunc' => \TYPO3\CMS\Cal\Backend\TCA\CustomTca::class . '->getHeaderStyles',
-						'default' => '',
+					'type' => 'user',
+					'renderType' => 'calStylesElement',
+					'parameters' => [
+						'stylesFor' => 'header',
+					],
+					'default' => '',
 				) 
 		),
 		'bodystyle' => Array (
 				'exclude' => 1,
 				'label' => $ll . 'tx_cal_category.bodystyle',
 				'config' => Array (
-						'type' => 'user',
-						'userFunc' => \TYPO3\CMS\Cal\Backend\TCA\CustomTca::class . '->getBodyStyles',
-						'default' => '',
+					'type' => 'user',
+					'renderType' => 'calStylesElement',
+					'parameters' => [
+						'stylesFor' => 'body',
+					],
+					'default' => '',
 				) 
 		),
 		'calendar_id' => Array (

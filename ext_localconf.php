@@ -16,8 +16,10 @@ if (! defined ('TYPO3_MODE'))
 	}
 ', 43);
 
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPageTSConfig ('options.tx_cal_controller.headerStyles = default_catheader=#557CA3,green_catheader=#53A062,orange_catheader=#E84F25,pink_catheader=#B257A2,red_catheader=#D42020,yellow_catheader=#B88F0B,grey_catheader=#73738C
-	 options.tx_cal_controller.bodyStyles = default_catbody=#6699CC,green_catbody=#4FC464,orange_catbody=#FF6D3B,pink_catbody=#EA62D4,red_catbody=#FF5E56,yellow_catbody=#CCB21F,grey_catbody=#9292A1');
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPageTSConfig('
+	options.tx_cal_controller.headerStyles = default_catheader=#557CA3,green_catheader=#53A062,orange_catheader=#E84F25,pink_catheader=#B257A2,red_catheader=#D42020,yellow_catheader=#B88F0B,grey_catheader=#73738C
+	options.tx_cal_controller.bodyStyles = default_catbody=#6699CC,green_catbody=#4FC464,orange_catbody=#FF6D3B,pink_catbody=#EA62D4,red_catbody=#FF5E56,yellow_catbody=#CCB21F,grey_catbody=#9292A1
+');
 
 $GLOBALS['TYPO3_CONF_VARS'] ['FE'] ['eID_include'] ['cal_ajax'] = 'EXT:cal/Classes/Ajax/Ajax.php';
 
@@ -1005,5 +1007,41 @@ mod.wizards.newContentElement.wizardItems.plugins.elements.tx_cal {
 
 mod.wizards.newContentElement.wizardItems.plugins.show := addToList(tx_cal)
 ');
+
+$GLOBALS['TYPO3_CONF_VARS']['SYS']['formEngine']['nodeRegistry'][1542311227] = [
+	'nodeName' => 'calRDateElement',
+	'priority' => 40,
+	'class'    => \TYPO3\CMS\Cal\Backend\Form\RenderType\RDateElement::class,
+];
+
+$GLOBALS['TYPO3_CONF_VARS']['SYS']['formEngine']['nodeRegistry'][1542311228] = [
+	'nodeName' => 'calByMonthElement',
+	'priority' => 40,
+	'class'    => \TYPO3\CMS\Cal\Backend\Form\RenderType\ByMonthElement::class,
+];
+
+$GLOBALS['TYPO3_CONF_VARS']['SYS']['formEngine']['nodeRegistry'][1542311229] = [
+	'nodeName' => 'calByMonthDayElement',
+	'priority' => 40,
+	'class'    => \TYPO3\CMS\Cal\Backend\Form\RenderType\ByMonthDayElement::class,
+];
+
+$GLOBALS['TYPO3_CONF_VARS']['SYS']['formEngine']['nodeRegistry'][1542311230] = [
+	'nodeName' => 'calByDayElement',
+	'priority' => 40,
+	'class'    => \TYPO3\CMS\Cal\Backend\Form\RenderType\ByDayElement::class,
+];
+
+$GLOBALS['TYPO3_CONF_VARS']['SYS']['formEngine']['nodeRegistry'][1542311231] = [
+	'nodeName' => 'calExtUrlElement',
+	'priority' => 40,
+	'class'    => \TYPO3\CMS\Cal\Backend\Form\RenderType\ExtUrlElement::class,
+];
+
+$GLOBALS['TYPO3_CONF_VARS']['SYS']['formEngine']['nodeRegistry'][1542311232] = [
+	'nodeName' => 'calStylesElement',
+	'priority' => 40,
+	'class'    => \TYPO3\CMS\Cal\Backend\Form\RenderType\StylesElement::class,
+];
 
 ?>

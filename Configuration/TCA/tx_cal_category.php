@@ -54,18 +54,24 @@ $tx_cal_category = array(
 				'exclude' => 1,
 				'label' => 'LLL:EXT:cal/Resources/Private/Language/locallang_db.xml:tx_cal_category.headerstyle',
 				'config' => array(
-						'type' => 'user',
-						'userFunc' => \TYPO3\CMS\Cal\Backend\TCA\CustomTca::class . '->getHeaderStyles',
-                        'default' => '',
+					'type' => 'user',
+					'renderType' => 'calStylesElement',
+					'parameters' => [
+						'stylesFor' => 'header',
+					],
+					'default' => '',
 				)
 		),
 		'bodystyle' => array(
 				'exclude' => 1,
 				'label' => 'LLL:EXT:cal/Resources/Private/Language/locallang_db.xml:tx_cal_category.bodystyle',
 				'config' => array(
-						'type' => 'user',
-						'userFunc' => \TYPO3\CMS\Cal\Backend\TCA\CustomTca::class . '->getBodyStyles',
-                        'default' => '',
+					'type' => 'user',
+					'renderType' => 'calStylesElement',
+					'parameters' => [
+						'stylesFor' => 'body',
+					],
+					'default' => '',
 				)
 		),
 		'calendar_id' => array(
