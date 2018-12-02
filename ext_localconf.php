@@ -1,11 +1,12 @@
 <?php
-if (! defined ('TYPO3_MODE'))
+if (!defined('TYPO3_MODE')) {
 	die ('Access denied.');
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPItoST43 ($_EXTKEY, 'Classes/Controller/Controller.php', '_controller', 'list_type', 1);
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addUserTSConfig ('options.saveDocNew.tx_cal_event=1');
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addUserTSConfig ('options.saveDocNew.tx_cal_exception_event=1');
+}
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPItoST43($_EXTKEY, 'Classes/Controller/Controller.php', '_controller', 'list_type', 1);
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addUserTSConfig('options.saveDocNew.tx_cal_event=1');
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addUserTSConfig('options.saveDocNew.tx_cal_exception_event=1');
 
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTypoScript ($_EXTKEY, 'setup', '
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTypoScript($_EXTKEY, 'setup', '
 	tt_content.shortcut.20.conf.tx_cal_event = < plugin.tx_cal_controller
 	tt_content.shortcut.20.conf.tx_cal_event {
 		displayCurrentRecord = 1
@@ -35,964 +36,942 @@ $GLOBALS['TYPO3_CONF_VARS'] ['FE'] ['eID_include'] ['cal_ajax'] = 'EXT:cal/Class
  */
 
 /* Cal Example Concrete Model */
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addService ($_EXTKEY, 'cal_event_model' /* sv type */,  'tx_cal_fnb' /* sv key */,
-	array (
-		'title' => 'Cal Free and Busy Model',
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addService($_EXTKEY, 'cal_event_model' /* sv type */, 'tx_cal_fnb' /* sv key */,
+	array(
+		'title'       => 'Cal Free and Busy Model',
 		'description' => '',
-		'subtype' => 'event',
-		'available' => TRUE,
-		'priority' => 50,
-		'quality' => 50,
-		'os' => '',
-		'exec' => '',
-		'className' => 'TYPO3\\CMS\\Cal\\Service\\FnbEventService'
-));
+		'subtype'     => 'event',
+		'available'   => TRUE,
+		'priority'    => 50,
+		'quality'     => 50,
+		'os'          => '',
+		'exec'        => '',
+		'className'   => \TYPO3\CMS\Cal\Service\FnbEventService::class
+	));
 
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addService ($_EXTKEY, 'cal_event_model' /* sv type */,  'tx_cal_phpicalendar' /* sv key */,
-	array (
-		'title' => 'Cal PHPiCalendar Model',
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addService($_EXTKEY, 'cal_event_model' /* sv type */, 'tx_cal_phpicalendar' /* sv key */,
+	array(
+		'title'       => 'Cal PHPiCalendar Model',
 		'description' => '',
-		'subtype' => 'event',
-		'available' => TRUE,
-		'priority' => 50,
-		'quality' => 50,
-		'os' => '',
-		'exec' => '',
-		'className' => 'TYPO3\\CMS\\Cal\\Service\\EventService'
-));
+		'subtype'     => 'event',
+		'available'   => TRUE,
+		'priority'    => 50,
+		'quality'     => 50,
+		'os'          => '',
+		'exec'        => '',
+		'className'   => \TYPO3\CMS\Cal\Service\EventService::class
+	));
 
 // get extension confArr
-$confArr = unserialize ($GLOBALS ['TYPO3_CONF_VARS'] ['EXT'] ['extConf'] ['cal']);
+$confArr = unserialize($GLOBALS ['TYPO3_CONF_VARS'] ['EXT'] ['extConf'] ['cal']);
 
 /* Cal Todo Model */
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addService ($_EXTKEY, 'cal_event_model' /* sv type */,  'tx_cal_todo' /* sv key */,
-	array (
-		'title' => 'Cal Todo Model',
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addService($_EXTKEY, 'cal_event_model' /* sv type */, 'tx_cal_todo' /* sv key */,
+	array(
+		'title'       => 'Cal Todo Model',
 		'description' => '',
-		'subtype' => $confArr ['todoSubtype'],
-		'available' => TRUE,
-		'priority' => 50,
-		'quality' => 50,
-		'os' => '',
-		'exec' => '',
-		'className' => 'TYPO3\\CMS\\Cal\\Service\\TodoService'
-));
+		'subtype'     => $confArr ['todoSubtype'],
+		'available'   => TRUE,
+		'priority'    => 50,
+		'quality'     => 50,
+		'os'          => '',
+		'exec'        => '',
+		'className'   => \TYPO3\CMS\Cal\Service\TodoService::class
+	));
 
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addService ($_EXTKEY, 'cal_event_model' /* sv type */,  'tx_cal_nearby' /* sv key */,
-	array (
-		'title' => 'Cal Nearby Model',
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addService($_EXTKEY, 'cal_event_model' /* sv type */, 'tx_cal_nearby' /* sv key */,
+	array(
+		'title'       => 'Cal Nearby Model',
 		'description' => '',
-		'subtype' => 'event',
-		'available' => TRUE,
-		'priority' => 50,
-		'quality' => 50,
-		'os' => '',
-		'exec' => '',
-		'className' => 'TYPO3\\CMS\\Cal\\Service\\NearbyEventService'
-));
-
-/* Cal Example Concrete Model */
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addService ($_EXTKEY, 'cal_organizer_model' /* sv type */,  'tx_partner_main' /* sv key */,
-	array (
-		'title' => 'Cal Organizer Model',
-		'description' => '',
-		'subtype' => 'organizer',
-		'available' => TRUE,
-		'priority' => 50,
-		'quality' => 50,
-		'os' => '',
-		'exec' => '',
-		'className' => 'TYPO3\\CMS\\Cal\\Service\\OrganizerPartnerService'
-));
+		'subtype'     => 'event',
+		'available'   => TRUE,
+		'priority'    => 50,
+		'quality'     => 50,
+		'os'          => '',
+		'exec'        => '',
+		'className'   => \TYPO3\CMS\Cal\Service\NearbyEventService::class
+	));
 
 /* Cal Example Concrete Model */
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addService ($_EXTKEY, 'cal_organizer_model' /* sv type */,  'tx_cal_organizer' /* sv key */,
-	array (
-		'title' => 'Cal Organizer Model',
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addService($_EXTKEY, 'cal_organizer_model' /* sv type */, 'tx_partner_main' /* sv key */,
+	array(
+		'title'       => 'Cal Organizer Model',
 		'description' => '',
-		'subtype' => 'organizer',
-		'available' => TRUE,
-		'priority' => 50,
-		'quality' => 50,
-		'os' => '',
-		'exec' => '',
-		'className' => 'TYPO3\\CMS\\Cal\\Service\\OrganizerService'
-));
+		'subtype'     => 'organizer',
+		'available'   => TRUE,
+		'priority'    => 50,
+		'quality'     => 50,
+		'os'          => '',
+		'exec'        => '',
+		'className'   => \TYPO3\CMS\Cal\Service\OrganizerPartnerService::class
+	));
 
 /* Cal Example Concrete Model */
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addService ($_EXTKEY, 'cal_organizer_model' /* sv type */,  'tx_tt_address' /* sv key */,
-	array (
-		'title' => 'Cal Organizer Model',
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addService($_EXTKEY, 'cal_organizer_model' /* sv type */, 'tx_cal_organizer' /* sv key */,
+	array(
+		'title'       => 'Cal Organizer Model',
 		'description' => '',
-		'subtype' => 'organizer',
-		'available' => TRUE,
-		'priority' => 50,
-		'quality' => 50,
-		'os' => '',
-		'exec' => '',
-		'className' => 'TYPO3\\CMS\\Cal\\Service\\OrganizerAddressService'
-));
+		'subtype'     => 'organizer',
+		'available'   => TRUE,
+		'priority'    => 50,
+		'quality'     => 50,
+		'os'          => '',
+		'exec'        => '',
+		'className'   => \TYPO3\CMS\Cal\Service\OrganizerService::class
+	));
 
 /* Cal Example Concrete Model */
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addService ($_EXTKEY, 'cal_organizer_model' /* sv type */,  'tx_feuser' /* sv key */,
-	array (
-		'title' => 'Frontend User Organizer Model',
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addService($_EXTKEY, 'cal_organizer_model' /* sv type */, 'tx_tt_address' /* sv key */,
+	array(
+		'title'       => 'Cal Organizer Model',
 		'description' => '',
-		'subtype' => 'organizer',
-		'available' => TRUE,
-		'priority' => 50,
-		'quality' => 50,
-		'os' => '',
-		'exec' => '',
-		'className' => 'TYPO3\\CMS\\Cal\\Service\\OrganizerFeUserService'
-));
+		'subtype'     => 'organizer',
+		'available'   => TRUE,
+		'priority'    => 50,
+		'quality'     => 50,
+		'os'          => '',
+		'exec'        => '',
+		'className'   => \TYPO3\CMS\Cal\Service\OrganizerAddressService::class
+	));
 
 /* Cal Example Concrete Model */
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addService ($_EXTKEY, 'cal_location_model' /* sv type */,  'tx_partner_main' /* sv key */,
-	array (
-		'title' => 'Cal Location Model',
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addService($_EXTKEY, 'cal_organizer_model' /* sv type */, 'tx_feuser' /* sv key */,
+	array(
+		'title'       => 'Frontend User Organizer Model',
 		'description' => '',
-		'subtype' => 'location',
-		'available' => TRUE,
-		'priority' => 50,
-		'quality' => 50,
-		'os' => '',
-		'exec' => '',
-		'className' => 'TYPO3\\CMS\\Cal\\Service\\LocationPartnerService'
-));
+		'subtype'     => 'organizer',
+		'available'   => TRUE,
+		'priority'    => 50,
+		'quality'     => 50,
+		'os'          => '',
+		'exec'        => '',
+		'className'   => \TYPO3\CMS\Cal\Service\OrganizerFeUserService::class
+	));
 
 /* Cal Example Concrete Model */
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addService ($_EXTKEY, 'cal_location_model' /* sv type */,  'tx_tt_address' /* sv key */,
-	array (
-		'title' => 'Cal Location Model',
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addService($_EXTKEY, 'cal_location_model' /* sv type */, 'tx_partner_main' /* sv key */,
+	array(
+		'title'       => 'Cal Location Model',
 		'description' => '',
-		'subtype' => 'location',
-		'available' => TRUE,
-		'priority' => 50,
-		'quality' => 50,
-		'os' => '',
-		'exec' => '',
-		'className' => 'TYPO3\\CMS\\Cal\\Service\\LocationAddressService'
-));
+		'subtype'     => 'location',
+		'available'   => TRUE,
+		'priority'    => 50,
+		'quality'     => 50,
+		'os'          => '',
+		'exec'        => '',
+		'className'   => \TYPO3\CMS\Cal\Service\LocationPartnerService::class
+	));
 
 /* Cal Example Concrete Model */
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addService ($_EXTKEY, 'cal_location_model' /* sv type */,  'tx_cal_location' /* sv key */,
-	array (
-		'title' => 'Cal Location Model',
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addService($_EXTKEY, 'cal_location_model' /* sv type */, 'tx_tt_address' /* sv key */,
+	array(
+		'title'       => 'Cal Location Model',
 		'description' => '',
-		'subtype' => 'location',
-		'available' => TRUE,
-		'priority' => 50,
-		'quality' => 50,
-		'os' => '',
-		'exec' => '',
-		'className' => 'TYPO3\\CMS\\Cal\\Service\\LocationService'
-));
+		'subtype'     => 'location',
+		'available'   => TRUE,
+		'priority'    => 50,
+		'quality'     => 50,
+		'os'          => '',
+		'exec'        => '',
+		'className'   => \TYPO3\CMS\Cal\Service\LocationAddressService::class
+	));
 
 /* Cal Example Concrete Model */
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addService ($_EXTKEY, 'cal_attendee_model' /* sv type */,  'tx_cal_attendee' /* sv key */,
-	array (
-		'title' => 'Cal Attendee Model',
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addService($_EXTKEY, 'cal_location_model' /* sv type */, 'tx_cal_location' /* sv key */,
+	array(
+		'title'       => 'Cal Location Model',
 		'description' => '',
-		'subtype' => 'attendee',
-		'available' => TRUE,
-		'priority' => 50,
-		'quality' => 50,
-		'os' => '',
-		'exec' => '',
-		'className' => 'TYPO3\\CMS\\Cal\\Service\\AttendeeService'
-));
+		'subtype'     => 'location',
+		'available'   => TRUE,
+		'priority'    => 50,
+		'quality'     => 50,
+		'os'          => '',
+		'exec'        => '',
+		'className'   => \TYPO3\CMS\Cal\Service\LocationService::class
+	));
 
 /* Cal Example Concrete Model */
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addService ($_EXTKEY, 'cal_calendar_model' /* sv type */,  'tx_cal_calendar' /* sv key */,
-	array (
-		'title' => 'Cal Calendar Model',
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addService($_EXTKEY, 'cal_attendee_model' /* sv type */, 'tx_cal_attendee' /* sv key */,
+	array(
+		'title'       => 'Cal Attendee Model',
 		'description' => '',
-		'subtype' => 'calendar',
-		'available' => TRUE,
-		'priority' => 50,
-		'quality' => 50,
-		'os' => '',
-		'exec' => '',
-		'className' => 'TYPO3\\CMS\\Cal\\Service\\CalendarService'
-));
+		'subtype'     => 'attendee',
+		'available'   => TRUE,
+		'priority'    => 50,
+		'quality'     => 50,
+		'os'          => '',
+		'exec'        => '',
+		'className'   => \TYPO3\CMS\Cal\Service\AttendeeService::class
+	));
 
 /* Cal Example Concrete Model */
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addService ($_EXTKEY, 'cal_category_model' /* sv type */,  'tx_cal_category' /* sv key */,
-	array (
-		'title' => 'Cal Category Model',
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addService($_EXTKEY, 'cal_calendar_model' /* sv type */, 'tx_cal_calendar' /* sv key */,
+	array(
+		'title'       => 'Cal Calendar Model',
 		'description' => '',
-		'subtype' => 'category',
-		'available' => TRUE,
-		'priority' => 50,
-		'quality' => 50,
-		'os' => '',
-		'exec' => '',
-		'className' => 'TYPO3\\CMS\\Cal\\Service\\CategoryService'
-));
+		'subtype'     => 'calendar',
+		'available'   => TRUE,
+		'priority'    => 50,
+		'quality'     => 50,
+		'os'          => '',
+		'exec'        => '',
+		'className'   => \TYPO3\CMS\Cal\Service\CalendarService::class
+	));
 
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addService ($_EXTKEY, 'cal_category_model' /* sv type */,  'sys_category' /* sv key */,
-	array (
-		'title' => 'System Category Model',
+/* Cal Example Concrete Model */
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addService($_EXTKEY, 'cal_category_model' /* sv type */, 'tx_cal_category' /* sv key */,
+	array(
+		'title'       => 'Cal Category Model',
 		'description' => '',
-		'subtype' => 'category',
-		'available' => TRUE,
-		'priority' => 50,
-		'quality' => 50,
-		'os' => '',
-		'exec' => '',
-		'className' => 'TYPO3\\CMS\\Cal\\Service\\SysCategoryService'
-));
+		'subtype'     => 'category',
+		'available'   => TRUE,
+		'priority'    => 50,
+		'quality'     => 50,
+		'os'          => '',
+		'exec'        => '',
+		'className'   => \TYPO3\CMS\Cal\Service\CategoryService::class
+	));
+
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addService($_EXTKEY, 'cal_category_model' /* sv type */, 'sys_category' /* sv key */,
+	array(
+		'title'       => 'System Category Model',
+		'description' => '',
+		'subtype'     => 'category',
+		'available'   => TRUE,
+		'priority'    => 50,
+		'quality'     => 50,
+		'os'          => '',
+		'exec'        => '',
+		'className'   => \TYPO3\CMS\Cal\Service\SysCategoryService::class
+	));
 
 /* Default day View */
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addService ($_EXTKEY, 'cal_view' /* sv type */,  'tx_default_event' /* sv key */,
-	array (
-		'title' => 'Default Event View',
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addService($_EXTKEY, 'cal_view' /* sv type */, 'tx_default_event' /* sv key */,
+	array(
+		'title'       => 'Default Event View',
 		'description' => '',
-		'subtype' => 'event',
-		'available' => TRUE,
-		'priority' => 50,
-		'quality' => 50,
-		'os' => '',
-		'exec' => '',
-		'className' => 'TYPO3\\CMS\\Cal\\View\\EventView'
-));
+		'subtype'     => 'event',
+		'available'   => TRUE,
+		'priority'    => 50,
+		'quality'     => 50,
+		'os'          => '',
+		'exec'        => '',
+		'className'   => \TYPO3\CMS\Cal\View\EventView::class
+	));
 
 /* Default day View */
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addService ($_EXTKEY, 'cal_view' /* sv type */,  'tx_default_day' /* sv key */,
-	array (
-		'title' => 'Default Day View',
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addService($_EXTKEY, 'cal_view' /* sv type */, 'tx_default_day' /* sv key */,
+	array(
+		'title'       => 'Default Day View',
 		'description' => '',
-		'subtype' => 'day',
-		'available' => TRUE,
-		'priority' => 50,
-		'quality' => 50,
-		'os' => '',
-		'exec' => '',
-		'className' => 'TYPO3\\CMS\\Cal\\View\\DayView'
-));
+		'subtype'     => 'day',
+		'available'   => TRUE,
+		'priority'    => 50,
+		'quality'     => 50,
+		'os'          => '',
+		'exec'        => '',
+		'className'   => \TYPO3\CMS\Cal\View\DayView::class
+	));
 
 /* Default week View */
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addService ($_EXTKEY, 'cal_view' /* sv type */,  'tx_default_week' /* sv key */,
-	array (
-		'title' => 'Default Week View',
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addService($_EXTKEY, 'cal_view' /* sv type */, 'tx_default_week' /* sv key */,
+	array(
+		'title'       => 'Default Week View',
 		'description' => '',
-		'subtype' => 'week',
-		'available' => TRUE,
-		'priority' => 50,
-		'quality' => 50,
-		'os' => '',
-		'exec' => '',
-		'className' => 'TYPO3\\CMS\\Cal\\View\\WeekView'
-));
+		'subtype'     => 'week',
+		'available'   => TRUE,
+		'priority'    => 50,
+		'quality'     => 50,
+		'os'          => '',
+		'exec'        => '',
+		'className'   => \TYPO3\CMS\Cal\View\WeekView::class
+	));
 
 /* Default month View */
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addService ($_EXTKEY, 'cal_view' /* sv type */,  'tx_default_month' /* sv key */,
-	array (
-		'title' => 'Default Month View',
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addService($_EXTKEY, 'cal_view' /* sv type */, 'tx_default_month' /* sv key */,
+	array(
+		'title'       => 'Default Month View',
 		'description' => '',
-		'subtype' => 'month',
-		'available' => TRUE,
-		'priority' => 50,
-		'quality' => 50,
-		'os' => '',
-		'exec' => '',
-		'className' => 'TYPO3\\CMS\\Cal\\View\\MonthView'
-));
+		'subtype'     => 'month',
+		'available'   => TRUE,
+		'priority'    => 50,
+		'quality'     => 50,
+		'os'          => '',
+		'exec'        => '',
+		'className'   => \TYPO3\CMS\Cal\View\MonthView::class
+	));
 
 /* Default year View */
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addService ($_EXTKEY, 'cal_view' /* sv type */,  'tx_default_year' /* sv key */,
-	array (
-		'title' => 'Default Year View',
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addService($_EXTKEY, 'cal_view' /* sv type */, 'tx_default_year' /* sv key */,
+	array(
+		'title'       => 'Default Year View',
 		'description' => '',
-		'subtype' => 'year',
-		'available' => TRUE,
-		'priority' => 50,
-		'quality' => 50,
-		'os' => '',
-		'exec' => '',
-		'className' => 'TYPO3\\CMS\\Cal\\View\\YearView'
-));
+		'subtype'     => 'year',
+		'available'   => TRUE,
+		'priority'    => 50,
+		'quality'     => 50,
+		'os'          => '',
+		'exec'        => '',
+		'className'   => \TYPO3\CMS\Cal\View\YearView::class
+	));
 
 /* Default list View */
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addService ($_EXTKEY, 'cal_view' /* sv type */,  'tx_default_list' /* sv key */,
-	array (
-		'title' => 'Default List View',
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addService($_EXTKEY, 'cal_view' /* sv type */, 'tx_default_list' /* sv key */,
+	array(
+		'title'       => 'Default List View',
 		'description' => '',
-		'subtype' => 'list',
-		'available' => TRUE,
-		'priority' => 50,
-		'quality' => 50,
-		'os' => '',
-		'exec' => '',
-		'className' => 'TYPO3\\CMS\\Cal\\View\\ListView'
-));
+		'subtype'     => 'list',
+		'available'   => TRUE,
+		'priority'    => 50,
+		'quality'     => 50,
+		'os'          => '',
+		'exec'        => '',
+		'className'   => \TYPO3\CMS\Cal\View\ListView::class
+	));
 
 /* Default ics View */
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addService ($_EXTKEY, 'cal_view' /* sv type */,  'tx_default_ics' /* sv key */,
-	array (
-		'title' => 'Default Ics View',
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addService($_EXTKEY, 'cal_view' /* sv type */, 'tx_default_ics' /* sv key */,
+	array(
+		'title'       => 'Default Ics View',
 		'description' => '',
-		'subtype' => 'ics',
-		'available' => TRUE,
-		'priority' => 50,
-		'quality' => 50,
-		'os' => '',
-		'exec' => '',
-		'className' => 'TYPO3\\CMS\\Cal\\View\\IcsView'
-));
+		'subtype'     => 'ics',
+		'available'   => TRUE,
+		'priority'    => 50,
+		'quality'     => 50,
+		'os'          => '',
+		'exec'        => '',
+		'className'   => \TYPO3\CMS\Cal\View\IcsView::class
+	));
 
 /* Default icslist View */
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addService ($_EXTKEY, 'cal_view' /* sv type */,  'tx_default_icslist' /* sv key */,
-	array (
-		'title' => 'Default Ics List View',
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addService($_EXTKEY, 'cal_view' /* sv type */, 'tx_default_icslist' /* sv key */,
+	array(
+		'title'       => 'Default Ics List View',
 		'description' => '',
-		'subtype' => 'ics',
-		'available' => TRUE,
-		'priority' => 50,
-		'quality' => 50,
-		'os' => '',
-		'exec' => '',
-		'className' => 'TYPO3\\CMS\\Cal\\View\\IcsView'
-));
+		'subtype'     => 'ics',
+		'available'   => TRUE,
+		'priority'    => 50,
+		'quality'     => 50,
+		'os'          => '',
+		'exec'        => '',
+		'className'   => \TYPO3\CMS\Cal\View\IcsView::class
+	));
 
 /* Default rss View */
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addService ($_EXTKEY, 'cal_view' /* sv type */,  'tx_default_rss' /* sv key */,
-	array (
-		'title' => 'Default Rss View',
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addService($_EXTKEY, 'cal_view' /* sv type */, 'tx_default_rss' /* sv key */,
+	array(
+		'title'       => 'Default Rss View',
 		'description' => '',
-		'subtype' => 'rss',
-		'available' => TRUE,
-		'priority' => 50,
-		'quality' => 50,
-		'os' => '',
-		'exec' => '',
-		'className' => 'TYPO3\\CMS\\Cal\\View\\RssView'
-));
+		'subtype'     => 'rss',
+		'available'   => TRUE,
+		'priority'    => 50,
+		'quality'     => 50,
+		'os'          => '',
+		'exec'        => '',
+		'className'   => \TYPO3\CMS\Cal\View\RssView::class
+	));
 
 /* Default admin View */
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addService ($_EXTKEY, 'cal_view' /* sv type */,  'tx_default_admin' /* sv key */,
-	array (
-		'title' => 'Default Admin View',
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addService($_EXTKEY, 'cal_view' /* sv type */, 'tx_default_admin' /* sv key */,
+	array(
+		'title'       => 'Default Admin View',
 		'description' => '',
-		'subtype' => 'admin',
-		'available' => TRUE,
-		'priority' => 50,
-		'quality' => 50,
-		'os' => '',
-		'exec' => '',
-		'className' => 'TYPO3\\CMS\\Cal\\View\\AdminView'
-));
+		'subtype'     => 'admin',
+		'available'   => TRUE,
+		'priority'    => 50,
+		'quality'     => 50,
+		'os'          => '',
+		'exec'        => '',
+		'className'   => \TYPO3\CMS\Cal\View\AdminView::class
+	));
 
 /* Default location View */
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addService ($_EXTKEY, 'cal_view' /* sv type */,  'tx_default_location' /* sv key */,
-	array (
-		'title' => 'Default Location View',
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addService($_EXTKEY, 'cal_view' /* sv type */, 'tx_default_location' /* sv key */,
+	array(
+		'title'       => 'Default Location View',
 		'description' => '',
-		'subtype' => 'location',
-		'available' => TRUE,
-		'priority' => 50,
-		'quality' => 50,
-		'os' => '',
-		'exec' => '',
-		'className' => 'TYPO3\\CMS\\Cal\\View\\LocationView'
-));
+		'subtype'     => 'location',
+		'available'   => TRUE,
+		'priority'    => 50,
+		'quality'     => 50,
+		'os'          => '',
+		'exec'        => '',
+		'className'   => \TYPO3\CMS\Cal\View\LocationView::class
+	));
 
 /* Default organizer View */
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addService ($_EXTKEY, 'cal_view' /* sv type */,  'tx_default_organizer' /* sv key */,
-	array (
-		'title' => 'Default Organizer View',
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addService($_EXTKEY, 'cal_view' /* sv type */, 'tx_default_organizer' /* sv key */,
+	array(
+		'title'       => 'Default Organizer View',
 		'description' => '',
-		'subtype' => 'organizer',
-		'available' => TRUE,
-		'priority' => 50,
-		'quality' => 50,
-		'os' => '',
-		'exec' => '',
-		'className' => 'TYPO3\\CMS\\Cal\\View\\OrganizerView'
-));
+		'subtype'     => 'organizer',
+		'available'   => TRUE,
+		'priority'    => 50,
+		'quality'     => 50,
+		'os'          => '',
+		'exec'        => '',
+		'className'   => \TYPO3\CMS\Cal\View\OrganizerView::class
+	));
 
 /* Default create event View */
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addService ($_EXTKEY, 'cal_view' /* sv type */,  'tx_default_create_event' /* sv key */,
-	array (
-		'title' => 'Default Create Event View',
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addService($_EXTKEY, 'cal_view' /* sv type */, 'tx_default_create_event' /* sv key */,
+	array(
+		'title'       => 'Default Create Event View',
 		'description' => '',
-		'subtype' => 'create_event',
-		'available' => TRUE,
-		'priority' => 50,
-		'quality' => 50,
-		'os' => '',
-		'exec' => '',
-		'className' => 'TYPO3\\CMS\\Cal\\View\\CreateEventView'
-));
+		'subtype'     => 'create_event',
+		'available'   => TRUE,
+		'priority'    => 50,
+		'quality'     => 50,
+		'os'          => '',
+		'exec'        => '',
+		'className'   => \TYPO3\CMS\Cal\View\CreateEventView::class
+	));
 
 /* Default confirm event View */
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addService ($_EXTKEY, 'cal_view' /* sv type */,  'tx_default_confirm_event' /* sv key */,
-	array (
-		'title' => 'Default Confirm Event View',
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addService($_EXTKEY, 'cal_view' /* sv type */, 'tx_default_confirm_event' /* sv key */,
+	array(
+		'title'       => 'Default Confirm Event View',
 		'description' => '',
-		'subtype' => 'confirm_event',
-		'available' => TRUE,
-		'priority' => 50,
-		'quality' => 50,
-		'os' => '',
-		'exec' => '',
-		'className' => 'TYPO3\\CMS\\Cal\\View\\ConfirmEventView'
-));
+		'subtype'     => 'confirm_event',
+		'available'   => TRUE,
+		'priority'    => 50,
+		'quality'     => 50,
+		'os'          => '',
+		'exec'        => '',
+		'className'   => \TYPO3\CMS\Cal\View\ConfirmEventView::class
+	));
 
 /* Default delete event View */
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addService ($_EXTKEY, 'cal_view' /* sv type */,  'tx_default_delete_event' /* sv key */,
-	array (
-		'title' => 'Default Delete Event View',
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addService($_EXTKEY, 'cal_view' /* sv type */, 'tx_default_delete_event' /* sv key */,
+	array(
+		'title'       => 'Default Delete Event View',
 		'description' => '',
-		'subtype' => 'delete_event',
-		'available' => TRUE,
-		'priority' => 50,
-		'quality' => 50,
-		'os' => '',
-		'exec' => '',
-		'className' => 'TYPO3\\CMS\\Cal\\View\\DeleteEventView'
-));
+		'subtype'     => 'delete_event',
+		'available'   => TRUE,
+		'priority'    => 50,
+		'quality'     => 50,
+		'os'          => '',
+		'exec'        => '',
+		'className'   => \TYPO3\CMS\Cal\View\DeleteEventView::class
+	));
 
 /* Default remove event service */
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addService ($_EXTKEY, 'cal_view' /* sv type */,  'tx_default_remove_event' /* sv key */,
-	array (
-		'title' => 'Default Remove Event View',
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addService($_EXTKEY, 'cal_view' /* sv type */, 'tx_default_remove_event' /* sv key */,
+	array(
+		'title'       => 'Default Remove Event View',
 		'description' => '',
-		'subtype' => 'remove_event',
-		'available' => TRUE,
-		'priority' => 50,
-		'quality' => 50,
-		'os' => '',
-		'exec' => '',
-		'className' => 'TYPO3\\CMS\\Cal\\View\\EventView'
-));
+		'subtype'     => 'remove_event',
+		'available'   => TRUE,
+		'priority'    => 50,
+		'quality'     => 50,
+		'os'          => '',
+		'exec'        => '',
+		'className'   => \TYPO3\CMS\Cal\View\EventView::class
+	));
 
 /* Default create location View */
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addService ($_EXTKEY, 'cal_view' /* sv type */,  'tx_default_create_location' /* sv key */,
-	array (
-		'title' => 'Default Create Location View',
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addService($_EXTKEY, 'cal_view' /* sv type */, 'tx_default_create_location' /* sv key */,
+	array(
+		'title'       => 'Default Create Location View',
 		'description' => '',
-		'subtype' => 'create_location',
-		'available' => TRUE,
-		'priority' => 50,
-		'quality' => 50,
-		'os' => '',
-		'exec' => '',
-		'className' => 'TYPO3\\CMS\\Cal\\View\\CreateLocationOrganizerView'
-));
+		'subtype'     => 'create_location',
+		'available'   => TRUE,
+		'priority'    => 50,
+		'quality'     => 50,
+		'os'          => '',
+		'exec'        => '',
+		'className'   => \TYPO3\CMS\Cal\View\CreateLocationOrganizerView::class
+	));
 
 /* Default confirm location View */
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addService ($_EXTKEY, 'cal_view' /* sv type */,  'tx_default_confirm_location' /* sv key */,
-	array (
-		'title' => 'Default Confirm Location View',
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addService($_EXTKEY, 'cal_view' /* sv type */, 'tx_default_confirm_location' /* sv key */,
+	array(
+		'title'       => 'Default Confirm Location View',
 		'description' => '',
-		'subtype' => 'confirm_location',
-		'available' => TRUE,
-		'priority' => 50,
-		'quality' => 50,
-		'os' => '',
-		'exec' => '',
-		'className' => 'TYPO3\\CMS\\Cal\\View\\ConfirmLocationOrganizerView'
-));
+		'subtype'     => 'confirm_location',
+		'available'   => TRUE,
+		'priority'    => 50,
+		'quality'     => 50,
+		'os'          => '',
+		'exec'        => '',
+		'className'   => \TYPO3\CMS\Cal\View\ConfirmLocationOrganizerView::class
+	));
 
 /* Default delete location View */
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addService ($_EXTKEY, 'cal_view' /* sv type */,  'tx_default_delete_location' /* sv key */,
-	array (
-		'title' => 'Default Delete Location View',
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addService($_EXTKEY, 'cal_view' /* sv type */, 'tx_default_delete_location' /* sv key */,
+	array(
+		'title'       => 'Default Delete Location View',
 		'description' => '',
-		'subtype' => 'delete_location',
-		'available' => TRUE,
-		'priority' => 50,
-		'quality' => 50,
-		'os' => '',
-		'exec' => '',
-		'className' => 'TYPO3\\CMS\\Cal\\View\\DeleteLocationOrganizerView'
-));
+		'subtype'     => 'delete_location',
+		'available'   => TRUE,
+		'priority'    => 50,
+		'quality'     => 50,
+		'os'          => '',
+		'exec'        => '',
+		'className'   => \TYPO3\CMS\Cal\View\DeleteLocationOrganizerView::class
+	));
 
 /* Default remove location service */
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addService ($_EXTKEY, 'cal_view' /* sv type */,  'tx_default_remove_location' /* sv key */,
-	array (
-		'title' => 'Default Remove Location View',
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addService($_EXTKEY, 'cal_view' /* sv type */, 'tx_default_remove_location' /* sv key */,
+	array(
+		'title'       => 'Default Remove Location View',
 		'description' => '',
-		'subtype' => 'remove_location',
-		'available' => TRUE,
-		'priority' => 50,
-		'quality' => 50,
-		'os' => '',
-		'exec' => '',
-		'className' => 'TYPO3\\CMS\\Cal\\View\\LocationView'
-));
+		'subtype'     => 'remove_location',
+		'available'   => TRUE,
+		'priority'    => 50,
+		'quality'     => 50,
+		'os'          => '',
+		'exec'        => '',
+		'className'   => \TYPO3\CMS\Cal\View\LocationView::class
+	));
 
 /* Default create organizer View */
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addService ($_EXTKEY, 'cal_view' /* sv type */,  'tx_default_create_organizer' /* sv key */,
-	array (
-		'title' => 'Default Create Organizer View',
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addService($_EXTKEY, 'cal_view' /* sv type */, 'tx_default_create_organizer' /* sv key */,
+	array(
+		'title'       => 'Default Create Organizer View',
 		'description' => '',
-		'subtype' => 'create_organizer',
-		'available' => TRUE,
-		'priority' => 50,
-		'quality' => 50,
-		'os' => '',
-		'exec' => '',
-		'className' => 'TYPO3\\CMS\\Cal\\View\\CreateLocationOrganizerView'
-));
+		'subtype'     => 'create_organizer',
+		'available'   => TRUE,
+		'priority'    => 50,
+		'quality'     => 50,
+		'os'          => '',
+		'exec'        => '',
+		'className'   => \TYPO3\CMS\Cal\View\CreateLocationOrganizerView::class
+	));
 
 /* Default confirm organizer View */
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addService ($_EXTKEY, 'cal_view' /* sv type */,  'tx_default_confirm_organizer' /* sv key */,
-	array (
-		'title' => 'Default Confirm Organizer View',
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addService($_EXTKEY, 'cal_view' /* sv type */, 'tx_default_confirm_organizer' /* sv key */,
+	array(
+		'title'       => 'Default Confirm Organizer View',
 		'description' => '',
-		'subtype' => 'confirm_organizer',
-		'available' => TRUE,
-		'priority' => 50,
-		'quality' => 50,
-		'os' => '',
-		'exec' => '',
-		'className' => 'TYPO3\\CMS\\Cal\\View\\ConfirmLocationOrganizerView'
-));
+		'subtype'     => 'confirm_organizer',
+		'available'   => TRUE,
+		'priority'    => 50,
+		'quality'     => 50,
+		'os'          => '',
+		'exec'        => '',
+		'className'   => \TYPO3\CMS\Cal\View\ConfirmLocationOrganizerView::class
+	));
 
 /* Default delete organizer View */
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addService ($_EXTKEY, 'cal_view' /* sv type */,  'tx_default_delete_organizer' /* sv key */,
-	array (
-		'title' => 'Default Delete Organizer View',
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addService($_EXTKEY, 'cal_view' /* sv type */, 'tx_default_delete_organizer' /* sv key */,
+	array(
+		'title'       => 'Default Delete Organizer View',
 		'description' => '',
-		'subtype' => 'delete_organizer',
-		'available' => TRUE,
-		'priority' => 50,
-		'quality' => 50,
-		'os' => '',
-		'exec' => '',
-		'className' => 'TYPO3\\CMS\\Cal\\View\\DeleteLocationOrganizerView'
-));
+		'subtype'     => 'delete_organizer',
+		'available'   => TRUE,
+		'priority'    => 50,
+		'quality'     => 50,
+		'os'          => '',
+		'exec'        => '',
+		'className'   => \TYPO3\CMS\Cal\View\DeleteLocationOrganizerView::class
+	));
 
 /* Default remove organizer service */
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addService ($_EXTKEY, 'cal_view' /* sv type */,  'tx_default_remove_organizer' /* sv key */,
-	array (
-		'title' => 'Default Remove Organizer View',
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addService($_EXTKEY, 'cal_view' /* sv type */, 'tx_default_remove_organizer' /* sv key */,
+	array(
+		'title'       => 'Default Remove Organizer View',
 		'description' => '',
-		'subtype' => 'remove_organizer',
-		'available' => TRUE,
-		'priority' => 50,
-		'quality' => 50,
-		'os' => '',
-		'exec' => '',
-		'className' => 'TYPO3\\CMS\\Cal\\View\\OrganizerView'
-));
+		'subtype'     => 'remove_organizer',
+		'available'   => TRUE,
+		'priority'    => 50,
+		'quality'     => 50,
+		'os'          => '',
+		'exec'        => '',
+		'className'   => \TYPO3\CMS\Cal\View\OrganizerView::class
+	));
 
 /* Default create calendar View */
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addService ($_EXTKEY, 'cal_view' /* sv type */,  'tx_default_create_calendar' /* sv key */,
-	array (
-		'title' => 'Default Create Location View',
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addService($_EXTKEY, 'cal_view' /* sv type */, 'tx_default_create_calendar' /* sv key */,
+	array(
+		'title'       => 'Default Create Location View',
 		'description' => '',
-		'subtype' => 'create_calendar',
-		'available' => TRUE,
-		'priority' => 50,
-		'quality' => 50,
-		'os' => '',
-		'exec' => '',
-		'className' => 'TYPO3\\CMS\\Cal\\View\\CreateCalendarView'
-));
+		'subtype'     => 'create_calendar',
+		'available'   => TRUE,
+		'priority'    => 50,
+		'quality'     => 50,
+		'os'          => '',
+		'exec'        => '',
+		'className'   => \TYPO3\CMS\Cal\View\CreateCalendarView::class
+	));
 
 /* Default confirm calendar View */
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addService ($_EXTKEY, 'cal_view' /* sv type */,  'tx_default_confirm_calendar' /* sv key */,
-	array (
-		'title' => 'Default Confirm Location View',
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addService($_EXTKEY, 'cal_view' /* sv type */, 'tx_default_confirm_calendar' /* sv key */,
+	array(
+		'title'       => 'Default Confirm Location View',
 		'description' => '',
-		'subtype' => 'confirm_calendar',
-		'available' => TRUE,
-		'priority' => 50,
-		'quality' => 50,
-		'os' => '',
-		'exec' => '',
-		'className' => 'TYPO3\\CMS\\Cal\\View\\ConfirmCalendarView'
-));
+		'subtype'     => 'confirm_calendar',
+		'available'   => TRUE,
+		'priority'    => 50,
+		'quality'     => 50,
+		'os'          => '',
+		'exec'        => '',
+		'className'   => \TYPO3\CMS\Cal\View\ConfirmCalendarView::class
+	));
 
 /* Default delete calendar View */
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addService ($_EXTKEY, 'cal_view' /* sv type */,  'tx_default_delete_calendar' /* sv key */,
-	array (
-		'title' => 'Default Delete Location View',
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addService($_EXTKEY, 'cal_view' /* sv type */, 'tx_default_delete_calendar' /* sv key */,
+	array(
+		'title'       => 'Default Delete Location View',
 		'description' => '',
-		'subtype' => 'delete_calendar',
-		'available' => TRUE,
-		'priority' => 50,
-		'quality' => 50,
-		'os' => '',
-		'exec' => '',
-		'className' => 'TYPO3\\CMS\\Cal\\View\\DeleteCalendarView'
-));
+		'subtype'     => 'delete_calendar',
+		'available'   => TRUE,
+		'priority'    => 50,
+		'quality'     => 50,
+		'os'          => '',
+		'exec'        => '',
+		'className'   => \TYPO3\CMS\Cal\View\DeleteCalendarView::class
+	));
 
 /* Default remove calendar service */
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addService ($_EXTKEY, 'cal_view' /* sv type */,  'tx_default_remove_calendar' /* sv key */,
-	array (
-		'title' => 'Default Remove Location View',
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addService($_EXTKEY, 'cal_view' /* sv type */, 'tx_default_remove_calendar' /* sv key */,
+	array(
+		'title'       => 'Default Remove Location View',
 		'description' => '',
-		'subtype' => 'remove_calendar',
-		'available' => TRUE,
-		'priority' => 50,
-		'quality' => 50,
-		'os' => '',
-		'exec' => '',
-		'className' => 'TYPO3\\CMS\\Cal\\View\\DeleteCalendarView'
-));
+		'subtype'     => 'remove_calendar',
+		'available'   => TRUE,
+		'priority'    => 50,
+		'quality'     => 50,
+		'os'          => '',
+		'exec'        => '',
+		'className'   => \TYPO3\CMS\Cal\View\DeleteCalendarView::class
+	));
 
 /* Default create category View */
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addService ($_EXTKEY, 'cal_view' /* sv type */,  'tx_default_create_category' /* sv key */,
-	array (
-		'title' => 'Default Create Location View',
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addService($_EXTKEY, 'cal_view' /* sv type */, 'tx_default_create_category' /* sv key */,
+	array(
+		'title'       => 'Default Create Location View',
 		'description' => '',
-		'subtype' => 'create_category',
-		'available' => TRUE,
-		'priority' => 50,
-		'quality' => 50,
-		'os' => '',
-		'exec' => '',
-		'className' => 'TYPO3\\CMS\\Cal\\View\\CreateCategoryView'
-));
+		'subtype'     => 'create_category',
+		'available'   => TRUE,
+		'priority'    => 50,
+		'quality'     => 50,
+		'os'          => '',
+		'exec'        => '',
+		'className'   => \TYPO3\CMS\Cal\View\CreateCategoryView::class
+	));
 
 /* Default confirm category View */
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addService ($_EXTKEY, 'cal_view' /* sv type */,  'tx_default_confirm_category' /* sv key */,
-	array (
-		'title' => 'Default Confirm Location View',
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addService($_EXTKEY, 'cal_view' /* sv type */, 'tx_default_confirm_category' /* sv key */,
+	array(
+		'title'       => 'Default Confirm Location View',
 		'description' => '',
-		'subtype' => 'confirm_category',
-		'available' => TRUE,
-		'priority' => 50,
-		'quality' => 50,
-		'os' => '',
-		'exec' => '',
-		'className' => 'TYPO3\\CMS\\Cal\\View\\ConfirmCategoryView'
-));
+		'subtype'     => 'confirm_category',
+		'available'   => TRUE,
+		'priority'    => 50,
+		'quality'     => 50,
+		'os'          => '',
+		'exec'        => '',
+		'className'   => \TYPO3\CMS\Cal\View\ConfirmCategoryView::class
+	));
 
 /* Default delete category View */
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addService ($_EXTKEY, 'cal_view' /* sv type */,  'tx_default_delete_category' /* sv key */,
-	array (
-		'title' => 'Default Delete Location View',
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addService($_EXTKEY, 'cal_view' /* sv type */, 'tx_default_delete_category' /* sv key */,
+	array(
+		'title'       => 'Default Delete Location View',
 		'description' => '',
-		'subtype' => 'delete_category',
-		'available' => TRUE,
-		'priority' => 50,
-		'quality' => 50,
-		'os' => '',
-		'exec' => '',
-		'className' => 'TYPO3\\CMS\\Cal\\View\\DeleteCategoryView'
-));
+		'subtype'     => 'delete_category',
+		'available'   => TRUE,
+		'priority'    => 50,
+		'quality'     => 50,
+		'os'          => '',
+		'exec'        => '',
+		'className'   => \TYPO3\CMS\Cal\View\DeleteCategoryView::class
+	));
 
 /* Default remove category service */
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addService ($_EXTKEY, 'cal_view' /* sv type */,  'tx_default_remove_category' /* sv key */,
-	array (
-		'title' => 'Default Remove Location View',
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addService($_EXTKEY, 'cal_view' /* sv type */, 'tx_default_remove_category' /* sv key */,
+	array(
+		'title'       => 'Default Remove Location View',
 		'description' => '',
-		'subtype' => 'remove_category',
-		'available' => TRUE,
-		'priority' => 50,
-		'quality' => 50,
-		'os' => '',
-		'exec' => '',
-		'className' => 'TYPO3\\CMS\\Cal\\View\\DeleteCategoryView'
-));
+		'subtype'     => 'remove_category',
+		'available'   => TRUE,
+		'priority'    => 50,
+		'quality'     => 50,
+		'os'          => '',
+		'exec'        => '',
+		'className'   => \TYPO3\CMS\Cal\View\DeleteCategoryView::class
+	));
 
 /* Default search service */
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addService ($_EXTKEY, 'cal_view' /* sv type */,  'tx_default_searchall' /* sv key */,
-	array (
-		'title' => 'Default Search View',
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addService($_EXTKEY, 'cal_view' /* sv type */, 'tx_default_searchall' /* sv key */,
+	array(
+		'title'       => 'Default Search View',
 		'description' => '',
-		'subtype' => 'search',
-		'available' => TRUE,
-		'priority' => 50,
-		'quality' => 50,
-		'os' => '',
-		'exec' => '',
-		'className' => 'TYPO3\\CMS\\Cal\\View\\SearchViews'
-));
+		'subtype'     => 'search',
+		'available'   => TRUE,
+		'priority'    => 50,
+		'quality'     => 50,
+		'os'          => '',
+		'exec'        => '',
+		'className'   => \TYPO3\CMS\Cal\View\SearchViews::class
+	));
 
 /* Default search service */
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addService ($_EXTKEY, 'cal_view' /* sv type */,  'tx_default_searchevent' /* sv key */,
-	array (
-		'title' => 'Default Search View',
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addService($_EXTKEY, 'cal_view' /* sv type */, 'tx_default_searchevent' /* sv key */,
+	array(
+		'title'       => 'Default Search View',
 		'description' => '',
-		'subtype' => 'search',
-		'available' => TRUE,
-		'priority' => 50,
-		'quality' => 50,
-		'os' => '',
-		'exec' => '',
-		'className' => 'TYPO3\\CMS\\Cal\\View\\SearchViews'
-));
+		'subtype'     => 'search',
+		'available'   => TRUE,
+		'priority'    => 50,
+		'quality'     => 50,
+		'os'          => '',
+		'exec'        => '',
+		'className'   => \TYPO3\CMS\Cal\View\SearchViews::class
+	));
 
 /* Default search service */
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addService ($_EXTKEY, 'cal_view' /* sv type */,  'tx_default_searchlocation' /* sv key */,
-	array (
-		'title' => 'Default Search View',
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addService($_EXTKEY, 'cal_view' /* sv type */, 'tx_default_searchlocation' /* sv key */,
+	array(
+		'title'       => 'Default Search View',
 		'description' => '',
-		'subtype' => 'search',
-		'available' => TRUE,
-		'priority' => 50,
-		'quality' => 50,
-		'os' => '',
-		'exec' => '',
-		'className' => 'TYPO3\\CMS\\Cal\\View\\SearchViews'
-));
+		'subtype'     => 'search',
+		'available'   => TRUE,
+		'priority'    => 50,
+		'quality'     => 50,
+		'os'          => '',
+		'exec'        => '',
+		'className'   => \TYPO3\CMS\Cal\View\SearchViews::class
+	));
 
 /* Default search service */
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addService ($_EXTKEY, 'cal_view' /* sv type */,  'tx_default_searchorganizer' /* sv key */,
-	array (
-		'title' => 'Default Search View',
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addService($_EXTKEY, 'cal_view' /* sv type */, 'tx_default_searchorganizer' /* sv key */,
+	array(
+		'title'       => 'Default Search View',
 		'description' => '',
-		'subtype' => 'search',
-		'available' => TRUE,
-		'priority' => 50,
-		'quality' => 50,
-		'os' => '',
-		'exec' => '',
-		'className' => 'TYPO3\\CMS\\Cal\\View\\SearchViews'
-));
+		'subtype'     => 'search',
+		'available'   => TRUE,
+		'priority'    => 50,
+		'quality'     => 50,
+		'os'          => '',
+		'exec'        => '',
+		'className'   => \TYPO3\CMS\Cal\View\SearchViews::class
+	));
 
 /* Default notification service */
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addService ($_EXTKEY, 'cal_view' /* sv type */,  'tx_default_notification' /* sv key */,
-	array (
-		'title' => 'Default notification service',
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addService($_EXTKEY, 'cal_view' /* sv type */, 'tx_default_notification' /* sv key */,
+	array(
+		'title'       => 'Default notification service',
 		'description' => '',
-		'subtype' => 'notify',
-		'available' => TRUE,
-		'priority' => 50,
-		'quality' => 50,
-		'os' => '',
-		'exec' => '',
-		'className' => 'TYPO3\\CMS\\Cal\\View\\NotificationView'
-));
+		'subtype'     => 'notify',
+		'available'   => TRUE,
+		'priority'    => 50,
+		'quality'     => 50,
+		'os'          => '',
+		'exec'        => '',
+		'className'   => \TYPO3\CMS\Cal\View\NotificationView::class
+	));
 
 /* Default reminder service */
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addService ($_EXTKEY, 'cal_view' /* sv type */,  'tx_default_reminder' /* sv key */,
-	array (
-		'title' => 'Default reminder service',
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addService($_EXTKEY, 'cal_view' /* sv type */, 'tx_default_reminder' /* sv key */,
+	array(
+		'title'       => 'Default reminder service',
 		'description' => '',
-		'subtype' => 'remind',
-		'available' => TRUE,
-		'priority' => 50,
-		'quality' => 50,
-		'os' => '',
-		'exec' => '',
-		'className' => 'TYPO3\\CMS\\Cal\\View\\ReminderView'
-));
+		'subtype'     => 'remind',
+		'available'   => TRUE,
+		'priority'    => 50,
+		'quality'     => 50,
+		'os'          => '',
+		'exec'        => '',
+		'className'   => \TYPO3\CMS\Cal\View\ReminderView::class
+	));
 
 /* Default rights service */
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addService ($_EXTKEY, 'cal_rights_model' /* sv type */,  'tx_cal_rights' /* sv key */,
-	array (
-		'title' => 'Default rights service',
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addService($_EXTKEY, 'cal_rights_model' /* sv type */, 'tx_cal_rights' /* sv key */,
+	array(
+		'title'       => 'Default rights service',
 		'description' => '',
-		'subtype' => 'rights',
-		'available' => TRUE,
-		'priority' => 50,
-		'quality' => 50,
-		'os' => '',
-		'exec' => '',
-		'className' => 'TYPO3\\CMS\\Cal\\Service\\RightsService'
-));
+		'subtype'     => 'rights',
+		'available'   => TRUE,
+		'priority'    => 50,
+		'quality'     => 50,
+		'os'          => '',
+		'exec'        => '',
+		'className'   => \TYPO3\CMS\Cal\Service\RightsService::class
+	));
 // Example for a module
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addService ($_EXTKEY, 'TEST' /* sv type */,  'tx_cal_module' /* sv key */,
-	array (
-		'title' => 'Test module',
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addService($_EXTKEY, 'TEST' /* sv type */, 'tx_cal_module' /* sv key */,
+	array(
+		'title'       => 'Test module',
 		'description' => '',
-		'subtype' => 'module',
-		'available' => TRUE,
-		'priority' => 50,
-		'quality' => 50,
-		'os' => '',
-		'exec' => '',
-		'className' => 'TYPO3\\CMS\\Cal\\View\\Module\\Example'
-));
+		'subtype'     => 'module',
+		'available'   => TRUE,
+		'priority'    => 50,
+		'quality'     => 50,
+		'os'          => '',
+		'exec'        => '',
+		'className'   => \TYPO3\CMS\Cal\View\Module\Example::class
+	));
 
 // Example for a module
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addService ($_EXTKEY, 'LOCATIONLOADER' /* sv type */,  'tx_cal_module' /* sv key */,
-	array (
-		'title' => 'Location loader module',
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addService($_EXTKEY, 'LOCATIONLOADER' /* sv type */, 'tx_cal_module' /* sv key */,
+	array(
+		'title'       => 'Location loader module',
 		'description' => '',
-		'subtype' => 'module',
-		'available' => TRUE,
-		'priority' => 50,
-		'quality' => 50,
-		'os' => '',
-		'exec' => '',
-		'className' => 'TYPO3\\CMS\\Cal\\View\\Module\\LocationLoader'
-));
+		'subtype'     => 'module',
+		'available'   => TRUE,
+		'priority'    => 50,
+		'quality'     => 50,
+		'os'          => '',
+		'exec'        => '',
+		'className'   => \TYPO3\CMS\Cal\View\Module\LocationLoader::class
+	));
 
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addService ($_EXTKEY, 'ORGANIZERLOADER' /* sv type */,  'tx_cal_module' /* sv key */,
-	array (
-		'title' => 'Organizer loader module',
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addService($_EXTKEY, 'ORGANIZERLOADER' /* sv type */, 'tx_cal_module' /* sv key */,
+	array(
+		'title'       => 'Organizer loader module',
 		'description' => '',
-		'subtype' => 'module',
-		'available' => TRUE,
-		'priority' => 50,
-		'quality' => 50,
-		'os' => '',
-		'exec' => '',
-		'className' => 'TYPO3\\CMS\\Cal\\View\\Module\\OrganizerLoader'
-));
+		'subtype'     => 'module',
+		'available'   => TRUE,
+		'priority'    => 50,
+		'quality'     => 50,
+		'os'          => '',
+		'exec'        => '',
+		'className'   => \TYPO3\CMS\Cal\View\Module\OrganizerLoader::class
+	));
 
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addService ($_EXTKEY, 'cal_view' /* sv type */,  'tx_cal_subscription' /* sv key */,
-	array (
-		'title' => 'Subscription Manager',
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addService($_EXTKEY, 'cal_view' /* sv type */, 'tx_cal_subscription' /* sv key */,
+	array(
+		'title'       => 'Subscription Manager',
 		'description' => '',
-		'subtype' => 'subscription',
-		'available' => TRUE,
-		'priority' => 50,
-		'quality' => 50,
-		'os' => '',
-		'exec' => '',
-		'className' => 'TYPO3\\CMS\\Cal\\View\\SubscriptionManagerView'
-));
+		'subtype'     => 'subscription',
+		'available'   => TRUE,
+		'priority'    => 50,
+		'quality'     => 50,
+		'os'          => '',
+		'exec'        => '',
+		'className'   => \TYPO3\CMS\Cal\View\SubscriptionManagerView::class
+	));
 
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addService ($_EXTKEY, 'cal_view' /* sv type */,  'tx_cal_meeting' /* sv key */,
-	array (
-		'title' => 'Meeting Manager',
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addService($_EXTKEY, 'cal_view' /* sv type */, 'tx_cal_meeting' /* sv key */,
+	array(
+		'title'       => 'Meeting Manager',
 		'description' => '',
-		'subtype' => 'meeting',
-		'available' => TRUE,
-		'priority' => 50,
-		'quality' => 50,
-		'os' => '',
-		'exec' => '',
-		'className' => 'TYPO3\\CMS\\Cal\\View\\MeetingManagerView'
-));
+		'subtype'     => 'meeting',
+		'available'   => TRUE,
+		'priority'    => 50,
+		'quality'     => 50,
+		'os'          => '',
+		'exec'        => '',
+		'className'   => \TYPO3\CMS\Cal\View\MeetingManagerView::class
+	));
 
-$GLOBALS ['TYPO3_CONF_VARS'] ['SC_OPTIONS'] ['t3lib/class.t3lib_tcemain.php'] ['processDatamapClass'] ['tx_cal'] = 'TYPO3\\CMS\\Cal\\Hooks\\TceMainProcessdatamap';
-$GLOBALS ['TYPO3_CONF_VARS'] ['SC_OPTIONS'] ['t3lib/class.t3lib_tcemain.php'] ['processCmdmapClass'] ['tx_cal'] = 'TYPO3\\CMS\\Cal\\Hooks\\TceMainProcesscmdmap';
+$GLOBALS ['TYPO3_CONF_VARS'] ['SC_OPTIONS'] ['t3lib/class.t3lib_tcemain.php'] ['processDatamapClass'] ['tx_cal'] = \TYPO3\CMS\Cal\Hooks\TceMainProcessdatamap::class;
+$GLOBALS ['TYPO3_CONF_VARS'] ['SC_OPTIONS'] ['t3lib/class.t3lib_tcemain.php'] ['processCmdmapClass'] ['tx_cal'] = \TYPO3\CMS\Cal\Hooks\TceMainProcesscmdmap::class;
 
-if (\TYPO3\CMS\Core\Utility\VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version) >= 7005000) {
-	\TYPO3\CMS\Cal\Backend\Form\FormDateDataProvider::register();
-} else if (\TYPO3\CMS\Core\Utility\VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version) >= 7001000) {
-	\TYPO3\CMS\Cal\Slot\FormDataPreprocessorSlot::register();
-} else {
-	$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_tceforms.php']['getMainFieldsClass']['tx_cal'] = 'TYPO3\\CMS\\Cal\\Hooks\\TceFormsGetmainfields';
+\TYPO3\CMS\Cal\Backend\Form\FormDateDataProvider::register();
+
+$GLOBALS ['TYPO3_CONF_VARS'] ['SC_OPTIONS'] ['tslib/class.tslib_content.php'] ['typolinkLinkHandler'] ['calendar'] = \TYPO3\CMS\Cal\Hooks\EventLinkHandler::class;
+$GLOBALS ['TYPO3_CONF_VARS'] ['EXTCONF'] ['tx_wecmap_pi3'] ['markerHook'] ['cal'] = \TYPO3\CMS\Cal\Hooks\WecMap::class.':&WecMap->getMarkerContent';
+$GLOBALS ['TYPO3_CONF_VARS'] ['SC_OPTIONS'] ['tce'] ['formevals'] ['tx_cal_dateeval'] = \TYPO3\CMS\Cal\Hooks\DateEval::class;
+// $GLOBALS ['TYPO3_CONF_VARS'] ['EXTCONF'] ['felogin'] ['loginFormOnSubmitFuncs'] [] = \TYPO3\CMS\Cal\Hooks\LogoffPostProcessing::class.':LogoffPostProcessing->clearSessionApiAfterLogoff';
+// $GLOBALS ['TYPO3_CONF_VARS'] ['EXTCONF'] ['felogin'] ['login_confirmed'] [] = \TYPO3\CMS\Cal\Hooks\LogoffPostProcessing::class.':LogoffPostProcessing->clearSessionApiAfterLogin';
+
+if (!isset ($confArr ['enableRealURLAutoConfiguration']) || $confArr ['enableRealURLAutoConfiguration']) {
+	$GLOBALS ['TYPO3_CONF_VARS'] ['SC_OPTIONS'] ['ext/realurl/class.tx_realurl_autoconfgen.php'] ['extensionConfiguration'] ['cal'] = \TYPO3\CMS\Cal\Hooks\RealUrl::class.'->addRealURLConfig';
 }
 
-$GLOBALS ['TYPO3_CONF_VARS'] ['SC_OPTIONS'] ['tslib/class.tslib_content.php'] ['typolinkLinkHandler'] ['calendar'] = 'TYPO3\\CMS\\Cal\\Hooks\\EventLinkHandler';
-$GLOBALS ['TYPO3_CONF_VARS'] ['EXTCONF'] ['tx_wecmap_pi3'] ['markerHook'] ['cal'] = 'TYPO3\\CMS\\Cal\\Hooks\\WecMap:&WecMap->getMarkerContent';
-$GLOBALS ['TYPO3_CONF_VARS'] ['SC_OPTIONS'] ['tce'] ['formevals'] ['tx_cal_dateeval'] = 'TYPO3\\CMS\\Cal\\Hooks\\DateEval';
-// $GLOBALS ['TYPO3_CONF_VARS'] ['EXTCONF'] ['felogin'] ['loginFormOnSubmitFuncs'] [] = 'TYPO3\\CMS\\Cal\\Hooks\\LogoffPostProcessing:LogoffPostProcessing->clearSessionApiAfterLogoff';
-// $GLOBALS ['TYPO3_CONF_VARS'] ['EXTCONF'] ['felogin'] ['login_confirmed'] [] = 'TYPO3\\CMS\\Cal\\Hooks\\LogoffPostProcessing:LogoffPostProcessing->clearSessionApiAfterLogin';
-
-if (! isset ($confArr ['enableRealURLAutoConfiguration']) || $confArr ['enableRealURLAutoConfiguration']) {
-	$GLOBALS ['TYPO3_CONF_VARS'] ['SC_OPTIONS'] ['ext/realurl/class.tx_realurl_autoconfgen.php'] ['extensionConfiguration'] ['cal'] = 'TYPO3\\CMS\\Cal\\Hooks\\RealUrl->addRealURLConfig';
-}
-
-if (\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::isLoaded ('gabriel')) {
-	$GLOBALS ['TYPO3_CONF_VARS'] ['EXTCONF'] ['gabriel'] ['include'] [$_EXTKEY] = Array (
-			'TYPO3\\CMS\\Cal\\Cron\\CalendarCron',
-			'TYPO3\\CMS\\Cal\\Cron\\ReminderCron'
+if (\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::isLoaded('gabriel')) {
+	$GLOBALS ['TYPO3_CONF_VARS'] ['EXTCONF'] ['gabriel'] ['include'] [$_EXTKEY] = Array(
+		\TYPO3\CMS\Cal\Cron\CalendarCron::class,
+		\TYPO3\CMS\Cal\Cron\ReminderCron::class
 	);
 }
 
-$GLOBALS ['TYPO3_CONF_VARS'] ['SC_OPTIONS'] ['scheduler'] ['tasks'] ['TYPO3\\CMS\\Cal\\Cron\\CalendarScheduler'] = Array (
-		'extension' => $_EXTKEY,
-		'title' => 'Updating external calendars (created by saving the calendar record)',
-		'description' => 'cal calendar scheduler integration',
-		'additionalFields' => ''
+$GLOBALS ['TYPO3_CONF_VARS'] ['SC_OPTIONS'] ['scheduler'] ['tasks'] [\TYPO3\CMS\Cal\Cron\CalendarScheduler::class] = Array(
+	'extension'        => $_EXTKEY,
+	'title'            => 'Updating external calendars (created by saving the calendar record)',
+	'description'      => 'cal calendar scheduler integration',
+	'additionalFields' => ''
 );
-$GLOBALS ['TYPO3_CONF_VARS'] ['SC_OPTIONS'] ['scheduler'] ['tasks'] ['TYPO3\\CMS\\Cal\\Cron\\ReminderScheduler'] = Array (
-		'extension' => $_EXTKEY,
-		'title' => 'Sending reminder for events (created by saving the event record)',
-		'description' => 'cal reminder scheduler integration',
-		'additionalFields' => ''
+$GLOBALS ['TYPO3_CONF_VARS'] ['SC_OPTIONS'] ['scheduler'] ['tasks'] [\TYPO3\CMS\Cal\Cron\ReminderScheduler::class] = Array(
+	'extension'        => $_EXTKEY,
+	'title'            => 'Sending reminder for events (created by saving the event record)',
+	'description'      => 'cal reminder scheduler integration',
+	'additionalFields' => ''
 );
-$GLOBALS ['TYPO3_CONF_VARS'] ['SC_OPTIONS'] ['scheduler'] ['tasks'] ['TYPO3\\CMS\\Cal\\Cron\\IndexerScheduler'] = Array (
-		'extension' => $_EXTKEY,
-		'title' => 'Indexer for recurring events',
-		'description' => 'Indexing recurring events',
-		'additionalFields' => 'TYPO3\\CMS\\Cal\\Cron\\IndexerSchedulerAdditionalFieldProvider'
+$GLOBALS ['TYPO3_CONF_VARS'] ['SC_OPTIONS'] ['scheduler'] ['tasks'] [\TYPO3\CMS\Cal\Cron\IndexerScheduler::class] = Array(
+	'extension'        => $_EXTKEY,
+	'title'            => 'Indexer for recurring events',
+	'description'      => 'Indexing recurring events',
+	'additionalFields' => \TYPO3\CMS\Cal\Cron\IndexerSchedulerAdditionalFieldProvider::class
 );
 
 /* defining stuff for scheduler */
-if (\TYPO3\CMS\Core\Utility\GeneralUtility::inList ($GLOBALS['TYPO3_CONF_VARS'] ['EXT'] ['extList'], 'scheduler')) {
+if (\TYPO3\CMS\Core\Utility\GeneralUtility::inList($GLOBALS['TYPO3_CONF_VARS'] ['EXT'] ['extList'], 'scheduler')) {
 	// find type of ext and determine paths
 	// add these to the global TYPO3_LOADED_EXT
 	$temp_extKey = 'scheduler';
-	if (! isset ($GLOBALS ['TYPO3_LOADED_EXT'] [$temp_extKey])) {
-		if (@is_dir (PATH_typo3conf . 'ext/' . $temp_extKey . '/')) {
-			$GLOBALS ['TYPO3_LOADED_EXT'] [$temp_extKey] = Array (
-					'type' => 'L',
-					'siteRelPath' => 'typo3conf/ext/' . $temp_extKey . '/',
-					'typo3RelPath' => '../typo3conf/ext/' . $temp_extKey . '/'
+	if (!isset ($GLOBALS ['TYPO3_LOADED_EXT'] [$temp_extKey])) {
+		if (@is_dir(PATH_typo3conf.'ext/'.$temp_extKey.'/')) {
+			$GLOBALS ['TYPO3_LOADED_EXT'] [$temp_extKey] = Array(
+				'type'         => 'L',
+				'siteRelPath'  => 'typo3conf/ext/'.$temp_extKey.'/',
+				'typo3RelPath' => '../typo3conf/ext/'.$temp_extKey.'/'
 			);
-		} elseif (@is_dir (PATH_typo3 . 'ext/' . $temp_extKey . '/')) {
-			$GLOBALS ['TYPO3_LOADED_EXT'] [$temp_extKey] = Array (
-					'type' => 'G',
-					'siteRelPath' => TYPO3_mainDir . 'ext/' . $temp_extKey . '/',
-					'typo3RelPath' => 'ext/' . $temp_extKey . '/'
+		} elseif (@is_dir(PATH_typo3.'ext/'.$temp_extKey.'/')) {
+			$GLOBALS ['TYPO3_LOADED_EXT'] [$temp_extKey] = Array(
+				'type'         => 'G',
+				'siteRelPath'  => TYPO3_mainDir.'ext/'.$temp_extKey.'/',
+				'typo3RelPath' => 'ext/'.$temp_extKey.'/'
 			);
-		} elseif (@is_dir (PATH_typo3 . 'sysext/' . $temp_extKey . '/')) {
-			$GLOBALS ['TYPO3_LOADED_EXT'] [$temp_extKey] = Array (
-					'type' => 'S',
-					'siteRelPath' => TYPO3_mainDir . 'sysext/' . $temp_extKey . '/',
-					'typo3RelPath' => 'sysext/' . $temp_extKey . '/'
+		} elseif (@is_dir(PATH_typo3.'sysext/'.$temp_extKey.'/')) {
+			$GLOBALS ['TYPO3_LOADED_EXT'] [$temp_extKey] = Array(
+				'type'         => 'S',
+				'siteRelPath'  => TYPO3_mainDir.'sysext/'.$temp_extKey.'/',
+				'typo3RelPath' => 'sysext/'.$temp_extKey.'/'
 			);
 		}
 	}
 
 	$GLOBALS ['TYPO3_CONF_VARS'] ['EXT'] ['extList_FE'] .= ',scheduler';
-	$GLOBALS ['TYPO3_CONF_VARS'] ['SC_OPTIONS'] ['scheduler'] ['tasks'] ['TYPO3\\CMS\\Cal\\Cron\\CalendarScheduler'] = Array (
-		'extension' => $_EXTKEY,
-		'title' => 'Updating external calendars (created by saving the calendar record)',
-		'description' => 'cal calendar scheduler integration',
+	$GLOBALS ['TYPO3_CONF_VARS'] ['SC_OPTIONS'] ['scheduler'] ['tasks'] [\TYPO3\CMS\Cal\Cron\CalendarScheduler::class] = Array(
+		'extension'        => $_EXTKEY,
+		'title'            => 'Updating external calendars (created by saving the calendar record)',
+		'description'      => 'cal calendar scheduler integration',
 		'additionalFields' => ''
 	);
-	$GLOBALS ['TYPO3_CONF_VARS'] ['SC_OPTIONS'] ['scheduler'] ['tasks'] ['TYPO3\\CMS\\Cal\\Cron\\ReminderScheduler'] = Array (
-			'extension' => $_EXTKEY,
-			'title' => 'Sending reminder for events (created by saving the event record)',
-			'description' => 'cal reminder scheduler integration',
-			'additionalFields' => ''
+	$GLOBALS ['TYPO3_CONF_VARS'] ['SC_OPTIONS'] ['scheduler'] ['tasks'] [TYPO3\CMS\Cal\Cron\ReminderScheduler::class] = Array(
+		'extension'        => $_EXTKEY,
+		'title'            => 'Sending reminder for events (created by saving the event record)',
+		'description'      => 'cal reminder scheduler integration',
+		'additionalFields' => ''
 	);
-	$GLOBALS ['TYPO3_CONF_VARS'] ['SC_OPTIONS'] ['scheduler'] ['tasks'] ['TYPO3\\CMS\\Cal\\Cron\\IndexerScheduler'] = Array (
-			'extension' => $_EXTKEY,
-			'title' => 'Indexer for recurring events',
-			'description' => 'Indexing recurring events',
-			'additionalFields' => 'TYPO3\\CMS\\Cal\\Cron\\IndexerSchedulerAdditionalFieldProvider'
+	$GLOBALS ['TYPO3_CONF_VARS'] ['SC_OPTIONS'] ['scheduler'] ['tasks'] [\TYPO3\CMS\Cal\Cron\IndexerScheduler::class] = Array(
+		'extension'        => $_EXTKEY,
+		'title'            => 'Indexer for recurring events',
+		'description'      => 'Indexing recurring events',
+		'additionalFields' => \TYPO3\CMS\Cal\Cron\IndexerSchedulerAdditionalFieldProvider::class
 	);
 }
 
 /* Include a custom userFunc for checking whether we're in frontend editing mode */
-require_once (\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath ($_EXTKEY) . 'Classes/Frontend/IsCalNotAllowedToBeCached.php');
+require_once(\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($_EXTKEY).'Classes/Frontend/IsCalNotAllowedToBeCached.php');
 
 // caching framework configuration
 // Register cache 'tx_cal_cache'
-if (! is_array ($GLOBALS['TYPO3_CONF_VARS'] ['SYS'] ['caching'] ['cacheConfigurations'] ['tx_cal_cache'])) {
-	$GLOBALS['TYPO3_CONF_VARS'] ['SYS'] ['caching'] ['cacheConfigurations'] ['tx_cal_cache'] = Array ();
+if (!is_array($GLOBALS['TYPO3_CONF_VARS'] ['SYS'] ['caching'] ['cacheConfigurations'] ['tx_cal_cache'])) {
+	$GLOBALS['TYPO3_CONF_VARS'] ['SYS'] ['caching'] ['cacheConfigurations'] ['tx_cal_cache'] = Array();
 }
 // Define string frontend as default frontend, this must be set with TYPO3 4.5 and below
 // and overrides the default variable frontend of 4.6
-if (! isset ($GLOBALS['TYPO3_CONF_VARS'] ['SYS'] ['caching'] ['cacheConfigurations'] ['tx_cal_cache'] ['frontend'])) {
-	$GLOBALS['TYPO3_CONF_VARS'] ['SYS'] ['caching'] ['cacheConfigurations'] ['tx_cal_cache'] ['frontend'] = 'TYPO3\\CMS\\Core\\Cache\\Frontend\\StringFrontend';
-}
-if (\TYPO3\CMS\Core\Utility\VersionNumberUtility::convertVersionNumberToInteger (TYPO3_version) < '4006000') {
-	// Define database backend as backend for 4.5 and below (default in 4.6)
-	if (! isset ($GLOBALS['TYPO3_CONF_VARS'] ['SYS'] ['caching'] ['cacheConfigurations'] ['tx_cal_cache'] ['backend'])) {
-		$GLOBALS['TYPO3_CONF_VARS'] ['SYS'] ['caching'] ['cacheConfigurations'] ['tx_cal_cache'] ['backend'] = 'TYPO3\\CMS\\Core\\Cache\\Backend\\Typo3DatabaseBackend';
-	}
-	// Define data and tags table for 4.5 and below (obsolete in 4.6)
-	if (! isset ($GLOBALS['TYPO3_CONF_VARS'] ['SYS'] ['caching'] ['cacheConfigurations'] ['tx_cal_cache'] ['options'])) {
-		$GLOBALS['TYPO3_CONF_VARS'] ['SYS'] ['caching'] ['cacheConfigurations'] ['tx_cal_cache'] ['options'] = Array ();
-	}
-	if (! isset ($GLOBALS['TYPO3_CONF_VARS'] ['SYS'] ['caching'] ['cacheConfigurations'] ['tx_cal_cache'] ['options'] ['cacheTable'])) {
-		$GLOBALS['TYPO3_CONF_VARS'] ['SYS'] ['caching'] ['cacheConfigurations'] ['tx_cal_cache'] ['options'] ['cacheTable'] = 'tx_cal_cache';
-	}
-	if (! isset ($GLOBALS['TYPO3_CONF_VARS'] ['SYS'] ['caching'] ['cacheConfigurations'] ['tx_cal_cache'] ['options'] ['tagsTable'])) {
-		$GLOBALS['TYPO3_CONF_VARS'] ['SYS'] ['caching'] ['cacheConfigurations'] ['tx_cal_cache'] ['options'] ['tagsTable'] = 'tx_cal_cache_tags';
-	}
+if (!isset ($GLOBALS['TYPO3_CONF_VARS'] ['SYS'] ['caching'] ['cacheConfigurations'] ['tx_cal_cache'] ['frontend'])) {
+	$GLOBALS['TYPO3_CONF_VARS'] ['SYS'] ['caching'] ['cacheConfigurations'] ['tx_cal_cache'] ['frontend'] = \TYPO3\CMS\Core\Cache\Frontend\StringFrontend::class;
 }
 
 // register cal cache table for "clear all caches"
 if ($confArr ['cachingMode'] == 'normal') {
 	$GLOBALS ['TYPO3_CONF_VARS'] ['SC_OPTIONS'] ['t3lib/class.t3lib_tcemain.php'] ['clearAllCache_additionalTables'] ['tx_cal_cache'] = 'tx_cal_cache';
 }
-$GLOBALS ['TYPO3_CONF_VARS'] ['SC_OPTIONS'] ['t3lib/class.t3lib_befunc.php'] ['postProcessValue'] [] = 'TYPO3\\CMS\\Cal\\Hooks\\Befunc->postprocessvalue';
-$GLOBALS ['TYPO3_CONF_VARS'] ['SC_OPTIONS'] ['t3lib/class.t3lib_befunc.php'] ['preProcessValue'] [] = 'TYPO3\\CMS\\Cal\\Hooks\\Befunc->preprocessvalue';
+$GLOBALS ['TYPO3_CONF_VARS'] ['SC_OPTIONS'] ['t3lib/class.t3lib_befunc.php'] ['postProcessValue'] [] = \TYPO3\CMS\Cal\Hooks\Befunc::class.'->postprocessvalue';
+$GLOBALS ['TYPO3_CONF_VARS'] ['SC_OPTIONS'] ['t3lib/class.t3lib_befunc.php'] ['preProcessValue'] [] = \TYPO3\CMS\Cal\Hooks\Befunc::class.'->preprocessvalue';
 
-$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['ext/install']['update']['cal_event_file_uploads'] = 'TYPO3\\CMS\\Cal\\Updates\\UploadsUpdateWizard';
-$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['ext/install']['update']['cal_event_images'] = 'TYPO3\\CMS\\Cal\\Updates\\EventImagesUpdateWizard';
-$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['ext/install']['update']['cal_location_images'] = 'TYPO3\\CMS\\Cal\\Updates\\LocationImagesUpdateWizard';
-$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['ext/install']['update']['cal_organizer_images'] = 'TYPO3\\CMS\\Cal\\Updates\\OrganizerImagesUpdateWizard';
-$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['ext/install']['update']['cal_sys_template'] = 'TYPO3\\CMS\\Cal\\Updates\\TypoScriptUpdateWizard';
+$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['ext/install']['update']['cal_event_file_uploads'] = \TYPO3\CMS\Cal\Updates\UploadsUpdateWizard::class;
+$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['ext/install']['update']['cal_event_images'] = \TYPO3\CMS\Cal\Updates\EventImagesUpdateWizard::class;
+$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['ext/install']['update']['cal_location_images'] = \TYPO3\CMS\Cal\Updates\LocationImagesUpdateWizard::class;
+$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['ext/install']['update']['cal_organizer_images'] = \TYPO3\CMS\Cal\Updates\OrganizerImagesUpdateWizard::class;
+$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['ext/install']['update']['cal_sys_template'] = \TYPO3\CMS\Cal\Updates\TypoScriptUpdateWizard::class;
 
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPageTSConfig('
 mod.wizards.newContentElement.wizardItems.plugins.elements.tx_cal {
