@@ -19,9 +19,10 @@ $tx_cal_calendar = array(
 			),
 			'type' => 'type',
 			'typeicon_column' => 'type',
-			'typeicons' => array(
-					1 => 'EXT:cal/Resources/Public/icons/icon_tx_cal_calendar_exturl.gif',
-					2 => 'EXT:cal/Resources/Public/icons/icon_tx_cal_calendar_ics.gif'
+			'typeicon_classes' => array(
+					0 => 'cal-calendar-standard',
+					1 => 'cal-calendar-exturl',
+					2 => 'cal-calendar-ics'
 			),
 			'versioningWS' => TRUE,
 			'origUid' => 't3_origuid',
@@ -184,7 +185,7 @@ $tx_cal_calendar = array(
 							'type' => 'input',
 							'size' => 5,
 							'readOnly' => 1,
-							'default' => '',
+							'default' => 0,
 					)
 			),
 			
