@@ -1,5 +1,7 @@
 <?php
+
 namespace TYPO3\CMS\Cal\Controller;
+
 /**
  * This file is part of the TYPO3 extension Calendar Base (cal).
  *
@@ -20,21 +22,29 @@ namespace TYPO3\CMS\Cal\Controller;
  * @subpackage cal
  */
 class BaseController {
+	/** @var \TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer */
 	var $cObj;
+	/** @var \TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer */
 	var $local_cObj;
+	/** @var array */
 	var $conf;
+	/** @var \TYPO3\CMS\Cal\Service\RightsService */
 	var $rightsObj;
+	/** @var \TYPO3\CMS\Cal\Controller\Controller */
 	var $controller;
+	/** @var string */
 	var $prefixId = 'tx_cal_controller';
-	function BaseController() {
-		$this->cObj = &\TYPO3\CMS\Cal\Utility\Registry::Registry ('basic', 'cobj');
-		$this->local_cObj = &\TYPO3\CMS\Cal\Utility\Registry::Registry ('basic', 'local_cobj');
-		$this->controller = &\TYPO3\CMS\Cal\Utility\Registry::Registry ('basic', 'controller');
-		$this->conf = &\TYPO3\CMS\Cal\Utility\Registry::Registry ('basic', 'conf');
-		$this->rightsObj = &\TYPO3\CMS\Cal\Utility\Registry::Registry ('basic', 'rightscontroller');
+
+	function __construct() {
+		$this->cObj = &\TYPO3\CMS\Cal\Utility\Registry::Registry('basic', 'cobj');
+		$this->local_cObj = &\TYPO3\CMS\Cal\Utility\Registry::Registry('basic', 'local_cobj');
+		$this->controller = &\TYPO3\CMS\Cal\Utility\Registry::Registry('basic', 'controller');
+		$this->conf = &\TYPO3\CMS\Cal\Utility\Registry::Registry('basic', 'conf');
+		$this->rightsObj = &\TYPO3\CMS\Cal\Utility\Registry::Registry('basic', 'rightscontroller');
 	}
+
 	function __toString() {
-		return get_class ($this);
+		return get_class($this);
 	}
 }
 
