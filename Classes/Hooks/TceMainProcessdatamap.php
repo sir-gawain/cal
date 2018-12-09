@@ -271,6 +271,12 @@ class TceMainProcessdatamap {
 		}
 	}
 
+	/**
+	 * @param $incomingFieldArray
+	 * @param $table
+	 * @param $id
+	 * @param $tce
+	 */
 	public static function processDatamap_preProcessFieldArray(&$incomingFieldArray, $table, $id, &$tce) {
 
 		/**
@@ -452,12 +458,12 @@ class TceMainProcessdatamap {
                 $query = $connectionPool->getQueryBuilderForTable('fe_users');
                 $query->getRestrictions()->removeAll();
 
-                $query->selectLiteral('DISTINCT fe_users.*')
-                    ->from('fe_groups')->join('G', 'fe_users', 'U');
+				$query->selectLiteral('DISTINCT fe_users.*')
+					->from('fe_groups')
+					->join('fe_groups', 'fe_users', 'fe_users', 'FIND_IN_SET(fe_groups.uid, fe_users.usergroup)');
                 $query->where(
                 	$query->expr()->in('fe_groups.uid', $groups),
-                    $query->expr()->inSet('fe_groups.uid', 'fe_users.usergroup'),
-                    $query->expr()->neq('fe_users.email', ''),
+                    $query->expr()->neq('fe_users.email', '""'),
                     $query->expr()->eq('fe_groups.deleted', 0),
                     $query->expr()->eq('fe_groups.hidden', 0),
                     $query->expr()->eq('fe_users.disable', 0),

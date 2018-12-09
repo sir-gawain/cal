@@ -58,7 +58,7 @@ class TceMainProcesscmdmap {
 												'md5' => ''
 										);
 										$update = $connectionPool->getConnectionForTable('tx_cal_calendar');
-										$update->update('tx_cal_calendar', $insertFields, ['uid', $calendar_id]);
+										$update->update('tx_cal_calendar', $insertFields, ['uid' => $calendar_id]);
 									}
 
 									/** @var \TYPO3\CMS\Cal\Utility\RecurrenceGenerator $rgc */
@@ -67,7 +67,7 @@ class TceMainProcesscmdmap {
 
 									/* Delete all deviations of the event */
 									$delete = $connectionPool->getConnectionForTable('tx_cal_event_deviation');
-									$delete->delete('tx_cal_event_deviation', ['parentid', $id]);
+									$delete->delete('tx_cal_event_deviation', ['parentid' => $id]);
 								} else {
 									$notificationService->notifyOfChanges ($row, array (
 											$command => $value
@@ -139,9 +139,9 @@ class TceMainProcesscmdmap {
 				case 'tx_cal_event_deviation' :
 					if ($command == 'delete') {
 						$query = $connectionPool->getQueryBuilderForTable('tx_cal_event_deviation');
-						$result = $query->select(['tx_cal_event.uid', 'tx_cal_event.pid'])->from('tx_cal_event')
+						$result = $query->select(['tx_cal_event.uid', 'tx_cal_event.pid'])->from('tx_cal_event', 'E')
 							->join('E', 'tx_cal_index', 'I', 'I.event_uid = E.uid')
-							->where(['I.event_deviation_uid' => $id])->execute();
+							->where($query->expr()->eq('I.event_deviation_uid', $id))->execute();
 						if ($result) {
 							while ($row = $result->fetch(FetchMode::ASSOCIATIVE)) {
 								$this->reindexEvent($row['uid'], $row['pid']);

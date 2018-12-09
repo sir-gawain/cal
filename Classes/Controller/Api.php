@@ -144,7 +144,7 @@ class Api {
 		$where = [
 			'tt_content.list_type' => 'cal_controller',
 			'tt_content.deleted'   => 0,
-			'pid'                  => $pid
+			'tt_content.pid'       => $pid
 		];
 
 		$connection = $this->connectionPool->getConnectionForTable('tt_content');
@@ -156,8 +156,12 @@ class Api {
 		if (!$tt_content_row) {
 			$builder = $this->connectionPool->getQueryBuilderForTable('tt_content');
 			$builder->select('*')->from('tt_content')
-				->join('C', 'page', 'P', 'C.pid = P.uid')
-				->andWhere();
+				->join('tt_content', 'pages', 'P', 'tt_content.pid = P.uid');
+
+			foreach ($where as $identifier => $value) {
+				$builder->andWhere($builder->expr()->eq($identifier, $builder->createNamedParameter($value)));
+			}
+
 			$tt_content_row = $builder->execute()->fetch(FetchMode::ASSOCIATIVE);
 		}
 
