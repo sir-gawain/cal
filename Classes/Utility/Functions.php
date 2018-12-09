@@ -13,6 +13,9 @@ namespace TYPO3\CMS\Cal\Utility;
  * The TYPO3 extension Calendar Base (cal) project - inspiring people to share!
  */
 
+use TYPO3\CMS\Cal\Controller\UriHandler;
+use TYPO3\CMS\Core\Cache\CacheManager;
+use TYPO3\CMS\Core\TypoScript\TypoScriptService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
@@ -21,8 +24,10 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  * @author Mario Matzulla <mario(at)matzullas.de>
  */
 class Functions {
-	/*
-	 * Expands a path if it includes EXT: shorthand. @param		string		The path to be expanded. @return					The expanded path.
+	/**
+	 * Expands a path if it includes EXT: shorthand.
+	 * @param	string	The path to be expanded.
+	 * @return	string  The expanded path.
 	 */
 	public static function expandPath($path) {
 		if (! strcmp (substr ($path, 0, 4), 'EXT:')) {
@@ -35,18 +40,13 @@ class Functions {
 		
 		return $path;
 	}
+
 	public static function clearCache() {
-		if (\TYPO3\CMS\Core\Utility\VersionNumberUtility::convertVersionNumberToInteger (TYPO3_version) >= 7005000) {
-			$pageCache = GeneralUtility::makeInstance('TYPO3\\CMS\\Core\\Cache\\CacheManager')->getCache('cache_pages');
-			$pageCache->flushByTag ('cal');
-		} else {
-			// only use cachingFramework if initialized and configured in TYPO3
-			if (\TYPO3\CMS\Core\Cache\Cache::isCachingFrameworkInitialized () && TYPO3_UseCachingFramework && is_object($GLOBALS ['typo3CacheManager'])) {
-				$pageCache = $GLOBALS ['typo3CacheManager']->getCache ('cache_pages');
-				$pageCache->flushByTag ('cal');
-			}
-		}
+		/** @var CacheManager $pageCache */
+		$pageCache = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Cache\CacheManager::class)->getCache('cache_pages');
+		$pageCache->flushCachesByTag('cal');
 	}
+
 	public static function &getNotificationService() {
 		$key = 'tx_default_notification';
 		$serviceChain = '';
@@ -59,6 +59,10 @@ class Functions {
 			}
 		}
 	}
+
+	/**
+	 * @return Reminder
+	 */
 	public static function &getReminderService() {
 		$key = 'tx_default_reminder';
 		$serviceChain = '';
@@ -72,6 +76,7 @@ class Functions {
 			}
 		}
 	}
+
 	public static function &getEventService() {
 		$key = 'tx_cal_phpicalendar';
 		$serviceChain = '';
@@ -84,8 +89,12 @@ class Functions {
 			}
 		}
 	}
-	
-	// get used charset
+
+	/**
+	 * get used charset
+	 * @return string
+	 * @deprecated
+	 */
 	public static function getCharset() {
 		if ($GLOBALS ['TYPO3_CONF_VARS'] ['BE'] ['forceCharset']) { // First priority: forceCharset! If set, this will be authoritative!
 			$charset = $GLOBALS ['TYPO3_CONF_VARS'] ['BE'] ['forceCharset'];
@@ -97,6 +106,7 @@ class Functions {
 		
 		return $charset;
 	}
+
 	public static function getOrderBy($table) {
 
 		if (isset ($GLOBALS['TCA'] [$table] ['ctrl'] ['default_sortby'])) {
@@ -107,14 +117,17 @@ class Functions {
 		
 		return $orderBy;
 	}
+
 	public static function getmicrotime() {
 		list ($asec, $sec) = explode (" ", microtime ());
 		return date ('H:m:s', intval ($sec)) . ' ' . $asec;
 	}
+
 	public static function strtotimeOffset($unixtime) {
 		$zone = intval (date ('O', $unixtime)) / 100;
 		return $zone * 60 * 60;
 	}
+
 	public static function getFormatStringFromConf($conf) {
 		$dateFormatArray = array ();
 		$dateFormatArray [$conf ['dateConfig.'] ['dayPosition']] = '%d';
@@ -123,6 +136,7 @@ class Functions {
 		$format = $dateFormatArray [0] . $conf ['dateConfig.'] ['splitSymbol'] . $dateFormatArray [1] . $conf ['dateConfig.'] ['splitSymbol'] . $dateFormatArray [2];
 		return $format;
 	}
+
 	public static function getYmdFromDateString($conf, $string) {
 		// yyyy.mm.dd or dd.mm.yyyy or mm.dd.yyyy
 		$stringArray = explode ($conf ['dateConfig.'] ['splitSymbol'], $string);
@@ -178,13 +192,12 @@ class Functions {
 	 * Removes potential XSS code from an input string.
 	 * Copied from typo3/contrib/RemoveXSS/RemoveXSS.php in TYPO3 trunk.
 	 *
-	 * @param
-	 *        	string		Input string
-	 * @param
-	 *        	string		replaceString for inserting in keywords (which destroyes the tags)
+	 * @param  string		Input string
+	 * @param  string		replaceString for inserting in keywords (which destroyes the tags)
 	 * @return string string with potential XSS code removed
 	 *        
-	 * @todo Once TYPO3 4.3 is released and required by cal, remove this method.
+	 * @todo remove this method.
+	 * @deprecated
 	 */
 	public static function removeXSS($val, $replaceString = '<x>') {
 		// don't use empty $replaceString because then no XSS-remove will be done
@@ -502,11 +515,7 @@ class Functions {
 		$hookObjectsArr = array ();
 		if (is_array ($GLOBALS ['TYPO3_CONF_VARS'] [TYPO3_MODE] ['EXTCONF'] ['ext/cal/' . $modulePath . '/class.' . $className . '.php'] [$hookName])) {
 			foreach ($GLOBALS ['TYPO3_CONF_VARS'] [TYPO3_MODE] ['EXTCONF'] ['ext/cal/' . $modulePath . '/class.' . $className . '.php'] [$hookName] as $classRef) {
-			    if (\TYPO3\CMS\Core\Utility\VersionNumberUtility::convertVersionNumberToInteger (TYPO3_version) >= 8000000) {
-				    $hookObjectsArr [] = GeneralUtility::makeInstance ($classRef);
-			    } else {
-			        $hookObjectsArr [] = GeneralUtility::getUserObj ($classRef);
-			    }
+			    $hookObjectsArr [] = GeneralUtility::makeInstance ($classRef);
 			}
 		}
 		
@@ -528,11 +537,11 @@ class Functions {
 	 * Returns a Classname and allows various parameter to be passed to the constructor.
 	 *
 	 *
-	 * @param
-	 *        	string		className
+	 * @param  string		className
 	 * @return object reference to the object
 	 *        
 	 * @todo Once TYPO3 4.3 is released and required by cal, remove this method and replace calls to it with GeneralUtility::makeInstance.
+	 * @deprecated
 	 */
 	public static function &makeInstance($className) {
 		$constructorArguments = func_get_args ();
@@ -541,9 +550,11 @@ class Functions {
 				'makeInstance' 
 		), $constructorArguments);
 	}
+
 	public static function removeEmptyLines($string) {
 		return preg_replace ("/(^[\r\n]*|[\r\n]+)[\s\t]*[\r\n]+/", "\n", $string);
 	}
+
 	public static function getMonthNames($type) {
 		$monthNames = Array ();
 		for ($i = 0; $i < 12; $i ++) {
@@ -551,6 +562,7 @@ class Functions {
 		}
 		return $monthNames;
 	}
+
 	public static function getWeekdayNames($type) {
 		$weekdayNames = Array ();
 		for ($i = 3; $i < 10; $i ++) {
@@ -558,6 +570,7 @@ class Functions {
 		}
 		return $weekdayNames;
 	}
+
 	public static function getDayByWeek($year, $week, $weekday) {
 		$date = new \TYPO3\CMS\Cal\Model\CalDate ($year . '0101');
 		$date->setTZbyID ('UTC');
@@ -574,9 +587,11 @@ class Functions {
 		
 		return $date->format ('%Y%m%d');
 	}
+
 	public static function createErrorMessage($error, $note) {
 		return '<div class="error"><h2>Calendar Base Error</h2><p class="message"><strong>Message:</strong> ' . $error . '</p><p class="note"><strong>Note:</strong> ' . $note . '</p></div>';
 	}
+
 	public static function replaceLineFeed($string) {
 		return str_replace (Array (
 				"\n\r",
@@ -594,12 +609,12 @@ class Functions {
 	/**
 	 * Wrapper to replace relative links with absolute ones for notifications
 	 *
-	 * @param string $html:
-	 *        	code thak can potentially have relative links that need to be fixed
-	 * @return string code with absolute links
+	 * @param  string  code thak can potentially have relative links that need to be fixed
+	 * @return string  code with absolute links
 	 */
 	public static function fixURI($html) {
-		$uriHandler = GeneralUtility::makeInstance('TYPO3\\CMS\\Cal\\Controller\\UriHandler');
+		/** @var UriHandler $uriHandler */
+		$uriHandler = GeneralUtility::makeInstance(\TYPO3\CMS\Cal\Controller\UriHandler::class);
 		$uriHandler->setHTML ($html);
 		$uriHandler->setPATH ('http://' . GeneralUtility::getHostname (1) . '/');
 		
@@ -621,7 +636,7 @@ class Functions {
 	public static function getTsSetupAsPlainArray(&$conf) {
 		
 		/** @var TypoScriptService $typoScriptService */
-		$typoScriptService = GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Service\\TypoScriptService');
+		$typoScriptService = GeneralUtility::makeInstance(TypoScriptService::class);
 		return $typoScriptService->convertTypoScriptArrayToPlainArray ($conf);
 	}
 	
@@ -638,6 +653,7 @@ class Functions {
 	 * 
 	 * @param array $conf
 	 * @param array $eventArray
+	 * @return string
 	 */
 	public static function getIcsUid($conf, $eventArray){
 		return $conf ['view.'] ['ics.'] ['eventUidPrefix'] . '_' . $eventArray ['calendar_id'] . '_' . $eventArray ['uid'];
