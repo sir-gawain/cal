@@ -1,5 +1,9 @@
 <?php
 namespace TYPO3\CMS\Cal\Backend\TCA;
+use TYPO3\CMS\Core\Imaging\Icon;
+use TYPO3\CMS\Core\Imaging\IconFactory;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+
 /**
  * This file is part of the TYPO3 extension Calendar Base (cal).
  *
@@ -28,20 +32,19 @@ namespace TYPO3\CMS\Cal\Backend\TCA;
 class TceFuncSelectTreeView extends \TYPO3\CMS\Backend\Tree\View\AbstractTreeView {
 	var $TCEforms_itemFormElName = '';
 	var $TCEforms_nonSelectableItemsArray = array ();
-	
+
 	public function __construct() {
-	    if(\TYPO3\CMS\Core\Utility\VersionNumberUtility::convertVersionNumberToInteger (TYPO3_version) > 8000000) {
-	       $this->init();
-	    }
+		parent::__construct();
+
+       $this->init();
 	}
-	
+
 	/**
 	 * wraps the record titles in the tree with links or not depending on if they are in the TCEforms_nonSelectableItemsArray.
 	 *
-	 * @param string $title:
-	 *        	title
-	 * @param array $v:
-	 *        	array with uid and title of the current item.
+	 * @param $title    string title
+	 * @param $v        array  array with uid and title of the current item.
+	 * @param $bank     unused
 	 * @return string wrapped title
 	 */
 	public function wrapTitle($title, $v, $bank = 0) {
@@ -56,13 +59,12 @@ class TceFuncSelectTreeView extends \TYPO3\CMS\Backend\Tree\View\AbstractTreeVie
 			return $title;
 		}
 	}
-	
+
 	/**
 	 * Get icon for the row.
 	 * If $this->iconPath and $this->iconName is set, try to get icon based on those values.
 	 *
-	 * @param
-	 *        	array		Item row.
+	 * @param  array		Item row.
 	 * @return string tag.
 	 */
 	public function getIcon($row) {
@@ -73,16 +75,16 @@ class TceFuncSelectTreeView extends \TYPO3\CMS\Backend\Tree\View\AbstractTreeVie
 		$this->table = 'tx_cal_category';
 		return $return;
 	}
-	
+
 	/**
 	 * Returns the root icon for a tree/mountpoint (defaults to the globe)
 	 *
-	 * @param
-	 *        	array		Record for root.
+	 * @param  array		Record for root.
 	 * @return string image tag.
 	 */
 	public function getRootIcon($rec) {
-		return $this->wrapIcon ('<img src="' . \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath ('cal') . 'res/icons/icon_tx_cal_calendar.gif" width="18" height="16" alt="" />', array ());
+		$iconFactory = GeneralUtility::makeInstance(IconFactory::class);
+		return $iconFactory->getIcon('cal-pagetree-root', Icon::SIZE_SMALL)->render();
 	}
 }
 
