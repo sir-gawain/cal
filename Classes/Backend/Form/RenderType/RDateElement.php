@@ -4,6 +4,8 @@ declare(strict_types=1);
 namespace TYPO3\CMS\Cal\Backend\Form\RenderType;
 
 use TYPO3\CMS\Backend\Form\Element\AbstractFormElement;
+use TYPO3\CMS\Backend\Form\NodeFactory;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 class RDateElement extends AbstractFormElement {
 
@@ -18,101 +20,91 @@ class RDateElement extends AbstractFormElement {
 		$uid = $row['uid'];
 
 		$rdateType = $row['rdate_type'][0];
-		$rdateValues = \TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode(',', $row['rdate'], 1);
+		$rdateValues = GeneralUtility::trimExplode(',', $row['rdate'], 1);
+
+		// add for new empty line
+		$rdateValues[] = '';
 
 		$out = [];
 
 		$jsDate = $GLOBALS ['TYPO3_CONF_VARS'] ['SYS'] ['USdateFormat'] ? '%m-%d-%Y' : '%d-%m-%Y';
 
+		/** @var NodeFactory $nodefactory */
+		$nodefactory = GeneralUtility::makeInstance(NodeFactory::class);
+
 		$key = 0;
 		foreach ($rdateValues as $value) {
 			$formatedValue = '';
 			$splittedPeriod = Array('', '');
+
 			if ($value !== '') {
 				$splittedPeriod = explode('/', $value);
-				$splittedDateTime = explode('T', $splittedPeriod [0]);
-				if ($jsDate == '%d-%m-%Y') {
-					$formatedValue = substr($splittedDateTime [0], 6, 2).'-'.
-						substr($splittedDateTime [0], 4, 2).'-'.
-						substr($splittedDateTime [0], 0, 4);
-				} else {
-					if ($jsDate == '%m-%d-%Y') {
-						$formatedValue = substr($splittedDateTime [0], 4, 2).'-'.
-							substr($splittedDateTime [0], 6, 2).'-'.
-							substr($splittedDateTime [0], 0, 4);
-					} else {
-						$formatedValue = 'unknown date format';
-					}
-				}
-				if ($rdateType == 'date_time' || $rdateType == 'period') {
-					$formatedValue = count($splittedDateTime) == 2 ?
-							substr($splittedDateTime [1], 0, 2).':'.substr($splittedDateTime [1], 2, 2).' '.	$formatedValue :
-							'00:00 '.$formatedValue;
-				}
+
+				$m = array();
+				preg_match('/(\d{4})(\d{2})(\d{2})(T(\d{2})(\d{2})(\d{2})Z)?/i', $splittedPeriod[0], $m);
+				$formatedValue = sprintf('%02d-%02d-%02dT%02d:%02d:%02dZ', $m[1], $m[2], $m[3], $m[5], $m[6], $m[7]);
 			}
-			$params = [
-				'table' => $table,
-				'uid' => $uid,
-				'field' => 'rdate'.$key,
-				'md5ID' => $table.'_'.$uid.'_'.'rdate'.$key
+
+			$config = [
+				'tableName'      => 'tx_cal_event',
+				'fieldName'      => 'rdate'.$key,
+				'databaseRow'    => ['uid' => $uid],
+				'renderType'     => 'inputDateTime',
+				'parameterArray' => [
+					'itemFormElValue' => $formatedValue,
+					'itemFormElName'  => 'data['.$table.']['.$uid.'][rdate'.$key.']',
+					'fieldConf'       => [
+						'config' => [
+							'eval' => 'XXX'
+						]
+					]
+				]
 			];
 
 			if ($rdateType == 'date_time' || $rdateType == 'period') {
-				$out [] = '<div class="form-control-wrap" style="max-width: 192px">
-					<div class="input-group">
-					    <input type="hidden" value="'.$formatedValue.'" id="data_'.$table.'_'.$uid.'_rdate'.$key.'" />
-						<div class="form-control-clearable">
-					        <input data-date-type="datetime" onblur="rdateChanged();" onchange="rdateChanged();" 
-					        	data-formengine-validation-rules="[{&quot;type&quot;:&quot;datetime&quot;,&quot;config&quot;:{&quot;type&quot;:&quot;input&quot;,&quot;size&quot;:&quot;13&quot;,&quot;default&quot;:&quot;0&quot;}}]" data-formengine-input-params="{&quot;field&quot;:&quot;data['.$table.']['.$uid.'][rdate'.$key.'_hr]&quot;,&quot;evalList&quot;:&quot;datetime&quot;,&quot;is_in&quot;:&quot;&quot;}" data-formengine-input-name="data['.$table.']['.$uid.'][rdate'.$key.'_hr]" id="tceforms-datetimefield-data_'.$table.'_'.$uid.'_rdate'.$key.'_hr" value="'.$formatedValue.'" maxlength="20" class="t3js-datetimepicker form-control t3js-clearable hasDefaultValue" type="text">
-						</div>
-					</div>
-				</div>';
+				$config['parameterArray']['fieldConf']['config']['eval'] = 'datetime';
+				$datefield = $nodefactory->create($config)->render();
+
+				$out [] = $datefield['html'];
 			} else {
-				$out [] = '<div class="form-control-wrap" style="max-width: 192px">
-					<div class="input-group">
-					    <input type="hidden" value="'.$formatedValue.'" id="data_'.$table.'_'.$uid.'_rdate'.$key.'" />
-						<div class="form-control-clearable">
-					        <input data-date-type="date" onblur="rdateChanged();" onchange="rdateChanged();" data-formengine-validation-rules="[{&quot;type&quot;:&quot;date&quot;,&quot;config&quot;:{&quot;type&quot;:&quot;input&quot;,&quot;size&quot;:&quot;12&quot;,&quot;max&quot;:&quot;20&quot;}}]" '.
-					'data-formengine-input-params="{&quot;field&quot;:&quot;data['.$table.']['.$uid.'][rdate'.$key.'_hr]&quot;,&quot;evalList&quot;:&quot;date&quot;,&quot;is_in&quot;:&quot;&quot;}" '.
-					'data-formengine-input-name="data['.$table.']['.$uid.'][rdate'.$key.'_hr]" id="tceforms-datefield-data_'.$table.'_'.$uid.'_rdate'.$key.'_hr" value="'.$formatedValue.'" maxlength="20" class="t3js-datetimepicker form-control t3js-clearable hasDefaultValue" type="text">
-							<button style="display: none;" type="button" class="close" tabindex="-1" aria-hidden="true" onclick="rdateChanged();">
-								<span class="fa fa-times"></span>
-							</button>
-						</div>
-					</div>
-				</div>';
+				$config['parameterArray']['fieldConf']['config']['eval'] = 'date';
+				$datefield = $nodefactory->create($config)->render();
+
+				$out [] = $datefield['html'];
 			}
-			if ($rdateType == 'date') {
-				$params ['wConf'] ['evalValue'] = 'date';
-			} else {
-				if ($rdateType == 'date_time' || $rdateType == 'period') {
-					$params ['wConf'] ['evalValue'] = 'datetime';
-				}
-			}
+
 			if ($rdateType == 'period') {
 				$periodArray = array();
-				preg_match('/P((\d+)Y)?((\d+)M)?((\d+)W)?((\d+)D)?T((\d+)H)?((\d+)M)?((\d+)S)?/', $splittedPeriod [1], $periodArray);
-				$params ['item'] .= '<span style="padding-left:10px;">'.$GLOBALS['LANG']->getLL('l_duration').':</span>'.$GLOBALS['LANG']->getLL('l_year').
-					':<input type="text" value="'.intval($periodArray [2]).'" name="rdateYear'.$key.'" id="rdateYear'.$key.'" size="2" onchange="rdateChanged();" />'.$GLOBALS['LANG']->getLL('l_month').
-					':<input type="text" value="'.intval($periodArray [4]).'" name="rdateMonth'.$key.'" id="rdateMonth'.$key.'" size="2" onchange="rdateChanged();" />'.$GLOBALS['LANG']->getLL('l_week').
-					':<input type="text" value="'.intval($periodArray [6]).'" name="rdateWeek'.$key.'" id="rdateWeek'.$key.'" size="2" onchange="rdateChanged();" />'.$GLOBALS['LANG']->getLL('l_day').
-					':<input type="text" value="'.intval($periodArray [8]).'" name="rdateDay'.$key.'" id="rdateDay'.$key.'" size="2" onchange="rdateChanged();" />'.$GLOBALS['LANG']->getLL('l_hour').
-					':<input type="text" value="'.intval($periodArray [10]).'" name="rdateHour'.$key.'" id="rdateHour'.$key.'" size="2" onchange="rdateChanged();" />'.$GLOBALS['LANG']->getLL('l_minute').
-					':<input type="text" value="'.intval($periodArray [12]).'" name="rdateMinute'.$key.'" id="rdateMinute'.$key.'" size="2" onchange="rdateChanged();" />'.
+				if(is_string($splittedPeriod [1])) {
+					preg_match('/P((\d+)Y)?((\d+)M)?((\d+)W)?((\d+)D)?T((\d+)H)?((\d+)M)?((\d+)S)?/', $splittedPeriod [1], $periodArray);
+				}
+				$out [] .= '<span style="padding-left:10px;">'.$GLOBALS['LANG']->getLL('l_duration').':</span>'.$GLOBALS['LANG']->getLL('l_year').
+					':<input type="text" value="'.intval($periodArray [2]).'" class="rdateChanged" name="rdateYear'.$key.'" id="rdateYear'.$key.'" size="2"/>'.$GLOBALS['LANG']->getLL('l_month').
+					':<input type="text" value="'.intval($periodArray [4]).'" class="rdateChanged" name="rdateMonth'.$key.'" id="rdateMonth'.$key.'" size="2"/>'.$GLOBALS['LANG']->getLL('l_week').
+					':<input type="text" value="'.intval($periodArray [6]).'" class="rdateChanged" name="rdateWeek'.$key.'" id="rdateWeek'.$key.'" size="2"/>'.$GLOBALS['LANG']->getLL('l_day').
+					':<input type="text" value="'.intval($periodArray [8]).'" class="rdateChanged" name="rdateDay'.$key.'" id="rdateDay'.$key.'" size="2"/>'.$GLOBALS['LANG']->getLL('l_hour').
+					':<input type="text" value="'.intval($periodArray [10]).'" class="rdateChanged" name="rdateHour'.$key.'" id="rdateHour'.$key.'" size="2"/>'.$GLOBALS['LANG']->getLL('l_minute').
+					':<input type="text" value="'.intval($periodArray [12]).'" class="rdateChanged" name="rdateMinute'.$key.'" id="rdateMinute'.$key.'" size="2"/>'.
 					'<br/>';
 			}
-			$out [] = $params ['item'];
 
 			$key++;
 		}
-print_r($out);
-		$out [] = '<input type="hidden" name="data['.$table.']['.$uid.'][rdate]" id="data['.$table.']['.$uid.'][rdate]" value="'.$row ['rdate'].'" />';
+
+		$out [] = '<input type="hidden" name="data['.$table.']['.$uid.'][rdate]" id="data_'.$table.'_'.$uid.'_rdate" value="'.$row ['rdate'].'" />';
 
 		$rDateCount = count($rdateValues);
 
 		$callback = <<< EOJ
 function(RDate) {
 	window.rDate = new RDate('$jsDate', '$table', $uid, '$rdateType', $rDateCount);
+
+	$(".rdateChanged").on("change", function() {
+		window.rDate.rdateChanged();
+	});
+	$(document).on("formengine.dp.change", function() {
+		window.rDate.rdateChanged();
+	});
 }
 EOJ;
 
